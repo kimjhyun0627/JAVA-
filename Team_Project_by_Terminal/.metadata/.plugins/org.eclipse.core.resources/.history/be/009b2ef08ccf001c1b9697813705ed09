@@ -1,0 +1,24 @@
+package TeamProjectByTerminal;
+
+import java.time.LocalDateTime;
+
+public class Date {
+	
+	private int year;
+	private int month;
+	private String monthString;
+	private int day;
+	private int dayString;
+	private int hour;
+	private int minute;
+	
+	LocalDateTime now = LocalDateTime.now();
+	
+	Date(){
+		
+		year = now.getYear();
+		month = now.getMonthValue();
+		monthString =
+		
+	}
+}
