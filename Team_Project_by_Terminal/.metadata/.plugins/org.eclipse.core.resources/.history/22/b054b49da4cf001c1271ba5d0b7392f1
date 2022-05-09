@@ -1,0 +1,63 @@
+package TeamProjectByTerminal;
+
+public abstract class BorrowObj {
+
+	private int ID = 0;
+	private Date dateStart;
+	private Date dateEnd;
+	private String studentID = "";
+	private boolean isBorrowing = false;
+
+	BorrowObj() {
+
+		ID = 0;
+		dateStart = new Date(false);
+		dateEnd = new Date(false);
+		studentID = "";
+		isBorrowing = false;
+	}
+
+	BorrowObj(int newID, Date newStart, Date newEnd, String newStudID) {
+
+		if (isValid(newID, newStart, newEnd, newStudID)) {
+
+			ID = newID;
+			dateStart = new Date(newStart);
+			dateEnd = new Date(newEnd);
+			studentID = newStudID;
+
+		} else
+			errorhandler("invalid initialization");
+	}
+
+	private boolean isValid(int newID, Date newStart, Date newEnd, String newStudID) {
+
+		return ((newID > 0) && (newStart.isValidTime()) && (newEnd.isValidTime()) && (newStudID.length() == 10));
+	}
+
+	public void updateStart() {
+
+		dateStart.setDate(true);
+	}
+
+	public void updateEnd() {
+
+		dateEnd.setDate(true);
+	}
+
+	public void setObjStatus() {
+
+		if (dateStart.compareTime(dateEnd) < 0)
+			
+			isBorrowing = true;
+		
+		else
+			isBorrowing = false;
+	}
+
+	private void errorhandler(String errorType) {
+
+		System.err.println("Error occured in Abstract BorrowObj class: " + errorType);
+	}
+
+}

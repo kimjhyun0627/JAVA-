@@ -1,0 +1,26 @@
+package TeamProjectByTerminal;
+
+public class Cabinet {
+
+	private long ID;
+	private long password;
+	
+	Cabinet(long newID, long newPW){
+		
+		ID = newID;
+		password = newPW;
+	}
+	
+	private boolean isValidPW(long newPW) {
+		
+		return (newPW>=0 && newPW<10000);
+	}
+	public void setPW(long newPW) {
+		
+		if(isValidPW(newPW)) {
+			
+			password = newPW;
+		}
+		
+	}
+}

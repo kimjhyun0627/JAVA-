@@ -1,0 +1,22 @@
+package TeamProjectByTerminal;
+
+public class Cabinet {
+
+	private long ID;
+	private String password;
+	
+	Cabinet(long newID, String newPW){
+		
+		ID = newID;
+		password = newPW;
+	}
+	
+	public void setPW(String newPW) {
+		
+		if(isValidPW(newPW)) {
+			
+			password = newPW;
+		}
+		
+	}
+}

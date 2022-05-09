@@ -1,0 +1,12 @@
+package TeamProjectByTerminal;
+
+public abstract class Borrow {
+
+	private long ID;
+	private Date dateStart;
+	private Date dateEnd;
+	private String studentID;
+	private boolean isBorrowing;
+	
+	
+}

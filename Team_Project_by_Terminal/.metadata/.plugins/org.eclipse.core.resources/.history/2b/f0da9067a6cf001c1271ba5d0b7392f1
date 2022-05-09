@@ -1,0 +1,22 @@
+package TeamProjectByTerminal;
+
+import java.util.ArrayList;
+
+public class TeamProjectMain {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Date n = new Date();
+		Student s = new Student("2021111873", "±èÁøÇö", "01023824633", "kimjhyun0627", 82, false);
+
+		System.out.println(n.toString());
+		System.out.println(s.toString());
+
+		Cabinet c = new Cabinet(82, 0004);
+		System.out.println(c.toString());
+
+		BorrowObj b = new BorrowObj(3, new Date(), new Date(2022, 5, 8, 11, 38, 23), "2021111873");
+		System.out.println(b.toString());
+	}
+
+}

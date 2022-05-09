@@ -1,0 +1,57 @@
+package TeamProjectByTerminal;
+
+public class Cabinet {
+
+	private int ID;
+	private int password;
+
+	Cabinet(int newID, int newPW) {
+
+		if (isValidID(newID) && isValidPW(newPW)) {
+
+			ID = newID;
+			password = newPW;
+			
+		} else
+			errorhandler("invalid initializing");
+	}
+
+	private boolean isValidID(int newID) {
+
+		return ID > 0;
+	}
+
+	private boolean isValidPW(int newPW) {
+
+		return (newPW >= 0 && newPW < 10000);
+	}
+
+	public int changePW(int newPW) {
+
+		if (isValidPW(newPW)) {
+
+			password = newPW;
+			return newPW;
+
+		} else {
+
+			errorhandler("invalid Password");
+			return -1;
+		}
+	}
+
+	public int getID() {
+
+		return ID;
+	}
+
+	public int getPW() {
+
+		return password;
+	}
+	
+	private void errorhandler(String errorType) {
+
+		System.err.println("Error occured in Cabinet class: " + errorType);
+	}
+}

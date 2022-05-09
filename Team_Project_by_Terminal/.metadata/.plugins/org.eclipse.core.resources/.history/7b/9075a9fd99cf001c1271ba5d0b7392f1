@@ -1,0 +1,67 @@
+package TeamProjectByTerminal;
+
+public class Student {
+
+	private String ID;
+	private String name;
+	private String phoneNumber;
+	private String webMailAddress;
+	private long cabinetID;
+	private Boolean isCouncil;
+
+	public Student() {
+
+		ID = "";
+		name = "";
+		phoneNumber = "";
+		webMailAddress = "";
+		cabinetID = 0;
+		isCouncil = false;
+	}
+	
+	public Student(String newID, String newname, String newphone, String newmail, long newcabID, boolean newCouncil) {
+		
+		ID = newID;
+		name = newname;
+		phoneNumber = newphone;
+		webMailAddress = newmail;
+		cabinetID = newcabID;
+		isCouncil = newCouncil;
+	}
+	
+	public String getID() {
+		
+		return ID;
+	}
+	
+	public String getName() {
+		
+		return name;
+	}
+	
+	public String getPhoneNumber() {
+		
+		return phoneNumber;
+	}
+	
+	public String getWebMailAddress() {
+		
+		return webMailAddress;
+	}
+	
+	public long getCabID() {
+		
+		return cabinetID;
+	}
+	
+	public boolean getCouncil() {
+		
+		return isCouncil;
+	}
+	
+	public String toString() {
+		
+		return ""+ID+"\t"+name+"\t"+phoneNumber+"\t"+webMailAddress+"\t"+cabinetID+"\t"+"\tcouncil: "+"isCouncil";
+	}
+
+}
