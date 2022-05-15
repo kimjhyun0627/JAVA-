@@ -40,7 +40,7 @@ public class Cabinet {
 			password = newPW;
 
 		else
-			errorhandler("invalid Password Change try//일부러띄운거에요 숫자말고 다른거 못받게");
+			errorhandler("invalid Password Change try");
 
 	}
 

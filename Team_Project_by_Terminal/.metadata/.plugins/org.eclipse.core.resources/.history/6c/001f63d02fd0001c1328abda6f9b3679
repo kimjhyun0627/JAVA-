@@ -49,13 +49,13 @@ public class TeamProjectMain {
 				break;
 		}
 		
-		System.out.println("8번 돗자리) -1:나가기 0:반납시간수정 1:대여시간수정");
+		System.out.println("8번 돗자리) -1:나가기 0:대여시간수정 1:반납시간수정");
 		while (true) {
 
 			int i = in.nextInt();
 			if (i == 0) {
 				b3.updateEnd();
-				System.out.println("8번 돗자리 반납시간 수정 : "+b3.toString());
+				System.out.println("8번 돗자리 대여시간 수정 : "+b3.toString());
 			}
 			if (i == 1) {
 				b3.updateStart();

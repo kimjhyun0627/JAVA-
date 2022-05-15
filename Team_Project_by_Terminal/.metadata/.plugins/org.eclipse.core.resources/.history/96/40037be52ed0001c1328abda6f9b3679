@@ -86,7 +86,7 @@ public class BorrowObj {
 	public String toString() {
 
 		return "ID: " + ID + " Start: " + dateStart.toString() + " End: " + dateEnd.toString() + " StudID: " + studentID
-				+ " ´ë¿©Áß? " + isBorrowing;
+				+ " isBorrowing: " + isBorrowing;
 	}
 
 	private void errorhandler(String errorType) {
