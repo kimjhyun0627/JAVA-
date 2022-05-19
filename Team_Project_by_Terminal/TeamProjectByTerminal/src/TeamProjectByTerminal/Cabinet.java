@@ -40,8 +40,7 @@ public class Cabinet {
 			password = newPW;
 
 		else
-			errorhandler("invalid Password Change try//일부러띄운거에요 숫자말고 다른거 못받게");
-
+			errorhandler("invalid Password Change try");
 	}
 
 	public int getID() {
@@ -61,6 +60,6 @@ public class Cabinet {
 
 	private void errorhandler(String errorType) {
 
-		System.err.println("Error occured in Cabinet class: " + errorType);
+		System.out.println("Error occured in Cabinet class: " + errorType);
 	}
 }

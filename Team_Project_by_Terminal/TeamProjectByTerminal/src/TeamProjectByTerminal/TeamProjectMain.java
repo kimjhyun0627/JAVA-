@@ -3,70 +3,32 @@ package TeamProjectByTerminal;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TeamProjectMain {
+public class TeamProjectMain
+{
+    public static void main(String[] args)
+    {
+        Date n = new Date();
+        System.out.println(n.toString());
 
-	public static void main(String[] args) {
+        Student s = new Student("2021111873", "ê¹€ì§„í˜„", "01023824633", "kimjhyun0627", 82, false);
+        System.out.println(s.toString());
 
-		Date n = new Date();
-		System.out.println(n.toString());
+        Cabinet c = new Cabinet(82, "0004");
+        System.out.println(c.toString());
 
-		Student s = new Student("2021111873", "±èÁøÇö", "01023824633", "kimjhyun0627", 82, false);
-		System.out.println(s.toString());
+        c.changePW("0627");
+        System.out.println(c.toString());
 
-		Cabinet c = new Cabinet(82, "0004");
-		System.out.println(c.toString());
-		
-		c.changePW("0627");
-		System.out.println(c.toString());
-		
-		c.changePW("abcd");
-		System.out.println(c.toString());//¿©±â¼­ ¿À·ù¶ß°Ô
+        c.changePW("abcd");
+        System.out.println(c.toString());
 
-		BorrowObj b1 = new BorrowObj(3, new Date(), new Date(2023, 5, 8, 11, 38, 23), "2021111873");
-		BorrowObj b2 = new BorrowObj(5, new Date(), new Date(), "1234567890");
-		BorrowObj b3 = new BorrowObj(8, "9999911111");
+        BorrowObj b1 = new BorrowObj(3, new Date(), new Date(2023, 5, 8, 11, 38, 23), "2021111873");
+        BorrowObj b2 = new BorrowObj(5, new Date(), new Date(), "1234567890");
+        BorrowObj b3 = new BorrowObj(8, "9999911111");
 
-		System.out.println(b1.toString());
-		System.out.println(b2.toString());
-		System.out.println(b3.toString());
-
-		//Å×½ºÆ® ÄÚµåÀÓ
-		Scanner in = new Scanner(System.in);
-		
-		System.out.println("5¹ø µ¾ÀÚ¸®) -1:³ª°¡±â 0:¹Ý³³½Ã°£¼öÁ¤ 1:´ë¿©½Ã°£¼öÁ¤");
-		while (true) {
-
-			int i = in.nextInt();
-			if (i == 0) {
-				b2.updateEnd();
-				System.out.println("5¹ø µ¾ÀÚ¸® ¹Ý³³½Ã°£ ¼öÁ¤ : "+b2.toString());
-			}
-			if (i == 1) {
-				b2.updateStart();
-				System.out.println("5¹ø µ¾ÀÚ¸® ´ë¿©½Ã°£ ¼öÁ¤ : "+b2.toString());
-			}
-			if(i==-1)
-				break;
-		}
-		
-		System.out.println("8¹ø µ¾ÀÚ¸®) -1:³ª°¡±â 0:¹Ý³³½Ã°£¼öÁ¤ 1:´ë¿©½Ã°£¼öÁ¤");
-		while (true) {
-
-			int i = in.nextInt();
-			if (i == 0) {
-				b3.updateEnd();
-				System.out.println("8¹ø µ¾ÀÚ¸® ¹Ý³³½Ã°£ ¼öÁ¤ : "+b3.toString());
-			}
-			if (i == 1) {
-				b3.updateStart();
-				System.out.println("8¹ø µ¾ÀÚ¸® ´ë¿©½Ã°£ ¼öÁ¤ : "+b3.toString());
-			}
-			if(i==-1)
-				break;
-		}
-		
-		in.close();
-		
-	}
+        System.out.println(b1.toString());
+        System.out.println(b2.toString());
+        System.out.println(b3.toString());
+    }
 
 }
