@@ -13,14 +13,10 @@ public class CodeVerifyPage extends JPanel
         setLayout(new GridLayout(6, 1));
         setBackground(PasswordMain.BGCOLOR);
 
-        JLabel title = new titleLabel("4자리 인증코드를 입력해주세요", 42);
-
-        add(new EmptyPanel());
-        add(title);
-        add(new EmptyPanel());
+        JLabel title = new centerBoldLabel("4자리 인증코드를 입력해주세요", 42);
 
         codeInput = new JTextField(4);
-        codeInput.setFont(new Font("IM혜민 regular", Font.PLAIN, 48));
+        codeInput.setFont(new Font("IM혜민 regular", Font.BOLD, 64));
 
         JPanel codeVerifyPanel = new JPanel(new FlowLayout());
         codeVerifyPanel.setBackground(PasswordMain.BGCOLOR);
@@ -33,6 +29,8 @@ public class CodeVerifyPage extends JPanel
         codeVerifyWrapperPanel.add(codeVerifyPanel);
         codeVerifyWrapperPanel.add(errorMSGLabel);
 
+        add(new EmptyPanel());
+        add(title);
         add(codeVerifyWrapperPanel);
         add(new EmptyPanel());
 

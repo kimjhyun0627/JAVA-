@@ -22,7 +22,7 @@ public class Cabinet
         return (newID > 0);
     }
 
-    private boolean isValidPW(String newPW)
+    public static boolean isValidPW(String newPW)
     {
         if (newPW.length() != 4)
             return false;

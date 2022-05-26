@@ -1,21 +1,24 @@
 package TeamProject;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
 
 public class PasswordMain extends JFrame implements ActionListener
 {
     public static final JPanel currentPanel = new JPanel();
-    public static final Color BGCOLOR = new Color(0xF2F2FD);
+    public static final Color BGCOLOR = new Color(0xededf9);
     private JButton mailSubmitBtn;
     private JButton codeVerifyBtn;
     private JButton gotoMainBtn;
     private JButton changePWBtn;
+    private JButton changePWSubmitBtn;
+    private JButton finalBtn;
     private MailPage mailPage;
     private CodeVerifyPage codePage;
     private JPanel passwordPage;
+    private ChangePage changePage;
 
     public static void main(String[] args)
     {
@@ -43,12 +46,12 @@ public class PasswordMain extends JFrame implements ActionListener
         test.add(viewPanel, BorderLayout.CENTER);
 
         mailSubmitPage(0);
-        //showPasswordPage(false);
+        //showChangePage("");
 
         setVisible(true);
     }
 
-    void mailSubmitPage(int errorCode)
+    private void mailSubmitPage(int errorCode)
     {
         String errorStr = "";
 
@@ -58,7 +61,7 @@ public class PasswordMain extends JFrame implements ActionListener
         }
         else if (errorCode == 0)
         {
-            errorStr +="";
+            errorStr += "";
         }
         else if (errorCode == -1)
         {
@@ -79,7 +82,7 @@ public class PasswordMain extends JFrame implements ActionListener
         currentPanel.add(mailPage, BorderLayout.CENTER);
     }
 
-    void codeVerifyPage(int errorCode)
+    private void codeVerifyPage(int errorCode)
     {
         String errorStr = "";
         if (errorCode == 1)
@@ -109,14 +112,14 @@ public class PasswordMain extends JFrame implements ActionListener
         currentPanel.add(codePage, BorderLayout.CENTER);
     }
 
-    void showPasswordPage(boolean b)
+    private void showPasswordPage(boolean b)
     {
         gotoMainBtn = new ButtonForm("./image/gotoMainButton.png");
         gotoMainBtn.addActionListener(this);
 
-        if(b)
+        if (b)
         {
-            passwordPage = new findPassword();
+            passwordPage = new findPassword(true);
 
             changePWBtn = new ButtonForm("./image/changePWButton.png");
             changePWBtn.addActionListener(this);
@@ -133,7 +136,35 @@ public class PasswordMain extends JFrame implements ActionListener
             passwordPage.add(gotoMainBtn);
         }
         currentPanel.add(passwordPage);
+    }
 
+    private void showChangePage(String errorMSG)
+    {
+        changePage = new ChangePage(errorMSG);
+
+        changePWSubmitBtn = new ButtonForm("./image/changePWButton.png");
+        changePWSubmitBtn.addActionListener(this);
+
+        changePage.add(changePWSubmitBtn);
+
+        currentPanel.add(changePage);
+    }
+
+    private void showLastPage()
+    {
+        passwordPage = new findPassword(false);
+        gotoMainBtn = new ButtonForm("./image/gotoMainButton.png");
+        gotoMainBtn.addActionListener(this);
+        passwordPage.add(gotoMainBtn);
+
+        currentPanel.add(passwordPage);
+    }
+
+    private void end()
+    {
+        JLabel end = new centerBoldLabel("END!!!", 65);
+
+        currentPanel.add(end);
     }
 
     @Override
@@ -171,7 +202,7 @@ public class PasswordMain extends JFrame implements ActionListener
             {
                 codeVerifyPage(-1);
             }
-            else if(str.equals("4321"))
+            else if (str.equals("4321"))
             {
                 showPasswordPage(false);
             }
@@ -179,6 +210,34 @@ public class PasswordMain extends JFrame implements ActionListener
             {
                 codeVerifyPage(1);
             }
+        }
+
+        if(e.getSource() == changePWBtn)
+        {
+            showChangePage("");
+        }
+        
+        if (e.getSource() == changePWSubmitBtn)
+        {
+            String str = changePage.getChangedPassword();
+
+            if (str.length() == 0)
+            {
+                showChangePage("비밀번호를 입력해주세요");
+            }
+            else if (Cabinet.isValidPW(str))
+            {
+                showLastPage();//다음장으로
+            }
+            else
+            {
+                showChangePage("잘못된 비밀번호입니다");
+            }
+        }
+
+        if(e.getSource() == gotoMainBtn)
+        {
+            end();
         }
 
         currentPanel.updateUI();

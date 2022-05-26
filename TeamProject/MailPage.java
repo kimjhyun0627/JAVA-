@@ -14,7 +14,7 @@ public class MailPage extends JPanel
         setBackground(PasswordMain.BGCOLOR);
         setLayout(new GridLayout(8, 1));
 
-        titleLabel title = new titleLabel("KNU 웹메일을 입력해주세요", 42);
+        centerBoldLabel title = new centerBoldLabel("KNU 웹메일을 입력해주세요", 42);
 
         add(new EmptyPanel());
         add(title);
