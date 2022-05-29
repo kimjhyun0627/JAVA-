@@ -7,6 +7,6 @@ public class EmptyPanel extends JPanel
     public EmptyPanel()
     {
         super();
-        setBackground(PasswordMain.BGCOLOR);
+        setBackground(PasswordMain.BACKGROUND_COLOR);
     }
 }
