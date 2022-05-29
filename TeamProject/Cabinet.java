@@ -11,32 +11,48 @@ public class Cabinet
         {
             ID = newID;
             password = newPW;
-
         }
         else
             errorhandler("invalid initializing");
     }
 
-    private boolean isValidID(int newID)
+    public boolean isValidID()
     {
-        return (newID > 0);
+        return (ID > 0);
     }
 
-    public static boolean isValidPW(String newPW)
+    public static boolean isValidID(int ID)
     {
-        if (newPW.length() != 4)
+        return ID>0;
+    }
+
+    public boolean isValidPW()
+    {
+        if (password.length() != 4)
             return false;
 
         for (int i = 0; i < 4; i++)
-            if (newPW.charAt(i) < '0' || newPW.charAt(i) > '9')
+            if (password.charAt(i) < '0' || password.charAt(i) > '9')
                 return false;
 
         return true;
     }
 
-    public void changePW(String newPW)
+    public static boolean isValidPW(String PW)
     {
-        if (isValidPW(newPW))
+        if (PW.length() != 4)
+            return false;
+
+        for (int i = 0; i < 4; i++)
+            if (PW.charAt(i) < '0' || PW.charAt(i) > '9')
+                return false;
+
+        return true;
+    }
+
+    public void setPW(String newPW)
+    {
+        if (isValidPW())
             password = newPW;
 
         else

@@ -7,7 +7,7 @@ public class Student
     private String name = "";
     private String phoneNumber = "";
     private String webMailAddress = "";
-    private int cabinetID = 0;
+    private Cabinet cabinet = null;
     private Boolean isCouncil = false;
 
     public Student()
@@ -16,30 +16,29 @@ public class Student
         name = "";
         phoneNumber = "";
         webMailAddress = "";
-        cabinetID = 0;
+        cabinet = new Cabinet(0, "0000");
         isCouncil = false;
     }
 
-    public Student(String newID, String newname, String newphone, String newmail, int newcabID, boolean newCouncil)
+    public Student(String newID, String newname, String newphone, String newmail, int newcabID, String newcabPW, boolean newCouncil)
     {
-        if (isValidData(newID, newname, newphone, newcabID))
+        if (isValidData(newID, newname, newphone))
         {
             ID = newID;
             name = newname;
-            phoneNumber = newphone.substring(0, 3) + "-" + newphone.substring(3, 7) + "-" + newphone.substring(7);
-            webMailAddress = newmail + mailForm;
-            cabinetID = newcabID;
+            phoneNumber = newphone;
+            webMailAddress = newmail;
+            cabinet = new Cabinet(newcabID, newcabPW);
             isCouncil = newCouncil;
-
         }
         else
             errorhandler("invalid initialization");
     }
 
-    private boolean isValidData(String newID, String newname, String newphone, int newcabID)
+    private boolean isValidData(String newID, String newname, String newphone)
     {
         return ((newID.length() == 10) && (newname.length() >= 2) && (newname.length() < 20)
-                && (newphone.length() == 11) && (newcabID > 0));
+                && (newphone.length() == 11));
     }
 
     public String getID()
@@ -64,7 +63,17 @@ public class Student
 
     public int getCabID()
     {
-        return cabinetID;
+        return cabinet.getID();
+    }
+
+    public String getCabPW()
+    {
+        return cabinet.getPW();
+    }
+
+    public void setCabPW(String newPW)
+    {
+        cabinet.setPW(newPW);
     }
 
     public boolean getCouncil()
@@ -74,7 +83,14 @@ public class Student
 
     public String toString()
     {
-        return "" + ID + "\t" + name + "\t" + phoneNumber + "\t" + webMailAddress + "\t" + cabinetID + "\tcouncil: "
+        String phoneNumberLong = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-" + phoneNumber.substring(7);
+        return "" + ID + "\t" + name + "\t" + phoneNumberLong + "\t" + webMailAddress + mailForm + "\t" + cabinet + "\tcouncil: "
+                + isCouncil;
+    }
+
+    public String toFile()
+    {
+        return "" + ID + "\t" + name + "\t" + phoneNumber + "\t" + webMailAddress + mailForm + "\t" + cabinet + "\tcouncil: "
                 + isCouncil;
     }
 

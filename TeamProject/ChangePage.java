@@ -6,7 +6,7 @@ import java.awt.*;
 public class ChangePage extends JPanel
 {
     private JTextField PWInput;
-    public ChangePage(String errorMSG)
+    public ChangePage(String errorMSG, String PWWritten)
     {
         super();
         setLayout(new GridLayout(3, 1));
@@ -31,6 +31,7 @@ public class ChangePage extends JPanel
 
         PWInput = new JTextField(4);
         PWInput.setFont(new Font("IM혜민 regular", Font.BOLD, 56));
+        PWInput.setText(PWWritten);
 
         JPanel PWPanel = new JPanel(new FlowLayout());
         PWPanel.setBackground(PasswordMain.BACKGROUND_COLOR);

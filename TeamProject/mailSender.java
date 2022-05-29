@@ -8,8 +8,8 @@ import javax.mail.internet.*;
 public class mailSender
 {
     // 1. 발신자의 메일 계정과 비밀번호 설정
-    public static final String user = "kimjhyun0627@gmail.com";
-    public static final String password = "******";
+    private static final String user = "kimjhyun0627@gmail.com";
+    private static final String password = "nhvdaeibpmpgdotx";
 
     private static String mailToSend;
 
