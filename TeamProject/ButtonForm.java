@@ -12,13 +12,18 @@ public class ButtonForm extends JButton
         setContentAreaFilled(false);
         setFocusPainted(false);
 
-        ImageIcon mailSubmitIcon = new ImageIcon(imgPath);
+        ImageIcon imgIcon = new ImageIcon(imgPath+".png");
+        ImageIcon imgIconDark = new ImageIcon(imgPath+"_dark.png");
 
-        Image mailSubmitImg = mailSubmitIcon.getImage();
-        mailSubmitImg = mailSubmitImg.getScaledInstance(200, 100, Image.SCALE_SMOOTH);
+        Image img = imgIcon.getImage();
+        Image imgDark = imgIconDark.getImage();
+        img = img.getScaledInstance(200, 100, Image.SCALE_SMOOTH);
+        imgDark = imgDark.getScaledInstance(200, 100, Image.SCALE_SMOOTH);
 
-        mailSubmitIcon.setImage(mailSubmitImg);
+        imgIcon.setImage(img);
+        imgIconDark.setImage(imgDark);
 
-        setIcon(mailSubmitIcon);
+        setIcon(imgIcon);
+        setRolloverIcon(imgIconDark);
     }
 }

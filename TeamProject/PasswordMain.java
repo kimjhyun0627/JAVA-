@@ -14,7 +14,6 @@ public class PasswordMain extends JFrame implements ActionListener
     private JButton gotoMainBtn;
     private JButton changePWBtn;
     private JButton changePWSubmitBtn;
-    private JButton finalBtn;
     private MailPage mailPage;
     private CodeVerifyPage codePage;
     private JPanel passwordPage;
@@ -74,7 +73,7 @@ public class PasswordMain extends JFrame implements ActionListener
 
         mailPage = new MailPage(errorStr);
 
-        mailSubmitBtn = new ButtonForm("./image/mailSubmitButton.png");
+        mailSubmitBtn = new ButtonForm("./image/mailSubmitButton");
         mailSubmitBtn.addActionListener(this);
 
         mailPage.add(mailSubmitBtn);
@@ -104,7 +103,7 @@ public class PasswordMain extends JFrame implements ActionListener
 
         codePage = new CodeVerifyPage(errorStr);
 
-        codeVerifyBtn = new ButtonForm("./image/codeVerifyButton.png");
+        codeVerifyBtn = new ButtonForm("./image/codeVerifyButton");
         codeVerifyBtn.addActionListener(this);
 
         codePage.add(codeVerifyBtn);
@@ -114,14 +113,14 @@ public class PasswordMain extends JFrame implements ActionListener
 
     private void showPasswordPage(boolean b)
     {
-        gotoMainBtn = new ButtonForm("./image/gotoMainButton.png");
+        gotoMainBtn = new ButtonForm("./image/gotoMainButton");
         gotoMainBtn.addActionListener(this);
 
         if (b)
         {
             passwordPage = new findPassword(true);
 
-            changePWBtn = new ButtonForm("./image/changePWButton.png");
+            changePWBtn = new ButtonForm("./image/changePWButton");
             changePWBtn.addActionListener(this);
             JPanel wrapperPanel = new JPanel(new FlowLayout());
             wrapperPanel.add(changePWBtn);
@@ -142,7 +141,7 @@ public class PasswordMain extends JFrame implements ActionListener
     {
         changePage = new ChangePage(errorMSG);
 
-        changePWSubmitBtn = new ButtonForm("./image/changePWButton.png");
+        changePWSubmitBtn = new ButtonForm("./image/changePWButton");
         changePWSubmitBtn.addActionListener(this);
 
         changePage.add(changePWSubmitBtn);
@@ -153,7 +152,7 @@ public class PasswordMain extends JFrame implements ActionListener
     private void showLastPage()
     {
         passwordPage = new findPassword(false);
-        gotoMainBtn = new ButtonForm("./image/gotoMainButton.png");
+        gotoMainBtn = new ButtonForm("./image/gotoMainButton");
         gotoMainBtn.addActionListener(this);
         passwordPage.add(gotoMainBtn);
 

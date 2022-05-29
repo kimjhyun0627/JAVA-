@@ -1,6 +1,7 @@
 package TeamProject;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 public class CodeVerifyPage extends JPanel
@@ -17,7 +18,6 @@ public class CodeVerifyPage extends JPanel
 
         codeInput = new JTextField(4);
         codeInput.setFont(new Font("IM혜민 regular", Font.BOLD, 64));
-
         JPanel codeVerifyPanel = new JPanel(new FlowLayout());
         codeVerifyPanel.setBackground(PasswordMain.BGCOLOR);
         codeVerifyPanel.add(codeInput);
