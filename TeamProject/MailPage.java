@@ -11,7 +11,7 @@ public class MailPage extends JPanel
     public MailPage(String errorMSG)
     {
         super();
-        setBackground(PasswordMain.BGCOLOR);
+        setBackground(PasswordMain.BACKGROUND_COLOR);
         setLayout(new GridLayout(8, 1));
 
         centerBoldLabel title = new centerBoldLabel("KNU 웹메일을 입력해주세요", 42);
@@ -26,14 +26,14 @@ public class MailPage extends JPanel
         Domain.setFont(new Font("IM혜민 regular", Font.PLAIN, 30));
 
         JPanel mailAddressPanel = new JPanel(new FlowLayout());
-        mailAddressPanel.setBackground(PasswordMain.BGCOLOR);
+        mailAddressPanel.setBackground(PasswordMain.BACKGROUND_COLOR);
         mailAddressPanel.add(mailInput);
         mailAddressPanel.add(Domain);
 
         JLabel errorMSGLabel = new errorMSGLabel(errorMSG);
 
         JPanel mailAddressWrapperPanel = new JPanel(new GridLayout(2, 1));
-        mailAddressWrapperPanel.setBackground(PasswordMain.BGCOLOR);
+        mailAddressWrapperPanel.setBackground(PasswordMain.BACKGROUND_COLOR);
         mailAddressWrapperPanel.add(mailAddressPanel);
         mailAddressWrapperPanel.add(errorMSGLabel);
 

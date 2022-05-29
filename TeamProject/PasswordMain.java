@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 public class PasswordMain extends JFrame implements ActionListener
 {
     public static final JPanel currentPanel = new JPanel();
-    public static final Color BGCOLOR = new Color(0xededf9);
+    public static final Color BACKGROUND_COLOR = new Color(0xededf9);
     private JButton mailSubmitBtn;
     private JButton codeVerifyBtn;
     private JButton gotoMainBtn;
@@ -18,12 +18,12 @@ public class PasswordMain extends JFrame implements ActionListener
     private CodeVerifyPage codePage;
     private JPanel passwordPage;
     private ChangePage changePage;
+    private String verifiedCode;
 
     public static void main(String[] args)
     {
         PasswordMain t = new PasswordMain();
         t.setVisible(true);
-        return;
     }
 
     public PasswordMain()
@@ -35,43 +35,23 @@ public class PasswordMain extends JFrame implements ActionListener
         setResizable(false);
         setLayout(new BorderLayout());
 
-        currentPanel.setBackground(BGCOLOR);
+        currentPanel.setBackground(BACKGROUND_COLOR);
 
         Container test = this.getContentPane();
-        test.setBackground(BGCOLOR);
+        test.setBackground(BACKGROUND_COLOR);
         JPanel viewPanel = new JPanel();
-        viewPanel.setBackground(BGCOLOR);
+        viewPanel.setBackground(BACKGROUND_COLOR);
         viewPanel.add(currentPanel);
         test.add(viewPanel, BorderLayout.CENTER);
 
-        mailSubmitPage(0);
-        //showChangePage("");
+        mailSubmitPage("");
 
         setVisible(true);
     }
 
-    private void mailSubmitPage(int errorCode)
+    private void mailSubmitPage(String errorMSG)
     {
-        String errorStr = "";
-
-        if (errorCode == 1)
-        {
-            errorStr += "등록되지 않은 웹메일입니다";
-        }
-        else if (errorCode == 0)
-        {
-            errorStr += "";
-        }
-        else if (errorCode == -1)
-        {
-            errorStr += "웹메일을 입력해주세요";
-        }
-        else
-        {
-            errorStr += "알 수 없는 오류입니다";
-        }
-
-        mailPage = new MailPage(errorStr);
+        mailPage = new MailPage(errorMSG);
 
         mailSubmitBtn = new ButtonForm("./image/mailSubmitButton");
         mailSubmitBtn.addActionListener(this);
@@ -81,27 +61,9 @@ public class PasswordMain extends JFrame implements ActionListener
         currentPanel.add(mailPage, BorderLayout.CENTER);
     }
 
-    private void codeVerifyPage(int errorCode)
+    private void codeVerifyPage(String errorMSG)
     {
-        String errorStr = "";
-        if (errorCode == 1)
-        {
-            errorStr += "인증코드가 잘못되었습니다";
-        }
-        else if (errorCode == 0)
-        {
-            errorStr += "";
-        }
-        else if (errorCode == -1)
-        {
-            errorStr += "인증코드를 입력해주세요";
-        }
-        else
-        {
-            errorStr += "알 수 없는 오류입니다";
-        }
-
-        codePage = new CodeVerifyPage(errorStr);
+        codePage = new CodeVerifyPage(errorMSG);
 
         codeVerifyBtn = new ButtonForm("./image/codeVerifyButton");
         codeVerifyBtn.addActionListener(this);
@@ -125,7 +87,7 @@ public class PasswordMain extends JFrame implements ActionListener
             JPanel wrapperPanel = new JPanel(new FlowLayout());
             wrapperPanel.add(changePWBtn);
             wrapperPanel.add(gotoMainBtn);
-            wrapperPanel.setBackground(BGCOLOR);
+            wrapperPanel.setBackground(BACKGROUND_COLOR);
 
             passwordPage.add(wrapperPanel);
         }
@@ -175,17 +137,19 @@ public class PasswordMain extends JFrame implements ActionListener
         {
             String str = mailPage.getMailAddress();
 
-            if (str.equals("aaaa"))
+            if (str.equals("kimjhyun0627"))
             {
-                codeVerifyPage(0);
+                mailSender mail = new mailSender(str);
+                verifiedCode = mail.getCode();
+                codeVerifyPage("");
             }
             else if (str.length() == 0)
             {
-                mailSubmitPage(-1);
+                mailSubmitPage("웹메일을 입력해주세요");
             }
             else
             {
-                mailSubmitPage(1);
+                mailSubmitPage("등록되지 않은 웹메일입니다");
             }
         }
 
@@ -193,13 +157,13 @@ public class PasswordMain extends JFrame implements ActionListener
         {
             String str = codePage.getCodeInput();
 
-            if (str.equals("1234"))
+            if (str.equals(verifiedCode))
             {
                 showPasswordPage(true);
             }
             else if (str.length() == 0)
             {
-                codeVerifyPage(-1);
+                codeVerifyPage("인증코드를 입력해주세요");
             }
             else if (str.equals("4321"))
             {
@@ -207,7 +171,7 @@ public class PasswordMain extends JFrame implements ActionListener
             }
             else
             {
-                codeVerifyPage(1);
+                codeVerifyPage("잘못된 인증코드입니다");
             }
         }
 
