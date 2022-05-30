@@ -29,7 +29,7 @@ public class PasswordMain extends JFrame implements ActionListener
     {
         PasswordMain t = new PasswordMain(getter());
         Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Image logo = toolkit.getImage("./image/logo.jpg");
+        Image logo = toolkit.getImage("./image/logo.png");
         t.setIconImage(logo);
         t.setVisible(true);
     }
