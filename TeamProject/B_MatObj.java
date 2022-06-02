@@ -4,6 +4,7 @@ public class B_MatObj extends BorrowObj{
 	
 	private int ID = 0;
 	private Date dateStart;
+	private Date dateReturn;
 	private Date dateEnd;
 	private String studentID = "";
 	private boolean isBorrowing = false;
@@ -13,6 +14,7 @@ public class B_MatObj extends BorrowObj{
 		// TODO Auto-generated constructor stub
 		ID = newID;
 		dateStart = new Date(false);
+		dateReturn = new Date(false);
 		dateEnd = new Date(false);
 		studentID = newStudID;
 		isBorrowing = false;
@@ -26,6 +28,7 @@ public class B_MatObj extends BorrowObj{
 
 			ID = newID;
 			dateStart = new Date(newStart);
+			dateReturn = new Date(setReturn(dateStart));
 			dateEnd = new Date(newEnd);
 			studentID = newStudID;
 			setObjStatus();

@@ -108,20 +108,9 @@ public class BorrowMain extends JFrame implements ActionListener {
 	
 	private void MatSelectPage() {
 		// TODO Auto-generated method stub
-		//matSelectPage = new B_MatSelect();
-		/*
-		matSelectPage = new JPanel();
-		setBackground(BorrowMain.BGCOLOR);
-        setLayout(new GridLayout(8, 1));
-        centerBoldLabel title = new centerBoldLabel("돗자리 대여 현황", 42);
-        matSelectPage.add(new EmptyPanel());
-        matSelectPage.add(title);
-        matSelectPage.add(new EmptyPanel());
-        */
+		
 		matSelectPage = new B_MatSelect();
-		//matSelectinfo = new JPanel();
-		//matSelectinfo.setBackground(BGCOLOR);
-        //setLayout(new GridLayout(4, 1));
+		
         Date start = new Date(2022, 1, 1, 11, 30, 45);//startDate
         B_MatInfo mat1info = new B_MatInfo(1, start, true);
         B_MatInfo mat2info = new B_MatInfo(2, start, false);
@@ -166,16 +155,8 @@ public class BorrowMain extends JFrame implements ActionListener {
         matSelectPage.add(mat2Pane);
         matSelectPage.add(mat3Pane);
         matSelectPage.add(mat4Pane);
-        /*
-        matSelectinfo.add(mat1Pane);
-        matSelectinfo.add(mat2Pane);
-        matSelectinfo.add(mat3Pane);*/
-        //matSelectinfo.add(new EmptyPanel());
-        
-		//matSelectPage.add(matSelectinfo);
+             
 		currentPanel.add(matSelectPage, BorderLayout.CENTER);
-		//currentPanel.add(matSelectinfo, BorderLayout.CENTER);
-		//setVisible(true);
 	}
 	
 	//Mat isBorrowing boolean function
