@@ -1,65 +1,81 @@
 package TeamProject;
 
-public class Cabinet {
+public class Cabinet
+{
+    private int ID = 0;
+    private String password = "";
 
-	private int ID = 0;
-	private String password = "";
+    Cabinet(int newID, String newPW)
+    {
+        if (isValidID(newID) && isValidPW(newPW))
+        {
+            ID = newID;
+            password = newPW;
+        }
+        else
+            errorhandler("invalid initializing");
+    }
 
-	Cabinet(int newID, String newPW) {
+    public boolean isValidID()
+    {
+        return (ID > 0);
+    }
 
-		if (isValidID(newID) && isValidPW(newPW)) {
+    public static boolean isValidID(int ID)
+    {
+        return ID>0;
+    }
 
-			ID = newID;
-			password = newPW;
+    public boolean isValidPW()
+    {
+        if (password.length() != 4)
+            return false;
 
-		} else
-			errorhandler("invalid initializing");
-	}
+        for (int i = 0; i < 4; i++)
+            if (password.charAt(i) < '0' || password.charAt(i) > '9')
+                return false;
 
-	private boolean isValidID(int newID) {
+        return true;
+    }
 
-		return (newID > 0);
-	}
+    public static boolean isValidPW(String PW)
+    {
+        if (PW.length() != 4)
+            return false;
 
-	public static boolean isValidPW(String newPW) {
+        for (int i = 0; i < 4; i++)
+            if (PW.charAt(i) < '0' || PW.charAt(i) > '9')
+                return false;
 
-		if (newPW.length() != 4)
-			return false;
+        return true;
+    }
 
-		for (int i = 0; i < 4; i++)
+    public void setPW(String newPW)
+    {
+        if (isValidPW())
+            password = newPW;
 
-			if (newPW.charAt(i) < '0' || newPW.charAt(i) > '9')
-				return false;
+        else
+            errorhandler("invalid Password Change try");
+    }
 
-		return true;
-	}
+    public int getID()
+    {
+        return ID;
+    }
 
-	public void changePW(String newPW) {
+    public String getPW()
+    {
+        return password;
+    }
 
-		if (isValidPW(newPW))
-			password = newPW;
+    public String toString()
+    {
+        return "ID: " + ID + " PW: " + password;
+    }
 
-		else
-			errorhandler("invalid Password Change try");
-	}
-
-	public int getID() {
-
-		return ID;
-	}
-
-	public String getPW() {
-
-		return password;
-	}
-
-	public String toString() {
-
-		return "ID: " + ID + " PW: " + password;
-	}
-
-	private void errorhandler(String errorType) {
-
-		System.out.println("Error occured in Cabinet class: " + errorType);
-	}
+    private void errorhandler(String errorType)
+    {
+        System.out.println("Error occured in Cabinet class: " + errorType);
+    }
 }
