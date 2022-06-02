@@ -84,13 +84,13 @@ public class Student
     public String toString()
     {
         String phoneNumberLong = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-" + phoneNumber.substring(7);
-        return "" + ID + "\t" + name + "\t" + phoneNumberLong + "\t" + webMailAddress + mailForm + "\t" + cabinet + "\tcouncil: "
+        return "" + ID + "\t" + name + "\t" + phoneNumberLong + "\t" + webMailAddress + mailForm + "\t" + "\tcouncil: "
                 + isCouncil;
     }
 
-    public String toFile()
+    public String toFileString()
     {
-        return "" + ID + "\t" + name + "\t" + phoneNumber + "\t" + webMailAddress + mailForm + "\t" + cabinet + "\tcouncil: "
+        return "" + ID + "\t" + name + "\t" + phoneNumber + "\t" + webMailAddress + "\t" + cabinet.getID() + "\t" + cabinet.getPW() + "\t"
                 + isCouncil;
     }
 

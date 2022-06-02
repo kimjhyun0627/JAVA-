@@ -4,8 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,19 +26,17 @@ public class PasswordMain extends JFrame implements ActionListener
 
     public static void main(String[] args)
     {
-        PasswordMain t = new PasswordMain(getter());
+        PasswordMain t = new PasswordMain(dataGetter());
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Image logo = toolkit.getImage("./image/logo.png");
         t.setIconImage(logo);
         t.setVisible(true);
     }
 
-    public static Student getter()
+    public static Student dataGetter()
     {
         Scanner FileReader_Student = null;
-        //Scanner CabinetFileScanner = null;
         ArrayList<Student> StudentList = new ArrayList<>();
-        //ArrayList<Cabinet> Cabinets = new ArrayList<>();
 
         try
         {
@@ -92,6 +89,60 @@ public class PasswordMain extends JFrame implements ActionListener
         }
         System.out.println("");
         return theStudent;
+    }
+    public void dataSetter()
+    {
+        Scanner FileReader_Student = null;
+        ArrayList<Student> StudentList = new ArrayList<>();
+
+        try
+        {
+            FileReader_Student = new Scanner(new FileInputStream("./data/Student.txt"));
+            while (FileReader_Student.hasNext())
+            {
+                String f_ID = FileReader_Student.next();
+                String f_name = FileReader_Student.next();
+                String f_phone = FileReader_Student.next();
+                String f_mail = FileReader_Student.next();
+                int f_cabID = FileReader_Student.nextInt();
+                String f_cabPW = FileReader_Student.next();
+                String f_council = FileReader_Student.next();
+
+                if (f_council.equals("false"))
+                {
+                    StudentList.add(new Student(f_ID, f_name, f_phone, f_mail, f_cabID, f_cabPW, false));
+                }
+                else
+                {
+                    StudentList.add(new Student(f_ID, f_name, f_phone, f_mail, f_cabID, f_cabPW, true));
+                }
+            }
+            FileReader_Student.close();
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+
+        try
+        {
+            PrintWriter FileWriter_Student = new PrintWriter(new FileOutputStream("./data/Student.txt"));
+            for (Student s : StudentList)
+            {
+                if(s.getID().equals(User.getID()))
+                {
+                    FileWriter_Student.println(User.toFileString());
+                    continue;
+                }
+                FileWriter_Student.println(s.toFileString());
+            }
+            FileWriter_Student.close();
+            System.out.println("success");
+        }
+        catch(FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public PasswordMain(Student usingStudent)
@@ -284,7 +335,9 @@ public class PasswordMain extends JFrame implements ActionListener
 
         if (e.getSource() == gotoMainBtn)
         {
-            end();
+            dataSetter();
+            //end();
+            mailSubmitPage("", "");
         }
 
         currentPanel.updateUI();
