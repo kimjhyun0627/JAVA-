@@ -4,174 +4,75 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class PasswordMain extends JFrame implements ActionListener
 {
     public static final JPanel currentPanel = new JPanel();
-    public static final Color BACKGROUND_COLOR = new Color(0xededf9);
+    public static final Color BGCOLOR = new Color(0xededf9);
     private JButton mailSubmitBtn;
     private JButton codeVerifyBtn;
     private JButton gotoMainBtn;
     private JButton changePWBtn;
     private JButton changePWSubmitBtn;
+    private JButton finalBtn;
     private MailPage mailPage;
     private CodeVerifyPage codePage;
     private JPanel passwordPage;
     private ChangePage changePage;
-    private String verifiedCode = "1234";
-    private Student User = null;
 
     public static void main(String[] args)
     {
-        PasswordMain t = new PasswordMain(dataGetter());
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Image logo = toolkit.getImage("./image/logo.png");
-        t.setIconImage(logo);
+        PasswordMain t = new PasswordMain();
         t.setVisible(true);
+        return;
     }
 
-    public static Student dataGetter()
+    public PasswordMain()
     {
-        Scanner FileReader_Student = null;
-        ArrayList<Student> StudentList = new ArrayList<>();
-
-        try
-        {
-            FileReader_Student = new Scanner(new FileInputStream("./data/Student.txt"));
-            while (FileReader_Student.hasNext())
-            {
-                String f_ID = FileReader_Student.next();
-                String f_name = FileReader_Student.next();
-                String f_phone = FileReader_Student.next();
-                String f_mail = FileReader_Student.next();
-                int f_cabID = FileReader_Student.nextInt();
-                String f_cabPW = FileReader_Student.next();
-                String f_council = FileReader_Student.next();
-
-                if (f_council.equals("n"))
-                {
-                    StudentList.add(new Student(f_ID, f_name, f_phone, f_mail, f_cabID, f_cabPW, false));
-                }
-                else
-                {
-                    StudentList.add(new Student(f_ID, f_name, f_phone, f_mail, f_cabID, f_cabPW, true));
-                }
-            }
-            FileReader_Student.close();
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-        for (Student s : StudentList)
-            System.out.println(s);
-
-        Scanner kb = new Scanner(System.in);
-        System.out.println("finished\ninput id and name");
-        System.out.print("id: ");
-        String UserID = kb.nextLine();
-        System.out.print("name: ");
-        String UserName = kb.nextLine();
-
-        Student theStudent = null;
-        System.out.println("id : " + UserID + " name : " + UserName);
-        for (Student s : StudentList)
-        {
-            System.out.println("id : " + s.getID() + " name : " + s.getName());
-            if (UserID.equals(s.getID()) && UserName.equals(s.getName()))
-            {
-                System.out.println("found");
-                theStudent = s;
-            }
-        }
-        System.out.println("");
-        return theStudent;
-    }
-    public void dataSetter()
-    {
-        Scanner FileReader_Student = null;
-        ArrayList<Student> StudentList = new ArrayList<>();
-
-        try
-        {
-            FileReader_Student = new Scanner(new FileInputStream("./data/Student.txt"));
-            while (FileReader_Student.hasNext())
-            {
-                String f_ID = FileReader_Student.next();
-                String f_name = FileReader_Student.next();
-                String f_phone = FileReader_Student.next();
-                String f_mail = FileReader_Student.next();
-                int f_cabID = FileReader_Student.nextInt();
-                String f_cabPW = FileReader_Student.next();
-                String f_council = FileReader_Student.next();
-
-                if (f_council.equals("false"))
-                {
-                    StudentList.add(new Student(f_ID, f_name, f_phone, f_mail, f_cabID, f_cabPW, false));
-                }
-                else
-                {
-                    StudentList.add(new Student(f_ID, f_name, f_phone, f_mail, f_cabID, f_cabPW, true));
-                }
-            }
-            FileReader_Student.close();
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-
-        try
-        {
-            PrintWriter FileWriter_Student = new PrintWriter(new FileOutputStream("./data/Student.txt"));
-            for (Student s : StudentList)
-            {
-                if(s.getID().equals(User.getID()))
-                {
-                    FileWriter_Student.println(User.toFileString());
-                    continue;
-                }
-                FileWriter_Student.println(s.toFileString());
-            }
-            FileWriter_Student.close();
-            System.out.println("success");
-        }
-        catch(FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    public PasswordMain(Student usingStudent)
-    {
-        super("학생회 키오스크 v1.0.0");
+        super("test");
         setSize(660, 990);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocation(600, 10);
         setResizable(false);
         setLayout(new BorderLayout());
-        this.User = usingStudent;
 
-        currentPanel.setBackground(BACKGROUND_COLOR);
+        currentPanel.setBackground(BGCOLOR);
 
         Container test = this.getContentPane();
-        test.setBackground(BACKGROUND_COLOR);
+        test.setBackground(BGCOLOR);
         JPanel viewPanel = new JPanel();
-        viewPanel.setBackground(BACKGROUND_COLOR);
+        viewPanel.setBackground(BGCOLOR);
         viewPanel.add(currentPanel);
         test.add(viewPanel, BorderLayout.CENTER);
 
-        mailSubmitPage("", "");
+        mailSubmitPage(0);
+        //showChangePage("");
 
         setVisible(true);
     }
 
-    private void mailSubmitPage(String errorMSG, String mailStr)
+    private void mailSubmitPage(int errorCode)
     {
-        mailPage = new MailPage(errorMSG, mailStr);
+        String errorStr = "";
+
+        if (errorCode == 1)
+        {
+            errorStr += "등록되지 않은 웹메일입니다";
+        }
+        else if (errorCode == 0)
+        {
+            errorStr += "";
+        }
+        else if (errorCode == -1)
+        {
+            errorStr += "웹메일을 입력해주세요";
+        }
+        else
+        {
+            errorStr += "알 수 없는 오류입니다";
+        }
+
+        mailPage = new MailPage(errorStr);
 
         mailSubmitBtn = new ButtonForm("./image/mailSubmitButton");
         mailSubmitBtn.addActionListener(this);
@@ -181,9 +82,27 @@ public class PasswordMain extends JFrame implements ActionListener
         currentPanel.add(mailPage, BorderLayout.CENTER);
     }
 
-    private void codeVerifyPage(String errorMSG)
+    private void codeVerifyPage(int errorCode)
     {
-        codePage = new CodeVerifyPage(errorMSG);
+        String errorStr = "";
+        if (errorCode == 1)
+        {
+            errorStr += "인증코드가 잘못되었습니다";
+        }
+        else if (errorCode == 0)
+        {
+            errorStr += "";
+        }
+        else if (errorCode == -1)
+        {
+            errorStr += "인증코드를 입력해주세요";
+        }
+        else
+        {
+            errorStr += "알 수 없는 오류입니다";
+        }
+
+        codePage = new CodeVerifyPage(errorStr);
 
         codeVerifyBtn = new ButtonForm("./image/codeVerifyButton");
         codeVerifyBtn.addActionListener(this);
@@ -200,45 +119,45 @@ public class PasswordMain extends JFrame implements ActionListener
 
         if (b)
         {
-            passwordPage = new FindPasswordPage(true, User.getCabID(), User.getCabPW());
+            passwordPage = new findPassword(true);
 
             changePWBtn = new ButtonForm("./image/changePWButton");
             changePWBtn.addActionListener(this);
             JPanel wrapperPanel = new JPanel(new FlowLayout());
             wrapperPanel.add(changePWBtn);
             wrapperPanel.add(gotoMainBtn);
-            wrapperPanel.setBackground(BACKGROUND_COLOR);
+            wrapperPanel.setBackground(BGCOLOR);
 
             passwordPage.add(wrapperPanel);
         }
         else
         {
-            passwordPage = new FindPasswordErrorPage();
+            passwordPage = new findPasswordError();
             passwordPage.add(gotoMainBtn);
         }
-        currentPanel.add(passwordPage, BorderLayout.CENTER);
+        currentPanel.add(passwordPage);
     }
 
-    private void showChangePage(String errorMSG, String PWWritten)
+    private void showChangePage(String errorMSG)
     {
-        changePage = new ChangePage(errorMSG, PWWritten);
+        changePage = new ChangePage(errorMSG);
 
         changePWSubmitBtn = new ButtonForm("./image/changePWButton");
         changePWSubmitBtn.addActionListener(this);
 
         changePage.add(changePWSubmitBtn);
 
-        currentPanel.add(changePage, BorderLayout.CENTER);
+        currentPanel.add(changePage);
     }
 
     private void showLastPage()
     {
-        passwordPage = new FindPasswordPage(false, User.getCabID(), User.getCabPW());
+        passwordPage = new findPassword(false);
         gotoMainBtn = new ButtonForm("./image/gotoMainButton");
         gotoMainBtn.addActionListener(this);
         passwordPage.add(gotoMainBtn);
 
-        currentPanel.add(passwordPage, BorderLayout.CENTER);
+        currentPanel.add(passwordPage);
     }
 
     private void end()
@@ -257,19 +176,17 @@ public class PasswordMain extends JFrame implements ActionListener
         {
             String str = mailPage.getMailAddress();
 
-            if (str.equals(User.getWebMailAddress()))
+            if (str.equals("aaaa"))
             {
-                ////mailSender mail = new mailSender(str);
-                ////verifiedCode = mail.getCode();
-                codeVerifyPage("");
+                codeVerifyPage(0);
             }
             else if (str.length() == 0)
             {
-                mailSubmitPage("웹메일을 입력해주세요", "");
+                mailSubmitPage(-1);
             }
             else
             {
-                mailSubmitPage("등록되지 않은 웹메일입니다", str);
+                mailSubmitPage(1);
             }
         }
 
@@ -277,13 +194,13 @@ public class PasswordMain extends JFrame implements ActionListener
         {
             String str = codePage.getCodeInput();
 
-            if (str.equals(verifiedCode))
+            if (str.equals("1234"))
             {
                 showPasswordPage(true);
             }
             else if (str.length() == 0)
             {
-                codeVerifyPage("인증코드를 입력해주세요");
+                codeVerifyPage(-1);
             }
             else if (str.equals("4321"))
             {
@@ -291,53 +208,36 @@ public class PasswordMain extends JFrame implements ActionListener
             }
             else
             {
-                codeVerifyPage("잘못된 인증코드입니다");
+                codeVerifyPage(1);
             }
         }
 
-        if (e.getSource() == changePWBtn)
+        if(e.getSource() == changePWBtn)
         {
-            showChangePage("", "");
+            showChangePage("");
         }
-
+        
         if (e.getSource() == changePWSubmitBtn)
         {
             String str = changePage.getChangedPassword();
 
             if (str.length() == 0)
             {
-                showChangePage("비밀번호를 입력해주세요", str);
+                showChangePage("비밀번호를 입력해주세요");
             }
             else if (Cabinet.isValidPW(str))
             {
-                String popupBtns[] = {"네", "아니오", "초기화"};
-                int response = PopUpForm.showOptionDialog(popupBtns, "./image/ChangePWSubmitAlert.png", 45, 50, "비밀번호 변경 확인", "비밀번호를 " + str + "로 변경하시겠습니까?", "네");
-
-                if (response == 0)
-                {
-                    User.setCabPW(str);
-                    showLastPage();//다음장으로
-                }
-                else if (response == 1)
-                {
-                    showChangePage("", str);
-                }
-                else
-                {
-                    showChangePage("", "");
-                }
+                showLastPage();//다음장으로
             }
             else
             {
-                showChangePage("잘못된 비밀번호입니다", str);
+                showChangePage("잘못된 비밀번호입니다");
             }
         }
 
-        if (e.getSource() == gotoMainBtn)
+        if(e.getSource() == gotoMainBtn)
         {
-            dataSetter();
-            //end();
-            mailSubmitPage("", "");
+            end();
         }
 
         currentPanel.updateUI();

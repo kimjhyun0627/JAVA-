@@ -9,7 +9,7 @@ public class findPassword extends JPanel
     {
         super();
         setLayout(new GridLayout(10, 1));
-        setBackground(PasswordMain.BACKGROUND_COLOR);
+        setBackground(PasswordMain.BGCOLOR);
 
         JLabel title1 = new centerBoldLabel("김진현" + "님의", 54);
         JLabel title2 = new centerBoldLabel("사물함 "+(b?"조회":"변경")+" 내역입니다", 54);
