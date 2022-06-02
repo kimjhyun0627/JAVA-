@@ -15,6 +15,6 @@ public class B_MatSelect extends JPanel {
         add(title);
         //add(new EmptyPanel());
         setVisible(true);
-	}
+	}//test
 
 }
