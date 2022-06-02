@@ -51,7 +51,7 @@ public class PasswordMain extends JFrame implements ActionListener
                 String f_cabPW = FileReader_Student.next();
                 String f_council = FileReader_Student.next();
 
-                if (f_council.equals("n"))
+                if (f_council.equals("false"))
                 {
                     StudentList.add(new Student(f_ID, f_name, f_phone, f_mail, f_cabID, f_cabPW, false));
                 }

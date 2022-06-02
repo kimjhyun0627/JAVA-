@@ -170,6 +170,11 @@ public class Date
                 + second + (afterNoon ? " PM" : " AM");
     }
 
+    public String toFileString()
+    {
+        return "" + year + "\t" + month + "\t" + day + "\t" + hour + "\t" + minute + "\t" + second + "\t" + afterNoon;
+    }
+
     private void errorhandler(String errorType)
     {
         System.err.println("Error occured in Date class: " + errorType);
