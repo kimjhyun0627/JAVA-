@@ -1,14 +1,14 @@
 package TeamProject;
 
 public class B_MatObj extends BorrowObj{
-	
+
 	private int ID = 0;
 	private Date dateStart;
 	private Date dateReturn;
 	private Date dateEnd;
 	private String studentID = "";
 	private boolean isBorrowing = false;
-	
+
 	B_MatObj(int newID, String newStudID) {
 		super(newID, newStudID);
 		// TODO Auto-generated constructor stub
@@ -18,9 +18,9 @@ public class B_MatObj extends BorrowObj{
 		dateEnd = new Date(false);
 		studentID = newStudID;
 		isBorrowing = false;
-		
+
 	}
-	
+
 	B_MatObj(int newID, Date newStart, Date newEnd, String newStudID) {
 		super(newID, newStart, newEnd, newStudID);
 		// TODO Auto-generated constructor stub
@@ -28,7 +28,7 @@ public class B_MatObj extends BorrowObj{
 
 			ID = newID;
 			dateStart = new Date(newStart);
-			dateReturn = new Date(setReturn(dateStart));
+			dateReturn = new Date(setHaveto(newStart));
 			dateEnd = new Date(newEnd);
 			studentID = newStudID;
 			setObjStatus();
@@ -41,7 +41,7 @@ public class B_MatObj extends BorrowObj{
 
 		return ((newID > 0) && (newStart.isValidTime()) && (newEnd.isValidTime()) && (newStudID.length() == 10));
 	}
-	
+
 	public void updateStart() {
 
 		dateStart.setDate(true);
@@ -73,7 +73,7 @@ public class B_MatObj extends BorrowObj{
 	public String getStudentID() {return studentID;}
 
 	public boolean getIsBorrowing() {return isBorrowing;}
-	
+
 	public String toString() {
 
 		return "ID: " + ID + " Start: " + dateStart.toString() + " End: " + dateEnd.toString() + " StudID: " + studentID

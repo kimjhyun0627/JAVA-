@@ -44,7 +44,7 @@ public class B_infoPage extends JPanel{
         JLabel errorMSGLabel = new errorMSGLabel(errorMSG);
 
         JPanel infoWrapperPanel = new JPanel(new GridLayout(5, 2));
-        infoWrapperPanel.setBackground(PasswordMain.BGCOLOR);
+        infoWrapperPanel.setBackground(PasswordMain.BACKGROUND_COLOR);
         infoWrapperPanel.add(nameLB);
         infoWrapperPanel.add(nameInput);
         infoWrapperPanel.add(new EmptyPanel());
