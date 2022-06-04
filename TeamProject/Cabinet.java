@@ -1,65 +1,81 @@
 package TeamProject;
 
-public class Cabinet {
-
+public class Cabinet
+{
 	private int ID = 0;
 	private String password = "";
 
-	Cabinet(int newID, String newPW) {
-
-		if (isValidID(newID) && isValidPW(newPW)) {
-
+	Cabinet(int newID, String newPW)
+	{
+		if (isValidID(newID) && isValidPW(newPW))
+		{
 			ID = newID;
 			password = newPW;
-
-		} else
+		}
+		else
 			errorhandler("invalid initializing");
 	}
 
-	private boolean isValidID(int newID) {
-
-		return (newID > 0);
+	public boolean isValidID()
+	{
+		return (ID > 0);
 	}
 
-	public static boolean isValidPW(String newPW) {
+	public static boolean isValidID(int ID)
+	{
+		return ID>0;
+	}
 
-		if (newPW.length() != 4)
+	public boolean isValidPW()
+	{
+		if (password.length() != 4)
 			return false;
 
 		for (int i = 0; i < 4; i++)
-
-			if (newPW.charAt(i) < '0' || newPW.charAt(i) > '9')
+			if (password.charAt(i) < '0' || password.charAt(i) > '9')
 				return false;
 
 		return true;
 	}
 
-	public void changePW(String newPW) {
+	public static boolean isValidPW(String PW)
+	{
+		if (PW.length() != 4)
+			return false;
 
-		if (isValidPW(newPW))
+		for (int i = 0; i < 4; i++)
+			if (PW.charAt(i) < '0' || PW.charAt(i) > '9')
+				return false;
+
+		return true;
+	}
+
+	public void setPW(String newPW)
+	{
+		if (isValidPW())
 			password = newPW;
 
 		else
 			errorhandler("invalid Password Change try");
 	}
 
-	public int getID() {
-
+	public int getID()
+	{
 		return ID;
 	}
 
-	public String getPW() {
-
+	public String getPW()
+	{
 		return password;
 	}
 
-	public String toString() {
-
+	public String toString()
+	{
 		return "ID: " + ID + " PW: " + password;
 	}
 
-	private void errorhandler(String errorType) {
-
+	private void errorhandler(String errorType)
+	{
 		System.out.println("Error occured in Cabinet class: " + errorType);
 	}
 }
