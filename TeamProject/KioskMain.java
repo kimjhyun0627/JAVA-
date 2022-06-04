@@ -4,18 +4,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Wrapper;
 
 public class KioskMain extends JFrame implements ActionListener
 {
     public static final JPanel currentPanel = new JPanel();
     public static final Color BGCOLOR = new Color(0xededf9);
+    private JPanel Wrapper;
 
     private JButton OKBtn;
     private JButton submitBtn;
     private JButton startBtn;
+    private JButton borrowBtn;
+    private JButton PWBtn;
+    private JButton AddMedBtn;
+    private JButton SettingBtn;
 
     private Main_startPage startPage;
     private Main_infoPage infoPage;
+    private Student User;
+
 
     public static void main(String[] args)
     {
@@ -43,6 +51,7 @@ public class KioskMain extends JFrame implements ActionListener
         test.add(viewPanel, BorderLayout.CENTER);
 
         startPage();
+        //selectPage();
 
         setVisible(true);
     }
@@ -50,44 +59,21 @@ public class KioskMain extends JFrame implements ActionListener
     private void startPage()
     {
         startPage = new Main_startPage();
+
         startBtn = new ButtonForm("./image/start");
         startBtn.addActionListener(this);
-
-        startPage.add(startBtn);
+        startBtn.setBackground(new Color(255, 255, 255, 0));
+        Wrapper = new JPanel(new GridLayout(2, 1));
+        Wrapper.setBackground(new Color(255, 255, 255, 0));
+        Wrapper.add(startBtn);
+        Wrapper.add(new EmptyPanel());
+        add(Wrapper, BorderLayout.SOUTH);
 
         currentPanel.add(startPage, BorderLayout.CENTER);
     }
 
-    private void infoPage(int errorCode, String name, String ID, String phone)
+    private void infoPage(String errorStr, String name, String ID, String phone)
     {
-        // TODO Auto-generated method stub
-        String errorStr = "";
-
-        if (errorCode == 1)
-        {
-            errorStr += "등록되지 않은 이용자입니다";
-        }
-        else if (errorCode == 0)
-        {
-            errorStr += "";
-        }
-        else if (errorCode == -1)
-        {
-            errorStr += "정보를 모두 입력해주세요";
-        }
-        else if (errorCode == -2)
-        {
-            errorStr += "학번을 다시 입력해주세요";
-        }
-        else if (errorCode == -3)
-        {
-            errorStr += "전화번호를 다시 입력해주세요";
-        }
-        else
-        {
-            errorStr += "알 수 없는 오류입니다";
-        }
-
         infoPage = new Main_infoPage(errorStr, name, ID, phone);
 
         submitBtn = new ButtonForm("./image/mailSubmitButton");
@@ -98,6 +84,27 @@ public class KioskMain extends JFrame implements ActionListener
         currentPanel.add(infoPage, BorderLayout.CENTER);
     }
 
+    private void selectPage()
+    {
+        Main_selectPage selectpage = new Main_selectPage();
+
+        borrowBtn = new ButtonForm5("./image/selectRent");
+        borrowBtn.addActionListener(this);
+        PWBtn = new ButtonForm5("./image/selectPW");
+        PWBtn.addActionListener(this);
+        AddMedBtn = new ButtonForm5("./image/addmedi");
+        PWBtn.addActionListener(this);
+        SettingBtn = new ButtonFormSQ("./image/setting");
+        SettingBtn.addActionListener(this);
+
+        selectpage.add(borrowBtn);
+        selectpage.add(PWBtn);
+        selectpage.add(AddMedBtn);
+        selectpage.add(SettingBtn);
+
+        currentPanel.add(selectpage);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e)
     {
@@ -105,7 +112,8 @@ public class KioskMain extends JFrame implements ActionListener
 
         if (e.getSource() == startBtn)
         {
-            infoPage(0, "", "", "");
+            remove(Wrapper);
+            infoPage("", "", "", "");
         }
 
         if (e.getSource() == submitBtn)
@@ -114,28 +122,61 @@ public class KioskMain extends JFrame implements ActionListener
             String id = infoPage.getID();
             String phone = infoPage.getPhone();
 
-            if (id.equals("1234567890") && !name.isEmpty() && !phone.isEmpty()
-                    && id.length() == 10 && phone.length() == 11)
+            User = PasswordMain.dataGetter(id, name);
+
+            if (id.length() == 10 && !name.isEmpty() && phone.length() == 11)
             {
-                //다음 페이지로
+                if (User != null)
+                {
+                    selectPage();
+                }
+                else
+                {
+                    infoPage("등록되지 않은 이용자입니다", name, id, phone);
+                }
             }
             else if (name.length() == 0 || id.length() == 0
                     || phone.length() == 0)
             {
-                infoPage(-1, name, id, phone);
+                infoPage("정보를 모두 입력해주세요", name, id, phone);
             }
             else if (id.length() != 10)
             {
-                infoPage(-2, name, id, phone);
+                infoPage("학번을 다시 입력해주세요", name, id, phone);
             }
             else if (phone.length() != 11)
             {
-                infoPage(-3, name, id, phone);
+                infoPage("전화번호를 다시 입력해주세요", name, id, phone);
             }
             else
             {
-                infoPage(1, name, id, phone);
+                infoPage("알 수 없는 오류입니다", name, id, phone);
             }
+        }
+
+        if (e.getSource() == borrowBtn)
+        {
+            BorrowMain b = new BorrowMain();
+            b.setVisible(true);
+            setVisible(false);
+        }
+        if (e.getSource() == PWBtn)
+        {
+            PasswordMain p = new PasswordMain(User);
+            p.setVisible(true);
+            setVisible(false);
+        }
+        if (e.getSource() == AddMedBtn)
+        {
+            AddMediMain a = new AddMediMain();
+            a.setVisible(true);
+            setVisible(false);
+        }
+        if (e.getSource() == SettingBtn)
+        {
+            SettingMain s = new SettingMain();
+            s.setVisible(true);
+            setVisible(false);
         }
 
         currentPanel.updateUI();

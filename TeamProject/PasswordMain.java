@@ -25,16 +25,16 @@ public class PasswordMain extends JFrame implements ActionListener
     private String verifiedCode = "1234";
     private Student User = null;
 
-    public static void main(String[] args)
+    /*public static void main(String[] args)
     {
-        PasswordMain t = new PasswordMain(dataGetter());
+        //PasswordMain t = new PasswordMain(dataGetter());
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Image logo = toolkit.getImage("./image/logo.png");
-        t.setIconImage(logo);
-        t.setVisible(true);
-    }
+        //t.setIconImage(logo);
+        //t.setVisible(true);
+    }*/
 
-    public static Student dataGetter()
+    public static Student dataGetter(String UserID, String UserName)
     {
         Scanner FileReader_Student = null;
         ArrayList<Student> StudentList = new ArrayList<>();
@@ -67,15 +67,6 @@ public class PasswordMain extends JFrame implements ActionListener
         {
             e.printStackTrace();
         }
-        for (Student s : StudentList)
-            System.out.println(s);
-
-        Scanner kb = new Scanner(System.in);
-        System.out.println("finished\ninput id and name");
-        System.out.print("id: ");
-        String UserID = kb.nextLine();
-        System.out.print("name: ");
-        String UserName = kb.nextLine();
 
         Student theStudent = null;
         System.out.println("id : " + UserID + " name : " + UserName);

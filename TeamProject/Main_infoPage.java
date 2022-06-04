@@ -3,16 +3,18 @@ package TeamProject;
 import java.awt.*;
 import javax.swing.*;
 
-public class Main_infoPage extends JPanel{
-	public static final int NAME_LENGTH = 5;
-	public static final int ID_LENGTH = 10;
-	public static final int PHONE_LENGTH = 11;
+public class Main_infoPage extends JPanel
+{
+    public static final int NAME_LENGTH = 5;
+    public static final int ID_LENGTH = 10;
+    public static final int PHONE_LENGTH = 11;
     private JTextField nameInput;
     private JTextField IDInput;
     private JTextField phoneInput;
-	
-	public Main_infoPage(String errorMSG, String name, String ID, String phone) {
-		super();
+
+    public Main_infoPage(String errorMSG, String name, String ID, String phone)
+    {
+        super();
         setBackground(BorrowMain.BGCOLOR);
         setLayout(new GridLayout(8, 1));
 
@@ -59,18 +61,18 @@ public class Main_infoPage extends JPanel{
         add(errorMSGLabel);
         //add(new EmptyPanel());
         setVisible(true);
-	}
-	
-	public String getName()
+    }
+
+    public String getName()
     {
         return nameInput.getText();
     }
-    
+
     public String getID()
     {
         return IDInput.getText();
     }
-    
+
     public String getPhone()
     {
         return phoneInput.getText();
