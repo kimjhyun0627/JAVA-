@@ -156,6 +156,38 @@ public class Date {
 
 		return second;
 	}
+	
+	public Date addDay(Date date){
+		int m = date.getMonth();
+		int d = date.getDay();
+		if(d==31){
+			if(m==1||m==3||m==5||m==7||m==8||m==10||m==12){
+				m+=1;
+				d=1;
+			}
+		}else if(d==30){
+			if(m==1||m==3||m==5||m==7||m==8||m==10||m==12){
+				d+=1;
+			}else if(m==4||m==6||m==9||m==11){
+				m+=1;
+				d=1;
+			}
+		}else if(d==29 && (year % 4 == 0 && year % 100 != 0)){
+			
+		}
+		
+		date.setDate(date.getYear(), m, d, date.getHour(), date.getMinute(), date.getSecond());
+		return date;
+	}
+	
+	/*if (year % 4 == 0 && year % 100 != 0) {
+			System.out.printf("%d 년은 윤년입니다 \n", year);
+		} else if (year % 100 != 0 || year % 400 == 0) {
+			System.out.printf("%d 는 윤년이네요 \n", year);
+		} else {
+			System.out.printf("%d 년은 윤년이 아니네요 \n", year);
+			System.out.println("이 해는 평년입니다");
+		}*/
 
 	public String toString() {
 

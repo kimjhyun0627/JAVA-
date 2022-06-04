@@ -122,7 +122,7 @@ public class BorrowObj {
 
 	public String toString() {
 
-		return "ID: " + ID + " Start: " + dateStart.toString() + " Return: " + dateHaveto.toString() + " End: " + dateEnd.toString() + " StudID: " + studentID
+		return "ID: " + ID + " Start: " + dateStart.toString() + " Have to Return: " + dateHaveto.toString() + " End: " + dateEnd.toString() + " StudID: " + studentID
 				+ " " + isBorrowing;
 	}
 

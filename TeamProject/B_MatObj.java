@@ -83,10 +83,20 @@ public class B_MatObj extends BorrowObj{
 		else
 			isBorrowing = false;
 	}
+	
+	public Date setHaveto(Date dateStart){
+		Date Haveto = null;
+		Haveto.setDate(dateStart.getYear(), dateStart.getMonth(), dateStart.getDay()+1,
+				dateStart.getHour(), dateStart.getMinute(), dateStart.getSecond());
+		return Haveto;
+		
+	}
 
 	public int getID() {return ID;}
 
 	public Date getDateStart() {return new Date(dateStart);}
+	
+	public Date getDateHaveto() {return new Date(dateHaveto);}
 
 	public Date getDateEnd() {return new Date(dateEnd);}
 
@@ -96,7 +106,7 @@ public class B_MatObj extends BorrowObj{
 	
 	public String toString() {
 
-		return "ID: " + ID + " Start: " + dateStart.toString() + " End: " + dateEnd.toString() + " StudID: " + studentID
+		return "ID: " + ID + " Start: " + dateStart.toString() + " Have to Return: " + dateHaveto.toString() + " End: " + dateEnd.toString() + " StudID: " + studentID
 				+ " " + isBorrowing;
 	}
 
