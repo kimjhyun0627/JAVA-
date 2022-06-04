@@ -1,16 +1,21 @@
 package TeamProject;
 
 public class B_MatObj extends BorrowObj{
-	
+	/*
 	private int ID = 0;
 	private Date dateStart;
 	private Date dateHaveto;
 	private Date dateEnd;
 	private String studentID = "";
 	private boolean isBorrowing = false;
+	*/
+	
+	B_MatObj(){
+		super();
+	}
 	
 	B_MatObj(int newID, String newStudID) {
-		super(newID, newStudID);
+		super();
 		// TODO Auto-generated constructor stub
 		ID = newID;
 		dateStart = new Date(false);

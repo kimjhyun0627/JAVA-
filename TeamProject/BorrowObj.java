@@ -2,13 +2,22 @@ package TeamProject;
 
 public class BorrowObj {
 
-	private int ID = 0;
-	private Date dateStart;
-	private Date dateHaveto;
-	private Date dateEnd;
-	private String studentID = "";
-	private boolean isBorrowing = false;
+	protected int ID = 0;
+	protected Date dateStart;
+	protected Date dateHaveto;
+	protected Date dateEnd;
+	protected String studentID = "";
+	protected boolean isBorrowing = false;
 
+	BorrowObj(){
+		ID = 0;
+		dateStart = new Date(2022,6,3,12,30,10);
+		dateHaveto = new Date(2022,6,4,12,30,10);
+		dateEnd = new Date(2022,6,4,10,30,10);
+		studentID = "1234567890";
+		isBorrowing = false;
+	}
+	
 	BorrowObj(int newID, String newStudID) {
 
 		ID = newID;
