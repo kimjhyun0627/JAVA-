@@ -86,8 +86,7 @@ public class B_MatObj extends BorrowObj{
 	
 	public Date setHaveto(Date dateStart){
 		Date Haveto = null;
-		Haveto.setDate(dateStart.getYear(), dateStart.getMonth(), dateStart.getDay()+1,
-				dateStart.getHour(), dateStart.getMinute(), dateStart.getSecond());
+		Haveto.AddDate(dateStart);
 		return Haveto;
 		
 	}

@@ -80,7 +80,7 @@ public class BorrowMain extends JFrame implements ActionListener {
 
 		infoPage = new B_infoPage(errorStr, name, ID, phone);
 
-		userinfosubmitBtn = new ButtonForm("./image/mailSubmitButton");
+		userinfosubmitBtn = new ButtonForm("./image/codeVerifyButton");
 		userinfosubmitBtn.addActionListener(this);
 
 		infoPage.add(userinfosubmitBtn);
@@ -121,6 +121,8 @@ public class BorrowMain extends JFrame implements ActionListener {
 		mat2Btn = new ButtonForm3("./image/BorrowUnable");
 		mat3Btn = new ButtonForm3("./image/BorrowAble");
 		mat4Btn = new ButtonForm3("./image/BorrowAble");
+		
+		mat2Btn.setEnabled(false);
 		
 		mat1Btn.addActionListener(this);
 		mat2Btn.addActionListener(this);
