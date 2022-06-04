@@ -8,23 +8,23 @@ import java.awt.event.ActionListener;
 public class SettingMain extends JFrame implements ActionListener{
 	public static final JPanel currentPanel = new JPanel();
 	public static final Color BGCOLOR = new Color(0xededf9);
-	
+
 	private JButton submitBtn;
 	private JButton mainBtn;
 	private JButton addmediBtn;
 	private JButton checkborrowBtn;
 	private JButton backBtn;
-	
+
 	private Setting_adminPage adminPage;
 	private Setting_villainPage villainPage;
 	private Setting_selectPage selectPage;
-	
+
 	public static void main(String[] args) {
 		SettingMain main = new SettingMain();
 		main.setVisible(true);
 		return;
 	}
-	
+
 	public SettingMain() {
 		super("Setting Main");
 		setSize(660, 990);
@@ -32,21 +32,21 @@ public class SettingMain extends JFrame implements ActionListener{
 		setLocation(600, 10);
 		setResizable(false);
 		setLayout(new BorderLayout());
-		
+
 		currentPanel.setBackground(BGCOLOR);
-		
+
 		Container test = this.getContentPane();
 		test.setBackground(BGCOLOR);
 		JPanel viewPanel = new JPanel();
 		viewPanel.setBackground(BGCOLOR);
 		viewPanel.add(currentPanel);
 		test.add(viewPanel, BorderLayout.CENTER);
-		
+
 		adminPage(0,"","","");
-		
+
 		setVisible(true);
 	}
-	
+
 	private void adminPage(int errorCode, String name, String ID, String phone) {
 		String errorStr = "";
 
@@ -73,47 +73,47 @@ public class SettingMain extends JFrame implements ActionListener{
 
 		currentPanel.add(adminPage, BorderLayout.CENTER);
 	}
-	
+
 	private void villainPage() {
 		villainPage = new Setting_villainPage();
 		mainBtn = new ButtonForm("./image/gotoMainButton");
 		mainBtn.addActionListener(this);
-		
+
 		villainPage.add(mainBtn);
-		
+
 		currentPanel.add(villainPage, BorderLayout.CENTER);
 	}
-	
+
 	private void selectPage() {
 		selectPage = new Setting_selectPage();
-		
+
 		addmediBtn = new ButtonForm2("./image/addmedi");
 		addmediBtn.addActionListener(this);
-		
-		checkborrowBtn = new ButtonForm2("./image/checkborrow");
+
+		checkborrowBtn = new ButtonForm3("./image/checkborrow");
 		checkborrowBtn.addActionListener(this);
-		
+
 		//back 버튼 맨 밑에 넣을 수 있는가??? 
-		backBtn = new ButtonForm_back("./image/back");
+		backBtn = new ButtonForm3("./image/back");
 		backBtn.addActionListener(this);
-		
+
 		selectPage.add(addmediBtn);
 		selectPage.add(checkborrowBtn);
 		selectPage.add(backBtn);
-		
+
 		currentPanel.add(selectPage, BorderLayout.CENTER);
-		
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		currentPanel.removeAll();
-		
+
 		if (e.getSource() == submitBtn) {
 			String name = adminPage.getName();
 			String id = adminPage.getID();
 			String phone = adminPage.getPhone();
-			
+
 			if (!name.isEmpty() && !phone.isEmpty()) {
 				//관리자가 맞다면 
 				//다음 페이지로
@@ -129,19 +129,25 @@ public class SettingMain extends JFrame implements ActionListener{
 				adminPage(1, name, id, phone);
 				*/
 			}
-			
+
 			//관리자가 아니면
 			else {
 				villainPage();
 			}
 		}
-		
+
 		if(e.getSource() == mainBtn) {
 			//메인 화면 연결 ㅎㅎ
 		}
-		
-		
-		
+		if(e.getSource() == addmediBtn)
+		{
+			AddMediMain a = new AddMediMain();
+			a.setVisible(true);
+			this.setVisible(false);
+		}
+
+
+
 		currentPanel.updateUI();
 	}
 
