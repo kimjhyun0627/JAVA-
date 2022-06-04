@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class KioskMain extends JFrame implements ActionListener
+public class KioskMain2 extends JFrame implements ActionListener
 {
     public static final JPanel currentPanel = new JPanel();
     public static final Color BGCOLOR = new Color(0xededf9);
@@ -19,12 +19,12 @@ public class KioskMain extends JFrame implements ActionListener
 
     public static void main(String[] args)
     {
-        KioskMain main = new KioskMain();
+        KioskMain2 main = new KioskMain2();
         main.setVisible(true);
         return;
     }
 
-    public KioskMain()
+    public KioskMain2()
     {
         super("Kiosk Main");
         setSize(660, 990);
@@ -35,12 +35,12 @@ public class KioskMain extends JFrame implements ActionListener
 
         currentPanel.setBackground(BGCOLOR);
 
-        Container test = this.getContentPane();
+        /*Container test = this.getContentPane();
         test.setBackground(BGCOLOR);
         JPanel viewPanel = new JPanel();
         viewPanel.setBackground(BGCOLOR);
-        viewPanel.add(currentPanel);
-        test.add(viewPanel, BorderLayout.CENTER);
+        viewPanel.add(currentPanel);*/
+        add(currentPanel);
 
         startPage();
 
@@ -49,13 +49,24 @@ public class KioskMain extends JFrame implements ActionListener
 
     private void startPage()
     {
-        startPage = new Main_startPage();
+        ImageIcon img = new ImageIcon("./image/background.png");
+
+        startPage = new Main_startPage()
+        {
+            public void paintComponent(Graphics g)
+            {
+                g.drawImage(img.getImage(), 0, 0, null);
+                setOpaque(false);
+                super.paintComponent(g);
+            }
+        };
+
         startBtn = new ButtonForm("./image/start");
         startBtn.addActionListener(this);
 
         startPage.add(startBtn);
 
-        currentPanel.add(startPage, BorderLayout.CENTER);
+        add(startPage, BorderLayout.CENTER);
     }
 
     private void infoPage(int errorCode, String name, String ID, String phone)
@@ -95,13 +106,13 @@ public class KioskMain extends JFrame implements ActionListener
 
         infoPage.add(submitBtn);
 
-        currentPanel.add(infoPage, BorderLayout.CENTER);
+        add(infoPage, BorderLayout.CENTER);
     }
 
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        currentPanel.removeAll();
+        removeAll();
 
         if (e.getSource() == startBtn)
         {
