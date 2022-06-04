@@ -22,8 +22,11 @@ public class BorrowMain extends JFrame implements ActionListener {
 	private JButton ummBtn;
 	private JButton medBtn;
 	private JButton OKComfirmBtn;
+	private JButton OKReturnBtn;
 	private JButton agreeBtn;
+	private JButton agreeRBtn;
 	private JButton OKTermsBtn;
+	private JButton OKReturnGuideBtn;
 	private JButton gotoMainBtn;
 	private ArrayList<B_MatObj> MatList = new ArrayList<B_MatObj>();
 	private B_MatObj mat1;
@@ -36,9 +39,13 @@ public class BorrowMain extends JFrame implements ActionListener {
 	// private JPanel matSelectPage;
 	private JPanel matSelectinfo;
 	private B_BorrowComfirm borrowComfirmPage;
+	private B_ReturnPage returnPage;
 	private Terms termsPage;
+	private B_ReturnGuidePage returnguidePage;
 	private CompletePage completePage;
 	private boolean agree = false;
+	private boolean agreeR = false;
+	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -98,7 +105,8 @@ public class BorrowMain extends JFrame implements ActionListener {
 		viewPanel.add(currentPanel);
 		test.add(viewPanel, BorderLayout.CENTER);
 
-		userinfoPage(0,"", "","");
+		ObjSelectPage();
+		//userinfoPage(0,"", "","");
 		//TermsPage();
 		// getter로 수정해야
 
@@ -121,36 +129,7 @@ public class BorrowMain extends JFrame implements ActionListener {
 		MatList.add(mat3);
 		MatList.add(mat4);
 	}
-
-	private void userinfoPage(int errorCode, String name, String ID,
-			String phone) {
-		// TODO Auto-generated method stub
-		String errorStr = "";
-
-		if (errorCode == 1) {
-			errorStr += "등록되지 않은 이용자입니다";
-		} else if (errorCode == 0) {
-			errorStr += "";
-		} else if (errorCode == -1) {
-			errorStr += "정보을 모두 입력해주세요";
-		} else if (errorCode == -2) {
-			errorStr += "학번을 다시 입력해주세요";
-		} else if (errorCode == -3) {
-			errorStr += "전화번호을 다시 입력해주세요";
-		} else {
-			errorStr += "알 수 없는 오류입니다";
-		}
-
-		infoPage = new B_infoPage(errorStr, name, ID, phone);
-
-		userinfosubmitBtn = new ButtonForm("./image/codeVerifyButton");
-		userinfosubmitBtn.addActionListener(this);
-
-		infoPage.add(userinfosubmitBtn);
-
-		currentPanel.add(infoPage, BorderLayout.CENTER);
-	}
-
+	
 	private void ObjSelectPage() {
 		// TODO Auto-generated method stub
 		objSelectPage = new B_ObjSelect();
@@ -260,11 +239,20 @@ public class BorrowMain extends JFrame implements ActionListener {
 
 		currentPanel.add(borrowComfirmPage, BorderLayout.CENTER);
 	}
+	
+	private void ReturnPage(int matObj){// matobj로 바꿀것
+		returnPage = new B_ReturnPage(matObj);
+		OKReturnBtn = new ButtonForm("./image/codeVerifyButton");
+		OKReturnBtn.addActionListener(this);
+
+		returnPage.add(OKReturnBtn);
+
+		currentPanel.add(returnPage, BorderLayout.CENTER);
+	}
 
 	private void TermsPage() {// 에베베
 		termsPage = new Terms();
 
-		// /////////////
 		if (agree) {
 			agreeBtn = new ButtonForm4("./image/Agreeclick");
 		} else {
@@ -294,9 +282,42 @@ public class BorrowMain extends JFrame implements ActionListener {
 
 		currentPanel.add(termsPage);
 	}
+	
+	private void ReturnGuidePage(){
+		returnguidePage = new B_ReturnGuidePage();
+		
+		if (agreeR) {
+			agreeRBtn = new ButtonForm4("./image/Agreeclick");
+		} else {
+			agreeRBtn = new ButtonForm4("./image/Agree");
+		}
+		agreeRBtn.addActionListener(this);
 
-	private void CompletePage() {// obj 받기->Haveto date 받기
-		completePage = new CompletePage();
+		OKReturnGuideBtn = new ButtonForm("./image/codeVerifyButton");
+		OKReturnGuideBtn.addActionListener(this);
+		if(!agreeR)
+		{
+			OKReturnGuideBtn.setEnabled(false);
+		}
+		JPanel Wrapper = new JPanel(new GridLayout(2, 1));
+		Wrapper.setBackground(BGCOLOR);
+		JPanel W2 = new JPanel(new FlowLayout());
+		W2.setBackground(BGCOLOR);
+		W2.add(agreeRBtn);
+		Wrapper.add(W2);
+		JPanel W1 = new JPanel(new FlowLayout());
+		W1.setBackground(BGCOLOR);
+		
+		W1.add(OKReturnGuideBtn);
+		Wrapper.add(W1);
+		returnguidePage.add(Wrapper);
+		returnguidePage.setPreferredSize(new Dimension(500,990));
+
+		currentPanel.add(returnguidePage);
+	}
+
+	private void CompletePage(String complete) {// obj 받기->Haveto date 받기
+		completePage = new CompletePage(complete);
 		gotoMainBtn = new ButtonForm("./image/gotoMainButton");
 		gotoMainBtn.addActionListener(this);
 
@@ -310,25 +331,6 @@ public class BorrowMain extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		currentPanel.removeAll();
 
-		if (e.getSource() == userinfosubmitBtn) {
-			String name = infoPage.getName();
-			String id = infoPage.getID();
-			String phone = infoPage.getPhone();
-
-			if (id.equals("1234567890") && !name.isEmpty() && !phone.isEmpty()
-					&& id.length() == 10 && phone.length() == 11) {
-				ObjSelectPage();
-			} else if (name.length() == 0 || id.length() == 0
-					|| phone.length() == 0) {
-				userinfoPage(-1, name, id, phone);
-			} else if (id.length() != 10) {
-				userinfoPage(-2, name, id, phone);
-			} else if (phone.length() != 11) {
-				userinfoPage(-3, name, id, phone);
-			} else {
-				userinfoPage(1, name, id, phone);
-			}
-		}
 		if (e.getSource() == matBtn) {
 			MatSelectPage();
 			
@@ -343,32 +345,62 @@ public class BorrowMain extends JFrame implements ActionListener {
 		if (e.getSource() == mat1Btn) {
 			// B_MatObj mat = new B_MatObj(1, new Date(2022,6,3,12,30,10), new
 			// Date(2022,6,4,11,15,5), "2021111111");
-			BorrowPage(1);
+			boolean borrowing = false;//objisborrowing
+			if(borrowing){
+				ReturnPage(1);//objID
+			}else{
+				BorrowPage(1);
+			}
 		}
 		if (e.getSource() == mat2Btn) {
 			// B_MatObj mat = new B_MatObj(1, new Date(2022,6,3,12,30,10), new
 			// Date(2022,6,4,11,15,5), "2021111111");
-			BorrowPage(2);
+			boolean borrowing = true;//objisborrowing
+			if(borrowing){
+				ReturnPage(2);//objID
+			}else{
+				BorrowPage(2);
+			}
 		}
 		if (e.getSource() == mat3Btn) {
 			// B_MatObj mat = new B_MatObj(1, new Date(2022,6,3,12,30,10), new
 			// Date(2022,6,4,11,15,5), "2021111111");
-			BorrowPage(3);
+			boolean borrowing = false;//objisborrowing
+			if(borrowing){
+				ReturnPage(3);//objID
+			}else{
+				BorrowPage(3);
+			}
 		}
 		if (e.getSource() == mat4Btn) {
 			// B_MatObj mat = new B_MatObj(1, new Date(2022,6,3,12,30,10), new
 			// Date(2022,6,4,11,15,5), "2021111111");
-			BorrowPage(4);
+			boolean borrowing = false;//objisborrowing
+			if(borrowing){
+				ReturnPage(4);//objID
+			}else{
+				BorrowPage(4);
+			}
 		}
 		if (e.getSource() == OKComfirmBtn) {
 			TermsPage();
 		}
-		if (e.getSource() == OKTermsBtn) {
-			CompletePage();
+		if (e.getSource() == OKReturnBtn){
+			ReturnGuidePage();
 		}
 		if (e.getSource() == agreeBtn) {
 			agree = !agree;
 			TermsPage();
+		}
+		if (e.getSource() == agreeRBtn) {
+			agreeR = !agreeR;
+			ReturnGuidePage();
+		}
+		if (e.getSource() == OKTermsBtn) {
+			CompletePage("borrowComplete");
+		}
+		if (e.getSource() == OKReturnGuideBtn) {
+			CompletePage("returnComplete");
 		}
 
 		currentPanel.updateUI();

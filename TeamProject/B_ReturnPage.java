@@ -4,21 +4,19 @@ import java.awt.*;
 
 import javax.swing.*;
 
-public class B_BorrowComfirm extends JPanel{
-	
-	public B_BorrowComfirm(int Bobj) {////obj로 바꿀것
-		// TODO Auto-generated constructor stub
+public class B_ReturnPage extends JPanel{
+	public B_ReturnPage(int Bobj){
 		super();
 		setBackground(BorrowMain.BGCOLOR);
 		setLayout(new GridLayout(5,1));
 		
-		centerBoldLabel title = new centerBoldLabel("대여 정보 확인", 42);
+		centerBoldLabel title = new centerBoldLabel("반납 정보 확인", 42);
 		
 		JPanel cp = new JPanel();
         cp.setLayout(new GridLayout(6,2));
         cp.setBackground(BorrowMain.BGCOLOR);
         
-        JLabel nObjLB = new JLabel(Bobj+"번 돗자리 대여");//자녀class판단필요
+        JLabel nObjLB = new JLabel(Bobj+"번 돗자리 반납");//자녀class판단필요
         nObjLB.setFont(new Font("IM혜민 regular", Font.PLAIN, 30));
         JLabel termLB = new JLabel("대여기간 :");
         termLB.setFont(new Font("IM혜민 regular", Font.PLAIN, 30));
@@ -28,20 +26,20 @@ public class B_BorrowComfirm extends JPanel{
         sIDLB.setFont(new Font("IM혜민 regular", Font.PLAIN, 30));
         JLabel phoneLB = new JLabel("전화번호 :");
         phoneLB.setFont(new Font("IM혜민 regular", Font.PLAIN, 30));
-        JLabel correct = new JLabel("물품을 대여하시겠습니까?");
+        JLabel correct = new JLabel("물품을 반납하시겠습니까?");
         correct.setFont(new Font("IM혜민 regular", Font.PLAIN, 30));
         correct.setBackground(BorrowMain.BGCOLOR);
         
         //JLabel dates = new JLabel(Bobj.getDateStart().toString());
-		//JLabel dateh = new JLabel("~ "+Bobj.getDateHaveto().toString());
+		//JLabel datee = new JLabel("~ "+Bobj.getDateHaveto().toString());
 		
         //임시
         Date datestart = new Date(2022,6,3,12,30,10);
-        Date datehaveto = new Date(2022,6,4,11,15,5);
+        Date dateend = new Date(true);
         JLabel dates = new JLabel(datestart.toString());
-		JLabel dateh = new JLabel("~ "+datehaveto.toString());
+		JLabel datee = new JLabel("~ "+dateend.toString());
         dates.setFont(new Font("IM혜민 regular", Font.PLAIN, 24));
-		dateh.setFont(new Font("IM혜민 regular", Font.PLAIN, 24));
+		datee.setFont(new Font("IM혜민 regular", Font.PLAIN, 24));
 		
 		JLabel name = new JLabel("홍길동");//student에서 받기
         name.setFont(new Font("IM혜민 regular", Font.PLAIN, 30));
@@ -55,7 +53,7 @@ public class B_BorrowComfirm extends JPanel{
         cp.add(termLB);
         cp.add(dates);
         cp.add(new EmptyPanel());
-        cp.add(dateh);
+        cp.add(datee);
         cp.add(nameLB);
         cp.add(name);
         cp.add(sIDLB);
