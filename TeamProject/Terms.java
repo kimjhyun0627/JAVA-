@@ -12,7 +12,7 @@ public class Terms extends JPanel {
 	private String termsline;
 	private String termstxt;
 
-	public Terms() {
+	public Terms(String file) {
 		super();
 		setBackground(BorrowMain.BGCOLOR);
 		setLayout(new GridLayout(2, 1));
@@ -26,7 +26,7 @@ public class Terms extends JPanel {
 		
 		Scanner filereader = null;
 		try{
-			filereader = new Scanner(new FileInputStream("./data/terms.txt"));
+			filereader = new Scanner(new FileInputStream(file));
 			termstxt = filereader.nextLine()+"\n";
 			while(filereader.hasNext()){
 				termsline = filereader.nextLine()+"\n";//

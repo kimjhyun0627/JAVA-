@@ -5,405 +5,557 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class BorrowMain extends JFrame implements ActionListener {
-	public static final JPanel currentPanel = new JPanel();
-	public static final Color BGCOLOR = new Color(0xededf9);
-	private JButton userinfosubmitBtn;
-	private JButton matBtn;
-	private JButton mat1Btn;
-	private JButton mat2Btn;
-	private JButton mat3Btn;
-	private JButton mat4Btn;
-	private JButton ummBtn;
-	private JButton medBtn;
-	private JButton OKComfirmBtn;
-	private JButton OKReturnBtn;
-	private JButton agreeBtn;
-	private JButton agreeRBtn;
-	private JButton OKTermsBtn;
-	private JButton OKReturnGuideBtn;
-	private JButton gotoMainBtn;
-	private ArrayList<B_MatObj> MatList = new ArrayList<B_MatObj>();
-	private B_MatObj mat1;
-	private B_MatObj mat2;
-	private B_MatObj mat3;
-	private B_MatObj mat4;
-	private B_infoPage infoPage;
-	private B_ObjSelect objSelectPage;
-	private B_MatSelect matSelectPage;
-	// private JPanel matSelectPage;
-	private JPanel matSelectinfo;
-	private B_BorrowComfirm borrowComfirmPage;
-	private B_ReturnPage returnPage;
-	private Terms termsPage;
-	private B_ReturnGuidePage returnguidePage;
-	private CompletePage completePage;
-	private boolean agree = false;
-	private boolean agreeR = false;
-	
+public class BorrowMain extends JFrame implements ActionListener
+{
+    public static final JPanel currentPanel = new JPanel();
+    public static final Color BGCOLOR = new Color(0xededf9);
+    private JButton userinfosubmitBtn;
+    private JButton matBtn;
+    private JButton mat1Btn;
+    private JButton mat2Btn;
+    private JButton mat3Btn;
+    private JButton mat4Btn;
+    private JButton ummBtn;
+    private JButton medBtn;
+    private JButton med1Btn;
+    private JButton med2Btn;
+    private JButton med3Btn;
+    private JButton OKComfirmBtn;
+    private JButton MedOKComfirmBtn;
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		BorrowMain b = new BorrowMain();
-		b.setVisible(true);
-		return;
+    private JButton OKReturnBtn;
+    private JButton MatAgreeBtn;
+    private JButton MatAgreeRBtn;
+    private JButton MedAgreeBtn;
+    private JButton MatOKTermsBtn;
+    private JButton MedOKTermsBtn;
+    private JButton OKReturnGuideBtn;
+    private JButton gotoMainBtn;
+    private ArrayList<B_MatObj> MatList = new ArrayList<B_MatObj>();
+    private B_MatObj mat1;
+    private B_MatObj mat2;
+    private B_MatObj mat3;
+    private B_MatObj mat4;
+    private B_infoPage infoPage;
+    private B_ObjSelect objSelectPage;
+    private B_MatSelect matSelectPage;
+    private B_MedSelect medSelectPage;
+    // private JPanel matSelectPage;
+    private JPanel matSelectinfo;
+    private B_BorrowComfirm borrowComfirmPage;
+    private B_UseComfirm useComfirmPage;
+    private B_ReturnPage returnPage;
+    private Terms termsPage;
+    private B_ReturnGuidePage returnguidePage;
+    private CompletePage completePage;
+    private boolean MatAgree = false;
+    private boolean MatAgreeR = false;
+    private boolean MedAgree = false;
 
-	}
 
-	/*
-	 * public void dataGetter() { Scanner FileReader_Mat = null; MatList = new
-	 * ArrayList<B_MatObj>();
-	 * 
-	 * try { FileReader_Mat = new Scanner(new
-	 * FileInputStream("./data/mat.txt")); while (FileReader_Mat.hasNext()) {
-	 * int f_ID = FileReader_Mat.nextInt(); Date f_dateStart = null ; int
-	 * f_year_Start = FileReader_Mat.nextInt(); int f_month_Start =
-	 * FileReader_Mat.nextInt(); int f_day_Start = FileReader_Mat.nextInt(); int
-	 * f_hour_Start = FileReader_Mat.nextInt(); int f_minute_Start =
-	 * FileReader_Mat.nextInt(); int f_second_Start = FileReader_Mat.nextInt();
-	 * f_dateStart.setDate(f_year_Start, f_month_Start, f_day_Start,
-	 * f_hour_Start, f_minute_Start, f_second_Start); Date f_dateHaveto = null ;
-	 * int f_year_Haveto = FileReader_Mat.nextInt(); int f_month_Haveto =
-	 * FileReader_Mat.nextInt(); int f_day_Haveto = FileReader_Mat.nextInt();
-	 * int f_hour_Haveto = FileReader_Mat.nextInt(); int f_minute_Haveto =
-	 * FileReader_Mat.nextInt(); int f_second_Haveto = FileReader_Mat.nextInt();
-	 * f_dateHaveto.setDate(f_year_Haveto, f_month_Haveto, f_day_Haveto,
-	 * f_hour_Haveto, f_minute_Haveto, f_second_Haveto); Date f_dateEnd = null ;
-	 * int f_year_End = FileReader_Mat.nextInt(); int f_month_End =
-	 * FileReader_Mat.nextInt(); int f_day_End = FileReader_Mat.nextInt(); int
-	 * f_hour_End = FileReader_Mat.nextInt(); int f_minute_End =
-	 * FileReader_Mat.nextInt(); int f_second_End = FileReader_Mat.nextInt();
-	 * f_dateEnd.setDate(f_year_End, f_month_End, f_day_End, f_hour_End,
-	 * f_minute_End, f_second_End); String f_studentID = FileReader_Mat.next();
-	 * String f_isBorrowing = FileReader_Mat.next();
-	 * 
-	 * MatList.add(new B_MatObj(f_ID, f_dateStart, f_dateHaveto, f_dateEnd,
-	 * f_studentID));
-	 * 
-	 * } FileReader_Mat.close(); } catch (FileNotFoundException e) {
-	 * e.printStackTrace(); } }
-	 */
 
-	public BorrowMain() {
-		super("test");
-		setSize(660, 990);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(false);
-		setLayout(new BorderLayout());
+    public static void main(String[] args)
+    {
+        // TODO Auto-generated method stub
+        BorrowMain b = new BorrowMain();
+        b.setVisible(true);
+        return;
 
-		currentPanel.setBackground(BGCOLOR);
+    }
 
-		Container test = this.getContentPane();
-		test.setBackground(BGCOLOR);
-		JPanel viewPanel = new JPanel();
-		viewPanel.setBackground(BGCOLOR);
-		viewPanel.add(currentPanel);
-		test.add(viewPanel, BorderLayout.CENTER);
+    /*
+     * public void dataGetter() { Scanner FileReader_Mat = null; MatList = new
+     * ArrayList<B_MatObj>();
+     *
+     * try { FileReader_Mat = new Scanner(new
+     * FileInputStream("./data/mat.txt")); while (FileReader_Mat.hasNext()) {
+     * int f_ID = FileReader_Mat.nextInt(); Date f_dateStart = null ; int
+     * f_year_Start = FileReader_Mat.nextInt(); int f_month_Start =
+     * FileReader_Mat.nextInt(); int f_day_Start = FileReader_Mat.nextInt(); int
+     * f_hour_Start = FileReader_Mat.nextInt(); int f_minute_Start =
+     * FileReader_Mat.nextInt(); int f_second_Start = FileReader_Mat.nextInt();
+     * f_dateStart.setDate(f_year_Start, f_month_Start, f_day_Start,
+     * f_hour_Start, f_minute_Start, f_second_Start); Date f_dateHaveto = null ;
+     * int f_year_Haveto = FileReader_Mat.nextInt(); int f_month_Haveto =
+     * FileReader_Mat.nextInt(); int f_day_Haveto = FileReader_Mat.nextInt();
+     * int f_hour_Haveto = FileReader_Mat.nextInt(); int f_minute_Haveto =
+     * FileReader_Mat.nextInt(); int f_second_Haveto = FileReader_Mat.nextInt();
+     * f_dateHaveto.setDate(f_year_Haveto, f_month_Haveto, f_day_Haveto,
+     * f_hour_Haveto, f_minute_Haveto, f_second_Haveto); Date f_dateEnd = null ;
+     * int f_year_End = FileReader_Mat.nextInt(); int f_month_End =
+     * FileReader_Mat.nextInt(); int f_day_End = FileReader_Mat.nextInt(); int
+     * f_hour_End = FileReader_Mat.nextInt(); int f_minute_End =
+     * FileReader_Mat.nextInt(); int f_second_End = FileReader_Mat.nextInt();
+     * f_dateEnd.setDate(f_year_End, f_month_End, f_day_End, f_hour_End,
+     * f_minute_End, f_second_End); String f_studentID = FileReader_Mat.next();
+     * String f_isBorrowing = FileReader_Mat.next();
+     *
+     * MatList.add(new B_MatObj(f_ID, f_dateStart, f_dateHaveto, f_dateEnd,
+     * f_studentID));
+     *
+     * } FileReader_Mat.close(); } catch (FileNotFoundException e) {
+     * e.printStackTrace(); } }
+     */
 
-		ObjSelectPage();
-		//userinfoPage(0,"", "","");
-		//TermsPage();
-		// getter로 수정해야
+    public BorrowMain()
+    {
+        super("test");
+        setSize(660, 990);
+        setLocation(600, 10);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
+        setLayout(new BorderLayout());
 
-		setVisible(true);
-	}
+        currentPanel.setBackground(BGCOLOR);
 
-	// 임시
-	private void getMatList() {
-		mat1 = new B_MatObj(1, new Date(2022, 6, 3, 12, 30, 10), new Date(2022,
-				6, 4, 11, 15, 5), "2021111111");
-		mat2 = new B_MatObj(2, new Date(2022, 6, 4, 12, 30, 10), new Date(2022,
-				6, 4, 11, 15, 5), "2021111111");
-		mat3 = new B_MatObj(3, new Date(2022, 6, 2, 12, 30, 10), new Date(2022,
-				6, 3, 11, 15, 5), "2021111111");
-		mat4 = new B_MatObj(4, new Date(2022, 5, 31, 12, 30, 10), new Date(
-				2022, 6, 1, 11, 15, 5), "2021111111");
+        Container test = this.getContentPane();
+        test.setBackground(BGCOLOR);
+        JPanel viewPanel = new JPanel();
+        viewPanel.setBackground(BGCOLOR);
+        viewPanel.add(currentPanel);
+        test.add(viewPanel, BorderLayout.CENTER);
 
-		MatList.add(mat1);
-		MatList.add(mat2);
-		MatList.add(mat3);
-		MatList.add(mat4);
-	}
-	
-	private void ObjSelectPage() {
-		// TODO Auto-generated method stub
-		objSelectPage = new B_ObjSelect();
-		matBtn = new ButtonForm2("./image/Mat");
-		ummBtn = new ButtonForm2("./image/Umm");
-		medBtn = new ButtonForm2("./image/Med");
+        ObjSelectPage();
+        //userinfoPage(0,"", "","");
+        //TermsPage();
+        // getter로 수정해야
 
-		matBtn.addActionListener(this);
-		ummBtn.addActionListener(this);
-		medBtn.addActionListener(this);
+        setVisible(true);
+    }
 
-		objSelectPage.add(matBtn);
-		objSelectPage.add(ummBtn);
-		objSelectPage.add(medBtn);
+    // 임시
+    private void getMatList()
+    {
+        mat1 = new B_MatObj(1, new Date(2022, 6, 3, 12, 30, 10), new Date(2022, 6, 4, 11, 15, 5), "2021111111");
+        mat2 = new B_MatObj(2, new Date(2022, 6, 4, 12, 30, 10), new Date(2022, 6, 4, 11, 15, 5), "2021111111");
+        mat3 = new B_MatObj(3, new Date(2022, 6, 2, 12, 30, 10), new Date(2022, 6, 3, 11, 15, 5), "2021111111");
+        mat4 = new B_MatObj(4, new Date(2022, 5, 31, 12, 30, 10), new Date(2022, 6, 1, 11, 15, 5), "2021111111");
 
-		currentPanel.add(objSelectPage, BorderLayout.CENTER);
-	}
+        MatList.add(mat1);
+        MatList.add(mat2);
+        MatList.add(mat3);
+        MatList.add(mat4);
+    }
 
-	private void MatSelectPage() {
-		// TODO Auto-generated method stub
+    private void ObjSelectPage()
+    {
+        objSelectPage = new B_ObjSelect();
+        matBtn = new ButtonForm2("./image/Mat");
+        ummBtn = new ButtonForm2("./image/Umm");
+        medBtn = new ButtonForm2("./image/Med");
 
-		matSelectPage = new B_MatSelect();
+        matBtn.addActionListener(this);
+        ummBtn.addActionListener(this);
+        medBtn.addActionListener(this);
 
-		Date start = new Date(2022, 6, 1, 11, 30, 45);// startDate
-		Date haveto = new Date(2022, 6, 2, 11, 00, 45);
-		B_MatInfo mat1info = new B_MatInfo(1, start, haveto, false);
-		B_MatInfo mat2info = new B_MatInfo(2, start, haveto, true);
-		B_MatInfo mat3info = new B_MatInfo(3, start, haveto, false);
-		B_MatInfo mat4info = new B_MatInfo(4, start, haveto, false);
+        objSelectPage.add(matBtn);
+        objSelectPage.add(ummBtn);
+        objSelectPage.add(medBtn);
 
-		mat1Btn = new ButtonForm3("./image/BorrowAble"); // isborrowing boolean
-															// function
-		mat2Btn = new ButtonForm3("./image/BorrowUnable");
-		mat3Btn = new ButtonForm3("./image/BorrowAble");
-		mat4Btn = new ButtonForm3("./image/BorrowAble");
-		/*
-		 * B_MatInfo mat1info = new B_MatInfo(mat1.getID(), mat1.getDateStart(),
-		 * mat1.getDateHaveto(), mat1.getIsBorrowing()); B_MatInfo mat2info =
-		 * new B_MatInfo(mat2.getID(), mat2.getDateStart(),
-		 * mat2.getDateHaveto(), mat2.getIsBorrowing()); B_MatInfo mat3info =
-		 * new B_MatInfo(mat3.getID(), mat3.getDateStart(),
-		 * mat3.getDateHaveto(), mat3.getIsBorrowing()); B_MatInfo mat4info =
-		 * new B_MatInfo(mat4.getID(), mat4.getDateStart(),
-		 * mat4.getDateHaveto(), mat4.getIsBorrowing());
-		 * 
-		 * mat1Btn = new ButtonForm3(BorrowAble(mat1)); //isborrowing boolean
-		 * function mat2Btn = new ButtonForm3(BorrowAble(mat2)); mat3Btn = new
-		 * ButtonForm3(BorrowAble(mat3)); mat4Btn = new
-		 * ButtonForm3(BorrowAble(mat4));
-		 */
-		mat1Btn.addActionListener(this);
-		mat2Btn.addActionListener(this);
-		mat3Btn.addActionListener(this);
-		mat4Btn.addActionListener(this);
+        currentPanel.add(objSelectPage, BorderLayout.CENTER);
+    }
 
-		JPanel mat1Pane = new JPanel();
-		mat1Pane.setBackground(BGCOLOR);
-		setLayout(new FlowLayout());
-		mat1Pane.add(mat1info);
-		mat1Pane.add(mat1Btn);
+    private void MatSelectPage()
+    {
+        matSelectPage = new B_MatSelect();
 
-		JPanel mat2Pane = new JPanel();
-		mat2Pane.setBackground(BGCOLOR);
-		setLayout(new FlowLayout());
-		mat2Pane.add(mat2info);
-		mat2Pane.add(mat2Btn);
+        Date start = new Date(2022, 6, 1, 11, 30, 45);// startDate
+        Date haveto = new Date(2022, 6, 2, 11, 00, 45);
+        B_MatInfo mat1info = new B_MatInfo(1, start, haveto, false);
+        B_MatInfo mat2info = new B_MatInfo(2, start, haveto, true);
+        B_MatInfo mat3info = new B_MatInfo(3, start, haveto, false);
+        B_MatInfo mat4info = new B_MatInfo(4, start, haveto, false);
 
-		JPanel mat3Pane = new JPanel();
-		mat3Pane.setBackground(BGCOLOR);
-		setLayout(new FlowLayout());
-		mat3Pane.add(mat3info);
-		mat3Pane.add(mat3Btn);
+        mat1Btn = new ButtonForm3("./image/BorrowAble"); // isborrowing boolean
+        // function
+        mat2Btn = new ButtonForm3("./image/BorrowUnable");
+        mat3Btn = new ButtonForm3("./image/BorrowAble");
+        mat4Btn = new ButtonForm3("./image/BorrowAble");
+        /*
+         * B_MatInfo mat1info = new B_MatInfo(mat1.getID(), mat1.getDateStart(),
+         * mat1.getDateHaveto(), mat1.getIsBorrowing()); B_MatInfo mat2info =
+         * new B_MatInfo(mat2.getID(), mat2.getDateStart(),
+         * mat2.getDateHaveto(), mat2.getIsBorrowing()); B_MatInfo mat3info =
+         * new B_MatInfo(mat3.getID(), mat3.getDateStart(),
+         * mat3.getDateHaveto(), mat3.getIsBorrowing()); B_MatInfo mat4info =
+         * new B_MatInfo(mat4.getID(), mat4.getDateStart(),
+         * mat4.getDateHaveto(), mat4.getIsBorrowing());
+         *
+         * mat1Btn = new ButtonForm3(BorrowAble(mat1)); //isborrowing boolean
+         * function mat2Btn = new ButtonForm3(BorrowAble(mat2)); mat3Btn = new
+         * ButtonForm3(BorrowAble(mat3)); mat4Btn = new
+         * ButtonForm3(BorrowAble(mat4));
+         */
+        mat1Btn.addActionListener(this);
+        mat2Btn.addActionListener(this);
+        mat3Btn.addActionListener(this);
+        mat4Btn.addActionListener(this);
 
-		JPanel mat4Pane = new JPanel();
-		mat4Pane.setBackground(BGCOLOR);
-		setLayout(new FlowLayout());
-		mat4Pane.add(mat4info);
-		mat4Pane.add(mat4Btn);
+        JPanel mat1Pane = new JPanel();
+        mat1Pane.setBackground(BGCOLOR);
+        setLayout(new FlowLayout());
+        mat1Pane.add(mat1info);
+        mat1Pane.add(mat1Btn);
 
-		matSelectPage.add(mat1Pane);
-		matSelectPage.add(mat2Pane);
-		matSelectPage.add(mat3Pane);
-		matSelectPage.add(mat4Pane);
+        JPanel mat2Pane = new JPanel();
+        mat2Pane.setBackground(BGCOLOR);
+        setLayout(new FlowLayout());
+        mat2Pane.add(mat2info);
+        mat2Pane.add(mat2Btn);
 
-		currentPanel.add(matSelectPage, BorderLayout.CENTER);
-	}
+        JPanel mat3Pane = new JPanel();
+        mat3Pane.setBackground(BGCOLOR);
+        setLayout(new FlowLayout());
+        mat3Pane.add(mat3info);
+        mat3Pane.add(mat3Btn);
 
-	// Mat isBorrowing boolean function
-	private String BorrowAble(B_MatObj mat) {
-		String img;
-		if (mat.getIsBorrowing()) {
-			img = "./image/BorrowUnable";
-			return img;
-		} else {
-			img = "./image/BorrowAble";
-			return img;
-		}
-	}
+        JPanel mat4Pane = new JPanel();
+        mat4Pane.setBackground(BGCOLOR);
+        setLayout(new FlowLayout());
+        mat4Pane.add(mat4info);
+        mat4Pane.add(mat4Btn);
 
-	private void BorrowPage(int matObj) {// matobj로 바꿀것
+        matSelectPage.add(mat1Pane);
+        matSelectPage.add(mat2Pane);
+        matSelectPage.add(mat3Pane);
+        matSelectPage.add(mat4Pane);
 
-		borrowComfirmPage = new B_BorrowComfirm(matObj);
-		OKComfirmBtn = new ButtonForm("./image/codeVerifyButton");
-		OKComfirmBtn.addActionListener(this);
+        currentPanel.add(matSelectPage, BorderLayout.CENTER);
+    }
 
-		borrowComfirmPage.add(OKComfirmBtn);
+    private void MedSelectPage()
+    {
+        medSelectPage = new B_MedSelect();
 
-		currentPanel.add(borrowComfirmPage, BorderLayout.CENTER);
-	}
-	
-	private void ReturnPage(int matObj){// matobj로 바꿀것
-		returnPage = new B_ReturnPage(matObj);
-		OKReturnBtn = new ButtonForm("./image/codeVerifyButton");
-		OKReturnBtn.addActionListener(this);
+        B_MedInfo med1info = new B_MedInfo("반창고", 9);
+        B_MedInfo med2info = new B_MedInfo("파 스", 0);
+        B_MedInfo med3info = new B_MedInfo("감기약", 7);
 
-		returnPage.add(OKReturnBtn);
+        med1Btn = new ButtonForm3("./image/BorrowAble"); // isborrowing boolean
+        // function
+        med2Btn = new ButtonForm3("./image/BorrowUnable");
+        med3Btn = new ButtonForm3("./image/BorrowAble");
 
-		currentPanel.add(returnPage, BorderLayout.CENTER);
-	}
+        med1Btn.addActionListener(this);
+        med2Btn.addActionListener(this);
+        med3Btn.addActionListener(this);
 
-	private void TermsPage() {// 에베베
-		termsPage = new Terms();
+        JPanel med1Pane = new JPanel();
+        med1Pane.setBackground(BGCOLOR);
+        setLayout(new FlowLayout());
+        med1Pane.add(med1info);
+        med1Pane.add(med1Btn);
 
-		if (agree) {
-			agreeBtn = new ButtonForm4("./image/Agreeclick");
-		} else {
-			agreeBtn = new ButtonForm4("./image/Agree");
-		}
-		agreeBtn.addActionListener(this);
+        JPanel med2Pane = new JPanel();
+        med2Pane.setBackground(BGCOLOR);
+        setLayout(new FlowLayout());
+        med2Pane.add(med2info);
+        med2Pane.add(med2Btn);
 
-		OKTermsBtn = new ButtonForm("./image/codeVerifyButton");
-		OKTermsBtn.addActionListener(this);
-		if(!agree)
-		{
-			OKTermsBtn.setEnabled(false);
-		}
-		JPanel Wrapper = new JPanel(new GridLayout(2, 1));
-		Wrapper.setBackground(BGCOLOR);
-		JPanel W2 = new JPanel(new FlowLayout());
-		W2.setBackground(BGCOLOR);
-		W2.add(agreeBtn);
-		Wrapper.add(W2);
-		JPanel W1 = new JPanel(new FlowLayout());
-		W1.setBackground(BGCOLOR);
-		
-		W1.add(OKTermsBtn);
-		Wrapper.add(W1);
-		termsPage.add(Wrapper);
-		termsPage.setPreferredSize(new Dimension(500,990));
+        JPanel med3Pane = new JPanel();
+        med3Pane.setBackground(BGCOLOR);
+        setLayout(new FlowLayout());
+        med3Pane.add(med3info);
+        med3Pane.add(med3Btn);
 
-		currentPanel.add(termsPage);
-	}
-	
-	private void ReturnGuidePage(){
-		returnguidePage = new B_ReturnGuidePage();
-		
-		if (agreeR) {
-			agreeRBtn = new ButtonForm4("./image/Agreeclick");
-		} else {
-			agreeRBtn = new ButtonForm4("./image/Agree");
-		}
-		agreeRBtn.addActionListener(this);
+        medSelectPage.add(med1Pane);
+        medSelectPage.add(med2Pane);
+        medSelectPage.add(med3Pane);
 
-		OKReturnGuideBtn = new ButtonForm("./image/codeVerifyButton");
-		OKReturnGuideBtn.addActionListener(this);
-		if(!agreeR)
-		{
-			OKReturnGuideBtn.setEnabled(false);
-		}
-		JPanel Wrapper = new JPanel(new GridLayout(2, 1));
-		Wrapper.setBackground(BGCOLOR);
-		JPanel W2 = new JPanel(new FlowLayout());
-		W2.setBackground(BGCOLOR);
-		W2.add(agreeRBtn);
-		Wrapper.add(W2);
-		JPanel W1 = new JPanel(new FlowLayout());
-		W1.setBackground(BGCOLOR);
-		
-		W1.add(OKReturnGuideBtn);
-		Wrapper.add(W1);
-		returnguidePage.add(Wrapper);
-		returnguidePage.setPreferredSize(new Dimension(500,990));
+        currentPanel.add(medSelectPage, BorderLayout.CENTER);
+    }
 
-		currentPanel.add(returnguidePage);
-	}
+    // Mat isBorrowing boolean function
+    private String BorrowAble(B_MatObj mat)
+    {
+        String img;
+        if (mat.getIsBorrowing())
+        {
+            img = "./image/BorrowUnable";
+            return img;
+        }
+        else
+        {
+            img = "./image/BorrowAble";
+            return img;
+        }
+    }
 
-	private void CompletePage(String complete) {// obj 받기->Haveto date 받기
-		completePage = new CompletePage(complete);
-		gotoMainBtn = new ButtonForm("./image/gotoMainButton");
-		gotoMainBtn.addActionListener(this);
+    private void BorrowPage(int matObj)
+    {// matobj로 바꿀것
 
-		completePage.add(gotoMainBtn);
+        borrowComfirmPage = new B_BorrowComfirm(matObj);
+        OKComfirmBtn = new ButtonForm("./image/codeVerifyButton");
+        OKComfirmBtn.addActionListener(this);
 
-		currentPanel.add(completePage, BorderLayout.CENTER);
-	}
+        borrowComfirmPage.add(OKComfirmBtn);
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		currentPanel.removeAll();
+        currentPanel.add(borrowComfirmPage, BorderLayout.CENTER);
+    }
 
-		if (e.getSource() == matBtn) {
-			MatSelectPage();
-			
+    private void UsePage(String medname, int count)
+    {// matobj로 바꿀것
 
-		}
-		if (e.getSource() == ummBtn) {
+        useComfirmPage = new B_UseComfirm(medname, count);
+        MedOKComfirmBtn = new ButtonForm("./image/codeVerifyButton");
+        MedOKComfirmBtn.addActionListener(this);
 
-		}
-		if (e.getSource() == medBtn) {
+        useComfirmPage.add(MedOKComfirmBtn);
 
-		}
-		if (e.getSource() == mat1Btn) {
-			// B_MatObj mat = new B_MatObj(1, new Date(2022,6,3,12,30,10), new
-			// Date(2022,6,4,11,15,5), "2021111111");
-			boolean borrowing = false;//objisborrowing
-			if(borrowing){
-				ReturnPage(1);//objID
-			}else{
-				BorrowPage(1);
-			}
-		}
-		if (e.getSource() == mat2Btn) {
-			// B_MatObj mat = new B_MatObj(1, new Date(2022,6,3,12,30,10), new
-			// Date(2022,6,4,11,15,5), "2021111111");
-			boolean borrowing = true;//objisborrowing
-			if(borrowing){
-				ReturnPage(2);//objID
-			}else{
-				BorrowPage(2);
-			}
-		}
-		if (e.getSource() == mat3Btn) {
-			// B_MatObj mat = new B_MatObj(1, new Date(2022,6,3,12,30,10), new
-			// Date(2022,6,4,11,15,5), "2021111111");
-			boolean borrowing = false;//objisborrowing
-			if(borrowing){
-				ReturnPage(3);//objID
-			}else{
-				BorrowPage(3);
-			}
-		}
-		if (e.getSource() == mat4Btn) {
-			// B_MatObj mat = new B_MatObj(1, new Date(2022,6,3,12,30,10), new
-			// Date(2022,6,4,11,15,5), "2021111111");
-			boolean borrowing = false;//objisborrowing
-			if(borrowing){
-				ReturnPage(4);//objID
-			}else{
-				BorrowPage(4);
-			}
-		}
-		if (e.getSource() == OKComfirmBtn) {
-			TermsPage();
-		}
-		if (e.getSource() == OKReturnBtn){
-			ReturnGuidePage();
-		}
-		if (e.getSource() == agreeBtn) {
-			agree = !agree;
-			TermsPage();
-		}
-		if (e.getSource() == agreeRBtn) {
-			agreeR = !agreeR;
-			ReturnGuidePage();
-		}
-		if (e.getSource() == OKTermsBtn) {
-			CompletePage("borrowComplete");
-		}
-		if (e.getSource() == OKReturnGuideBtn) {
-			CompletePage("returnComplete");
-		}
+        currentPanel.add(useComfirmPage, BorderLayout.CENTER);
+    }
 
-		currentPanel.updateUI();
-	}
+    private void ReturnPage(int matObj)
+    {// matobj로 바꿀것
+        returnPage = new B_ReturnPage(matObj);
+        OKReturnBtn = new ButtonForm("./image/codeVerifyButton");
+        OKReturnBtn.addActionListener(this);
+
+        returnPage.add(OKReturnBtn);
+
+        currentPanel.add(returnPage, BorderLayout.CENTER);
+    }
+
+    private void TermsPage(String filedirectory)
+    {// 에베베
+        termsPage = new Terms(filedirectory);
+
+        JPanel BtnWrapper = new JPanel(new FlowLayout());
+        BtnWrapper.setBackground(BGCOLOR);
+        JPanel CheckWrapper = new JPanel(new FlowLayout());
+        CheckWrapper.setBackground(BGCOLOR);
+
+        if(filedirectory.equals("./data/MatTerms.txt"))
+        {
+            if (MatAgree)
+            {
+                MatAgreeBtn = new ButtonForm4("./image/Agreeclick");
+            }
+            else
+            {
+                MatAgreeBtn = new ButtonForm4("./image/Agree");
+            }
+            MatAgreeBtn.addActionListener(this);
+
+            MatOKTermsBtn = new ButtonForm("./image/codeVerifyButton");
+            MatOKTermsBtn.addActionListener(this);
+            if (!MatAgree)
+            {
+                MatOKTermsBtn.setEnabled(false);
+            }
+            CheckWrapper.add(MatAgreeBtn);
+            BtnWrapper.add(MatOKTermsBtn);
+        }
+        else if(filedirectory.equals("./data/MedTerms.txt"))
+        {
+            if (MedAgree)
+            {
+                MedAgreeBtn = new ButtonForm4("./image/Agreeclick");
+            }
+            else
+            {
+                MedAgreeBtn = new ButtonForm4("./image/Agree");
+            }
+            MedAgreeBtn.addActionListener(this);
+
+            MedOKTermsBtn = new ButtonForm("./image/codeVerifyButton");
+            MedOKTermsBtn.addActionListener(this);
+            if (!MedAgree)
+            {
+                MedOKTermsBtn.setEnabled(false);
+            }
+            CheckWrapper.add(MedAgreeBtn);
+            BtnWrapper.add(MedOKTermsBtn);
+        }
+
+        JPanel Wrapper = new JPanel(new GridLayout(2, 1));
+        Wrapper.setBackground(BGCOLOR);
+
+        Wrapper.add(CheckWrapper);
+        Wrapper.add(BtnWrapper);
+        termsPage.add(Wrapper);
+        termsPage.setPreferredSize(new Dimension(500, 990));
+
+        currentPanel.add(termsPage);
+    }
+
+    private void ReturnGuidePage()
+    {
+        returnguidePage = new B_ReturnGuidePage();
+
+        if (MatAgreeR)
+        {
+            MatAgreeRBtn = new ButtonForm4("./image/Agreeclick");
+        }
+        else
+        {
+            MatAgreeRBtn = new ButtonForm4("./image/Agree");
+        }
+        MatAgreeRBtn.addActionListener(this);
+
+        OKReturnGuideBtn = new ButtonForm("./image/codeVerifyButton");
+        OKReturnGuideBtn.addActionListener(this);
+        if (!MatAgreeR)
+        {
+            OKReturnGuideBtn.setEnabled(false);
+        }
+        JPanel Wrapper = new JPanel(new GridLayout(2, 1));
+        Wrapper.setBackground(BGCOLOR);
+        JPanel W2 = new JPanel(new FlowLayout());
+        W2.setBackground(BGCOLOR);
+        W2.add(MatAgreeRBtn);
+        Wrapper.add(W2);
+        JPanel W1 = new JPanel(new FlowLayout());
+        W1.setBackground(BGCOLOR);
+
+        W1.add(OKReturnGuideBtn);
+        Wrapper.add(W1);
+        returnguidePage.add(Wrapper);
+        returnguidePage.setPreferredSize(new Dimension(500, 990));
+
+        currentPanel.add(returnguidePage);
+    }
+
+    private void CompletePage(String complete)
+    {// obj 받기->Haveto date 받기
+        completePage = new CompletePage(complete);
+        gotoMainBtn = new ButtonForm("./image/gotoMainButton");
+        gotoMainBtn.addActionListener(this);
+
+        completePage.add(gotoMainBtn);
+
+        currentPanel.add(completePage, BorderLayout.CENTER);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        currentPanel.removeAll();
+
+        if (e.getSource() == matBtn)
+        {
+            MatSelectPage();
+        }
+        if (e.getSource() == ummBtn)
+        {
+
+        }
+        if (e.getSource() == medBtn)
+        {
+            MedSelectPage();
+        }
+        if (e.getSource() == mat1Btn)
+        {
+            // B_MatObj mat = new B_MatObj(1, new Date(2022,6,3,12,30,10), new
+            // Date(2022,6,4,11,15,5), "2021111111");
+            boolean borrowing = false;//objisborrowing
+            if (borrowing)
+            {
+                ReturnPage(1);//objID
+            }
+            else
+            {
+                BorrowPage(1);
+            }
+        }
+        if (e.getSource() == mat2Btn)
+        {
+            // B_MatObj mat = new B_MatObj(1, new Date(2022,6,3,12,30,10), new
+            // Date(2022,6,4,11,15,5), "2021111111");
+            boolean borrowing = true;//objisborrowing
+            if (borrowing)
+            {
+                ReturnPage(2);//objID
+            }
+            else
+            {
+                BorrowPage(2);
+            }
+        }
+        if (e.getSource() == mat3Btn)
+        {
+            // B_MatObj mat = new B_MatObj(1, new Date(2022,6,3,12,30,10), new
+            // Date(2022,6,4,11,15,5), "2021111111");
+            boolean borrowing = false;//objisborrowing
+            if (borrowing)
+            {
+                ReturnPage(3);//objID
+            }
+            else
+            {
+                BorrowPage(3);
+            }
+        }
+        if (e.getSource() == mat4Btn)
+        {
+            // B_MatObj mat = new B_MatObj(1, new Date(2022,6,3,12,30,10), new
+            // Date(2022,6,4,11,15,5), "2021111111");
+            boolean borrowing = false;//objisborrowing
+            if (borrowing)
+            {
+                ReturnPage(4);//objID
+            }
+            else
+            {
+                BorrowPage(4);
+            }
+        }
+        if (e.getSource() == OKComfirmBtn)
+        {
+            TermsPage("./data/MatTerms.txt");
+        }
+        if (e.getSource() == OKReturnBtn)
+        {
+            ReturnGuidePage();
+        }
+        if (e.getSource() == MatAgreeBtn)
+        {
+            MatAgree = !MatAgree;
+            TermsPage("./data/MatTerms.txt");
+        }
+        if (e.getSource() == MatAgreeRBtn)
+        {
+            MatAgreeR = !MatAgreeR;
+            ReturnGuidePage();
+        }
+        if (e.getSource() == MatOKTermsBtn)
+        {
+            CompletePage("borrowComplete");
+        }
+        if (e.getSource() == OKReturnGuideBtn)
+        {
+            CompletePage("returnComplete");
+        }
+
+        if (e.getSource() == med1Btn)
+        {
+            UsePage("반창고", 9);
+        }
+        if (e.getSource() == med2Btn)
+        {
+            UsePage("파 스", 0);
+        }
+        if (e.getSource() == med3Btn)
+        {
+            UsePage("감기약", 7);
+        }
+        if (e.getSource() == MedOKComfirmBtn)
+        {
+            TermsPage("./data/MedTerms.txt");
+        }
+        if (e.getSource() == MedOKTermsBtn)
+        {
+            CompletePage("UseMedComplete");
+        }
+        if (e.getSource() == MedAgreeBtn)
+        {
+            MedAgree = !MedAgree;
+            TermsPage("./data/MedTerms.txt");
+        }
+
+        currentPanel.updateUI();
+    }
 
 }

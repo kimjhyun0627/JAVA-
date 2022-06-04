@@ -39,7 +39,7 @@ public class B_ReturnGuidePage extends JPanel {
 
 		JScrollPane scrolledText = new JScrollPane(returnguide);
 		scrolledText
-				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 		scrolledText.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
 		JPanel WrapperPanel = new JPanel(new GridLayout(2, 1));
