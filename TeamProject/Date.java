@@ -2,176 +2,169 @@ package TeamProject;
 
 import java.time.LocalDateTime;
 
-public class Date
-{
-    private int year;
-    private int month;
-    private int day;
-    private int hour;
-    private int minute;
-    private int second;
-    private boolean afterNoon;
+public class Date {
 
-    LocalDateTime now = LocalDateTime.now();
+	private int year;
+	private int month;
+	private int day;
+	private int hour;
+	private int minute;
+	private int second;
+	private boolean afterNoon;
 
-    public Date()
-    {
-        setDate(true);
-    }
+	LocalDateTime now = LocalDateTime.now();
 
-    public Date(boolean NowOrDefault)
-    {
-        setDate(NowOrDefault);
-    }
+	public Date() {
 
-    public Date(int newYear, int newMonth, int newDay, int newHour, int newMinute, int newSecond)
-    {
-        if (isValidTime(newYear, newMonth, newDay, newHour, newMinute, newSecond))
-        {
-            setDate(newYear, newMonth, newDay, newHour, newMinute, newSecond);
-        }
-        else
-            errorhandler("invalid initializing");
-    }
+		setDate(true);
+	}
 
-    public Date(Date origin)
-    {// copy constructor
-        if (isValidTime(origin.getYear(), origin.getMonth(), origin.getDay(), origin.getHour(), origin.getMinute(),
-                origin.getSecond()))
-        {
+	public Date(boolean NowOrDefault) {
 
-            setDate(origin.getYear(), origin.getMonth(), origin.getDay(), origin.getHour(), origin.getMinute(),
-                    origin.getSecond());
+		setDate(NowOrDefault);
+	}
 
-        }
-        else
-            errorhandler("invalid initializing");
-    }
+	public Date(int newYear, int newMonth, int newDay, int newHour, int newMinute, int newSecond) {
 
-    public void setDate(boolean NowOrDefault)
-    {
+		if (isValidTime(newYear, newMonth, newDay, newHour, newMinute, newSecond)) {
 
-        if (NowOrDefault)
-        {
-            now = LocalDateTime.now();
-            year = now.getYear();
-            month = now.getMonthValue();
-            day = now.getDayOfMonth();
-            hour = now.getHour();
+			setDate(newYear, newMonth, newDay, newHour, newMinute, newSecond);
 
-            if (hour > 12)
-                afterNoon = true;
-            else
-                afterNoon = false;
+		} else
+			errorhandler("invalid initializing");
+	}
 
-            minute = now.getMinute();
-            second = now.getSecond();
+	public Date(Date origin) {// copy constructor
 
-        }
-        else
-        {
-            setDate(2021, 1, 1, 0, 0, 0);
-        }
-    }
+		if (isValidTime(origin.getYear(), origin.getMonth(), origin.getDay(), origin.getHour(), origin.getMinute(),
+				origin.getSecond())) {
 
-    public void setDate(int newYear, int newMonth, int newDay, int newHour, int newMinute, int newSecond)
-    {
-        if (isValidTime(newYear, newMonth, newDay, newHour, newMinute, newSecond))
-        {
+			setDate(origin.getYear(), origin.getMonth(), origin.getDay(), origin.getHour(), origin.getMinute(),
+					origin.getSecond());
 
-            year = newYear;
-            month = newMonth;
-            day = newDay;
-            hour = newHour;
+		} else
+			errorhandler("invalid initializing");
+	}
 
-            if (hour > 12)
-                afterNoon = true;
-            else
-                afterNoon = false;
+	public void setDate(boolean NowOrDefault) {
 
-            minute = newMinute;
-            second = newSecond;
+		if (NowOrDefault) {
 
-        }
-        else
-            errorhandler("invalid setting");
-    }
+			now = LocalDateTime.now();
+			year = now.getYear();
+			month = now.getMonthValue();
+			day = now.getDayOfMonth();
+			hour = now.getHour();
 
-    public boolean isValidTime()
-    {
-        return ((year > 2020) && (year <= 3000) && (month > 0) && (month <= 12) && (day > 0) && (day <= 31)
-                && (hour >= 0) && (hour < 24) && (minute >= 0) && (minute < 60) && (second >= 0) && (second < 60));
-    }
+			if (hour > 12)
+				afterNoon = true;
+			else
+				afterNoon = false;
 
-    public boolean isValidTime(int year, int month, int day, int hour, int minute, int second)
-    {
-        return ((year > 2020) && (year <= 3000) && (month > 0) && (month <= 12) && (day > 0) && (day <= 31)
-                && (hour >= 0) && (hour < 24) && (minute >= 0) && (minute < 60) && (second >= 0) && (second < 60));
-    }
+			minute = now.getMinute();
+			second = now.getSecond();
 
-    public int compareTime(Date other)
-    {
+		} else {
 
-        if (year - other.year != 0)
-            return year - other.year;
+			setDate(2021, 1, 1, 0, 0, 0);
+		}
+	}
 
-        if (month - other.month != 0)
-            return month - other.month;
+	public void setDate(int newYear, int newMonth, int newDay, int newHour, int newMinute, int newSecond) {
 
-        if (day - other.day != 0)
-            return day - other.day;
+		if (isValidTime(newYear, newMonth, newDay, newHour, newMinute, newSecond)) {
 
-        if (hour - other.hour != 0)
-            return hour - other.hour;
+			year = newYear;
+			month = newMonth;
+			day = newDay;
+			hour = newHour;
 
-        if (minute - other.minute != 0)
-            return minute - other.minute;
+			if (hour > 12)
+				afterNoon = true;
+			else
+				afterNoon = false;
 
-        if (second - other.second != 0)
-            return second - other.second;
+			minute = newMinute;
+			second = newSecond;
 
-        else
-            return 0;
-    }
+		} else
+			errorhandler("invalid setting");
+	}
 
-    public int getYear()
-    {
-        return year;
-    }
+	public boolean isValidTime() {
 
-    public int getMonth()
-    {
-        return month;
-    }
+		return ((year > 2020) && (year <= 3000) && (month > 0) && (month <= 12) && (day > 0) && (day <= 31)
+				&& (hour >= 0) && (hour < 24) && (minute >= 0) && (minute < 60) && (second >= 0) && (second < 60));
+	}
 
-    public int getDay()
-    {
-        return day;
-    }
+	public boolean isValidTime(int year, int month, int day, int hour, int minute, int second) {
 
-    public int getHour()
-    {
-        return hour;
-    }
+		return ((year > 2020) && (year <= 3000) && (month > 0) && (month <= 12) && (day > 0) && (day <= 31)
+				&& (hour >= 0) && (hour < 24) && (minute >= 0) && (minute < 60) && (second >= 0) && (second < 60));
+	}
 
-    public int getMinute()
-    {
-        return minute;
-    }
+	public int compareTime(Date other) {
 
-    public int getSecond()
-    {
-        return second;
-    }
+		if (year - other.year != 0)
+			return year - other.year;
 
-    public String toString()
-    {
-        return "" + year + "-" + month + "-" + day + " " + ((hour > 12) ? hour - 12 : hour) + ":" + minute + ":"
-                + second + (afterNoon ? " PM" : " AM");
-    }
+		if (month - other.month != 0)
+			return month - other.month;
 
-    private void errorhandler(String errorType)
-    {
-        System.err.println("Error occured in Date class: " + errorType);
-    }
+		if (day - other.day != 0)
+			return day - other.day;
+
+		if (hour - other.hour != 0)
+			return hour - other.hour;
+
+		if (minute - other.minute != 0)
+			return minute - other.minute;
+
+		if (second - other.second != 0)
+			return second - other.second;
+
+		else
+			return 0;
+	}
+
+	public int getYear() {
+
+		return year;
+	}
+
+	public int getMonth() {
+
+		return month;
+	}
+
+	public int getDay() {
+
+		return day;
+	}
+
+	public int getHour() {
+
+		return hour;
+	}
+
+	public int getMinute() {
+
+		return minute;
+	}
+
+	public int getSecond() {
+
+		return second;
+	}
+
+	public String toString() {
+
+		return "" + year + "-" + month + "-" + day + " " + ((hour > 12) ? hour - 12 : hour) + ":" + minute + ":"
+				+ second + (afterNoon ? " PM" : " AM");
+	}
+
+	private void errorhandler(String errorType) {
+
+		System.err.println("Error occured in Date class: " + errorType);
+	}
 }

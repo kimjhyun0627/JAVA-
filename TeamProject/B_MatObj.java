@@ -1,26 +1,26 @@
 package TeamProject;
 
 public class B_MatObj extends BorrowObj{
-
+	
 	private int ID = 0;
 	private Date dateStart;
-	private Date dateReturn;
+	private Date dateHaveto;
 	private Date dateEnd;
 	private String studentID = "";
 	private boolean isBorrowing = false;
-
+	
 	B_MatObj(int newID, String newStudID) {
 		super(newID, newStudID);
 		// TODO Auto-generated constructor stub
 		ID = newID;
 		dateStart = new Date(false);
-		dateReturn = new Date(false);
+		dateHaveto = new Date(false);
 		dateEnd = new Date(false);
 		studentID = newStudID;
 		isBorrowing = false;
-
+		
 	}
-
+	
 	B_MatObj(int newID, Date newStart, Date newEnd, String newStudID) {
 		super(newID, newStart, newEnd, newStudID);
 		// TODO Auto-generated constructor stub
@@ -28,7 +28,22 @@ public class B_MatObj extends BorrowObj{
 
 			ID = newID;
 			dateStart = new Date(newStart);
-			dateReturn = new Date(setHaveto(newStart));
+			dateHaveto = new Date(setHaveto(dateStart));
+			dateEnd = new Date(newEnd);
+			studentID = newStudID;
+			setObjStatus();
+
+		} else
+			errorhandler("invalid initialization");
+	}
+	
+	B_MatObj(int newID, Date newStart, Date newHaveto, Date newEnd, String newStudID) {
+		super(newID, newStart, newHaveto, newEnd, newStudID);
+		if (isValid(newID, newStart, newHaveto, newEnd, newStudID)) {
+
+			ID = newID;
+			dateStart = new Date(newStart);
+			dateHaveto = new Date(newHaveto);
 			dateEnd = new Date(newEnd);
 			studentID = newStudID;
 			setObjStatus();
@@ -41,7 +56,12 @@ public class B_MatObj extends BorrowObj{
 
 		return ((newID > 0) && (newStart.isValidTime()) && (newEnd.isValidTime()) && (newStudID.length() == 10));
 	}
+	
+	private boolean isValid(int newID, Date newStart, Date newHaveto, Date newEnd, String newStudID) {
 
+		return ((newID > 0) && (newStart.isValidTime()) && (newHaveto.isValidTime()) && (newEnd.isValidTime()) && (newStudID.length() == 10));
+	}
+	
 	public void updateStart() {
 
 		dateStart.setDate(true);
@@ -73,7 +93,7 @@ public class B_MatObj extends BorrowObj{
 	public String getStudentID() {return studentID;}
 
 	public boolean getIsBorrowing() {return isBorrowing;}
-
+	
 	public String toString() {
 
 		return "ID: " + ID + " Start: " + dateStart.toString() + " End: " + dateEnd.toString() + " StudID: " + studentID

@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/*
 public class KioskMain extends JFrame implements ActionListener{
 	public static final JPanel currentPanel = new JPanel();
 	public static final Color BGCOLOR = new Color(0xededf9);
@@ -91,7 +91,7 @@ public class KioskMain extends JFrame implements ActionListener{
 		currentPanel.updateUI();
 	}
 }
-
+*/
 
 
 

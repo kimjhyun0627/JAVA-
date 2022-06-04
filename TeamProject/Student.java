@@ -1,101 +1,85 @@
 package TeamProject;
 
-public class Student
-{
+public class Student {
+
 	private static final String mailForm = "@knu.ac.kr";
 	private String ID = "";
 	private String name = "";
 	private String phoneNumber = "";
 	private String webMailAddress = "";
-	private Cabinet cabinet = null;
+	private int cabinetID = 0;
 	private Boolean isCouncil = false;
 
-	public Student()
-	{
+	public Student() {
+
 		ID = "";
 		name = "";
 		phoneNumber = "";
 		webMailAddress = "";
-		cabinet = new Cabinet(0, "0000");
+		cabinetID = 0;
 		isCouncil = false;
 	}
 
-	public Student(String newID, String newname, String newphone, String newmail, int newcabID, String newcabPW, boolean newCouncil)
-	{
-		if (isValidData(newID, newname, newphone))
-		{
+	public Student(String newID, String newname, String newphone, String newmail, int newcabID, boolean newCouncil) {
+
+		if (isValidData(newID, newname, newphone, newcabID)) {
+
 			ID = newID;
 			name = newname;
-			phoneNumber = newphone;
-			webMailAddress = newmail;
-			cabinet = new Cabinet(newcabID, newcabPW);
+			phoneNumber = newphone.substring(0, 3) + "-" + newphone.substring(3, 7) + "-" + newphone.substring(7);
+			webMailAddress = newmail + mailForm;
+			cabinetID = newcabID;
 			isCouncil = newCouncil;
-		}
-		else
+
+		} else
 			errorhandler("invalid initialization");
 	}
 
-	private boolean isValidData(String newID, String newname, String newphone)
-	{
+	private boolean isValidData(String newID, String newname, String newphone, int newcabID) {
+
 		return ((newID.length() == 10) && (newname.length() >= 2) && (newname.length() < 20)
-				&& (newphone.length() == 11));
+				&& (newphone.length() == 11) && (newcabID > 0));
 	}
 
-	public String getID()
-	{
+	public String getID() {
+
 		return ID;
 	}
 
-	public String getName()
-	{
+	public String getName() {
+
 		return name;
 	}
 
-	public String getPhoneNumber()
-	{
+	public String getPhoneNumber() {
+
 		return phoneNumber;
 	}
 
-	public String getWebMailAddress()
-	{
+	public String getWebMailAddress() {
+
 		return webMailAddress;
 	}
 
-	public int getCabID()
-	{
-		return cabinet.getID();
+	public int getCabID() {
+
+		return cabinetID;
 	}
 
-	public String getCabPW()
-	{
-		return cabinet.getPW();
-	}
+	public boolean getCouncil() {
 
-	public void setCabPW(String newPW)
-	{
-		cabinet.setPW(newPW);
-	}
-
-	public boolean getCouncil()
-	{
 		return isCouncil;
 	}
 
-	public String toString()
-	{
-		String phoneNumberLong = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-" + phoneNumber.substring(7);
-		return "" + ID + "\t" + name + "\t" + phoneNumberLong + "\t" + webMailAddress + mailForm + "\t" + "\tcouncil: "
+	public String toString() {
+
+		return "" + ID + "\t" + name + "\t" + phoneNumber + "\t" + webMailAddress + "\t" + cabinetID + "\tcouncil: "
 				+ isCouncil;
 	}
 
-	public String toFileString()
-	{
-		return "" + ID + "\t" + name + "\t" + phoneNumber + "\t" + webMailAddress + "\t" + cabinet.getID() + "\t" + cabinet.getPW() + "\t"
-				+ isCouncil;
-	}
+	private void errorhandler(String errorType) {
 
-	private void errorhandler(String errorType)
-	{
 		System.err.println("Error occured in Student class: " + errorType);
 	}
+
 }

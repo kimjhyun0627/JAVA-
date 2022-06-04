@@ -8,7 +8,7 @@ public class MailPage extends JPanel
     public static final int MAIL_LENGTH = 15;
     private JTextField mailInput;
 
-    public MailPage(String errorMSG, String mailAddress)
+    public MailPage(String errorMSG)
     {
         super();
         setBackground(PasswordMain.BACKGROUND_COLOR);
@@ -22,7 +22,6 @@ public class MailPage extends JPanel
 
         mailInput = new JTextField(MAIL_LENGTH);
         mailInput.setFont(new Font("IM혜민 regular", Font.PLAIN, 30));
-        mailInput.setText(mailAddress);
         JLabel Domain = new JLabel(" @knu.ac.kr");
         Domain.setFont(new Font("IM혜민 regular", Font.PLAIN, 30));
 
