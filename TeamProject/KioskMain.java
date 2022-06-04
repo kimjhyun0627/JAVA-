@@ -19,7 +19,8 @@ public class KioskMain extends JFrame implements ActionListener
     private JButton PWBtn;
     private JButton AddMedBtn;
     private JButton SettingBtn;
-
+    private JButton mainBtn;
+    private Setting_villainPage villainPage;
     private Main_startPage startPage;
     private Main_infoPage infoPage;
     private Student User;
@@ -93,7 +94,7 @@ public class KioskMain extends JFrame implements ActionListener
         PWBtn = new ButtonForm5("./image/selectPW");
         PWBtn.addActionListener(this);
         AddMedBtn = new ButtonForm5("./image/addmedi");
-        PWBtn.addActionListener(this);
+        AddMedBtn.addActionListener(this);
         SettingBtn = new ButtonFormSQ("./image/setting");
         SettingBtn.addActionListener(this);
 
@@ -103,6 +104,17 @@ public class KioskMain extends JFrame implements ActionListener
         selectpage.add(SettingBtn);
 
         currentPanel.add(selectpage);
+    }
+
+    private void villain()
+    {
+        villainPage = new Setting_villainPage();
+        mainBtn = new ButtonForm("./image/gotoMainButton");
+        mainBtn.addActionListener(this);
+
+        villainPage.add(mainBtn);
+
+        currentPanel.add(villainPage, BorderLayout.CENTER);
     }
 
     @Override
@@ -122,7 +134,7 @@ public class KioskMain extends JFrame implements ActionListener
             String id = infoPage.getID();
             String phone = infoPage.getPhone();
 
-            User = PasswordMain.dataGetter(id, name);
+            User = PasswordMain.dataGetter(id, name, phone);
 
             if (id.length() == 10 && !name.isEmpty() && phone.length() == 11)
             {
@@ -135,8 +147,7 @@ public class KioskMain extends JFrame implements ActionListener
                     infoPage("등록되지 않은 이용자입니다", name, id, phone);
                 }
             }
-            else if (name.length() == 0 || id.length() == 0
-                    || phone.length() == 0)
+            else if (name.length() == 0 || id.length() == 0 || phone.length() == 0)
             {
                 infoPage("정보를 모두 입력해주세요", name, id, phone);
             }
@@ -156,26 +167,49 @@ public class KioskMain extends JFrame implements ActionListener
 
         if (e.getSource() == borrowBtn)
         {
+            System.out.println("BORROW");
+
             BorrowMain b = new BorrowMain();
             b.setVisible(true);
             setVisible(false);
         }
         if (e.getSource() == PWBtn)
         {
+            System.out.println("PW");
             PasswordMain p = new PasswordMain(User);
             p.setVisible(true);
             setVisible(false);
         }
         if (e.getSource() == AddMedBtn)
         {
-            AddMediMain a = new AddMediMain();
-            a.setVisible(true);
-            setVisible(false);
+            if (User.getCouncil())
+            {
+                AddMediMain a = new AddMediMain();
+                a.setVisible(true);
+                setVisible(false);
+            }
+            else
+            {
+                villain();
+            }
         }
         if (e.getSource() == SettingBtn)
         {
-            SettingMain s = new SettingMain();
-            s.setVisible(true);
+            if (User.getCouncil())
+            {
+                SettingMain s = new SettingMain();
+                s.setVisible(true);
+                setVisible(false);
+            }
+            else
+            {
+                villain();
+            }
+        }
+        if (e.getSource() == mainBtn)
+        {
+            KioskMain k = new KioskMain();
+            k.setVisible(true);
             setVisible(false);
         }
 

@@ -25,16 +25,16 @@ public class PasswordMain extends JFrame implements ActionListener
     private String verifiedCode = "1234";
     private Student User = null;
 
-    /*public static void main(String[] args)
+    public static void main(String[] args)
     {
-        //PasswordMain t = new PasswordMain(dataGetter());
+        PasswordMain t = new PasswordMain(new Student("2021111873", "김진현","01023824633", "kimjhyun0627", 82,"0082", false ));
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Image logo = toolkit.getImage("./image/logo.png");
-        //t.setIconImage(logo);
-        //t.setVisible(true);
-    }*/
+        t.setIconImage(logo);
+        t.setVisible(true);
+    }
 
-    public static Student dataGetter(String UserID, String UserName)
+    public static Student dataGetter(String UserID, String UserName, String UserPhone)
     {
         Scanner FileReader_Student = null;
         ArrayList<Student> StudentList = new ArrayList<>();
@@ -52,7 +52,7 @@ public class PasswordMain extends JFrame implements ActionListener
                 String f_cabPW = FileReader_Student.next();
                 String f_council = FileReader_Student.next();
 
-                if (f_council.equals("n"))
+                if (f_council.equals("false"))
                 {
                     StudentList.add(new Student(f_ID, f_name, f_phone, f_mail, f_cabID, f_cabPW, false));
                 }
@@ -73,7 +73,7 @@ public class PasswordMain extends JFrame implements ActionListener
         for (Student s : StudentList)
         {
             System.out.println("id : " + s.getID() + " name : " + s.getName());
-            if (UserID.equals(s.getID()) && UserName.equals(s.getName()))
+            if (UserID.equals(s.getID()) && UserName.equals(s.getName()))//&&UserPhone.equals(s.getPhone())
             {
                 System.out.println("found");
                 theStudent = s;
@@ -140,10 +140,10 @@ public class PasswordMain extends JFrame implements ActionListener
 
     public PasswordMain(Student usingStudent)
     {
-        super("학생회 키오스크 v1.0.0");
+        super("test");
         setSize(660, 990);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocation(600, 10);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLayout(new BorderLayout());
         this.User = usingStudent;
@@ -322,8 +322,9 @@ public class PasswordMain extends JFrame implements ActionListener
         if (e.getSource() == gotoMainBtn)
         {
             dataSetter();
-            //end();
-            mailSubmitPage("", "");
+            KioskMain k = new KioskMain();
+            k.setVisible(true);
+            setVisible(false);
         }
 
         currentPanel.updateUI();

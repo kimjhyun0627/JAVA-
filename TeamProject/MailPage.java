@@ -42,8 +42,6 @@ public class MailPage extends JPanel
         add(new EmptyPanel());
         add(new EmptyPanel());
         add(new EmptyPanel());
-
-        setVisible(true);
     }
 
     public String getMailAddress()

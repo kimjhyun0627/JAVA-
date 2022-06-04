@@ -42,7 +42,7 @@ public class SettingMain extends JFrame implements ActionListener{
 		viewPanel.add(currentPanel);
 		test.add(viewPanel, BorderLayout.CENTER);
 
-		adminPage(0,"","","");
+		selectPage();
 
 		setVisible(true);
 	}
@@ -137,7 +137,9 @@ public class SettingMain extends JFrame implements ActionListener{
 		}
 
 		if(e.getSource() == mainBtn) {
-			//메인 화면 연결 ㅎㅎ
+			KioskMain k = new KioskMain();
+			k.setVisible(true);
+			setVisible(false);
 		}
 		if(e.getSource() == addmediBtn)
 		{
