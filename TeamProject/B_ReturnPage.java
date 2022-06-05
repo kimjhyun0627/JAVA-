@@ -5,7 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 
 public class B_ReturnPage extends JPanel{
-	public B_ReturnPage(int Bobj){
+	public B_ReturnPage(BorrowObject Bobj){
 		super();
 		setBackground(BorrowMain.BGCOLOR);
 		setLayout(new GridLayout(5,1));
@@ -16,7 +16,14 @@ public class B_ReturnPage extends JPanel{
         cp.setLayout(new GridLayout(6,2));
         cp.setBackground(BorrowMain.BGCOLOR);
         
-        JLabel nObjLB = new JLabel(Bobj+"번 돗자리 반납");//자녀class판단필요
+        String obj = null;//object type setting
+        if(Bobj instanceof MatObj){
+        	obj = "돗자리";
+        }else if(Bobj instanceof UmmObj){
+        	obj = "우산";
+        }
+        
+        JLabel nObjLB = new JLabel(Bobj.objID+"번 "+obj+" 반납");//자녀class판단필요
         nObjLB.setFont(new Font("IM혜민 regular", Font.PLAIN, 30));
         JLabel termLB = new JLabel("대여기간 :");
         termLB.setFont(new Font("IM혜민 regular", Font.PLAIN, 30));
@@ -30,14 +37,15 @@ public class B_ReturnPage extends JPanel{
         correct.setFont(new Font("IM혜민 regular", Font.PLAIN, 30));
         correct.setBackground(BorrowMain.BGCOLOR);
         
-        //JLabel dates = new JLabel(Bobj.getDateStart().toString());
-		//JLabel datee = new JLabel("~ "+Bobj.getDateHaveto().toString());
+        JLabel dates = new JLabel(Bobj.getDateStart().toString());
+		JLabel datee = new JLabel("~ "+Bobj.getDateHaveto().toString());
 		
         //임시
+		/*
         Date datestart = new Date(2022,6,3,12,30,10);
         Date dateend = new Date(true);
         JLabel dates = new JLabel(datestart.toString());
-		JLabel datee = new JLabel("~ "+dateend.toString());
+		JLabel datee = new JLabel("~ "+dateend.toString());*/
         dates.setFont(new Font("IM혜민 regular", Font.PLAIN, 24));
 		datee.setFont(new Font("IM혜민 regular", Font.PLAIN, 24));
 		

@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class B_BorrowComfirm extends JPanel{
 	
-	public B_BorrowComfirm(int Bobj) {////obj로 바꿀것
+	public B_BorrowComfirm(BorrowObject Bobj) {////obj로 바꿀것
 		// TODO Auto-generated constructor stub
 		super();
 		setBackground(BorrowMain.BGCOLOR);
@@ -18,7 +18,14 @@ public class B_BorrowComfirm extends JPanel{
         cp.setLayout(new GridLayout(6,2));
         cp.setBackground(BorrowMain.BGCOLOR);
         
-        JLabel nObjLB = new JLabel(Bobj+"번 돗자리 대여");//자녀class판단필요
+        String obj = null;//object type setting
+        if(Bobj instanceof MatObj){
+        	obj = "돗자리";
+        }else if(Bobj instanceof UmmObj){
+        	obj = "우산";
+        }
+        
+        JLabel nObjLB = new JLabel(Bobj.objID+"번 "+obj+" 대여");//자녀class판단필요
         nObjLB.setFont(new Font("IM혜민 regular", Font.PLAIN, 30));
         JLabel termLB = new JLabel("대여기간 :");
         termLB.setFont(new Font("IM혜민 regular", Font.PLAIN, 30));
@@ -36,8 +43,8 @@ public class B_BorrowComfirm extends JPanel{
 		//JLabel dateh = new JLabel("~ "+Bobj.getDateHaveto().toString());
 		
         //임시
-        Date datestart = new Date(2022,6,3,12,30,10);
-        Date datehaveto = new Date(2022,6,4,11,15,5);
+        Date datestart = new Date(Bobj.dateStart);
+        Date datehaveto = new Date(Bobj.dateHaveto);
         JLabel dates = new JLabel(datestart.toString());
 		JLabel dateh = new JLabel("~ "+datehaveto.toString());
         dates.setFont(new Font("IM혜민 regular", Font.PLAIN, 24));

@@ -4,9 +4,9 @@ import javax.swing.*;
 
 import java.awt.*;
 
-public class B_MatInfo extends JPanel
+public class B_UmmInfo extends JPanel
 {
-    public B_MatInfo(int num, Date datestart, Date dateHaveto, boolean isborrowing)
+    public B_UmmInfo(int num, Date datestart, Date dateHaveto, boolean isborrowing)
     {
         super();
         setLayout(new GridLayout(3, 1));
@@ -14,14 +14,14 @@ public class B_MatInfo extends JPanel
 
         if (isborrowing)
         {
-        	//print matname
-            centerBoldLabel title = new centerBoldLabel(num + "번 돗자리 : 대여가능     ", 30);
+        	//print ummname
+            centerBoldLabel title = new centerBoldLabel(num + "번 우산 : 대여가능     ", 30);
             add(title);
         }
         else
         {
-        	//print matname
-            centerBoldLabel title = new centerBoldLabel(num + "번 돗자리 : 대여불가     ", 30);
+        	//print ummname
+            centerBoldLabel title = new centerBoldLabel(num + "번 우산 : 대여불가     ", 30);
             //print date
             String startDate = datestart.toString();
             String havetoDate = dateHaveto.toString();

@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class B_MatList {
-	ArrayList<B_MatObj> matList = new ArrayList<B_MatObj>();
+	ArrayList<MatObj> matList = new ArrayList<MatObj>();
     
-	B_MatObj mat1 = new B_MatObj(1, new Date(2022,6,3,12,30,10), new Date(2022,6,4,11,15,5), "2021111111");
-	B_MatObj mat2 = new B_MatObj(2, new Date(2022,6,4,12,30,10), new Date(2022,6,4,11,15,5), "2021111111");
-	B_MatObj mat3 = new B_MatObj(3, new Date(2022,6,2,12,30,10), new Date(2022,6,3,11,15,5), "2021111111");
-	B_MatObj mat4 = new B_MatObj(4, new Date(2022,5,31,12,30,10), new Date(2022,6,1,11,15,5), "2021111111");
+	MatObj mat1 = new MatObj(1, new Date(2022,6,3,12,30,10), new Date(2022,6,4,11,15,5), "2021111111");
+	MatObj mat2 = new MatObj(2, new Date(2022,6,4,12,30,10), new Date(2022,6,4,11,15,5), "2021111111");
+	MatObj mat3 = new MatObj(3, new Date(2022,6,2,12,30,10), new Date(2022,6,3,11,15,5), "2021111111");
+	MatObj mat4 = new MatObj(4, new Date(2022,5,31,12,30,10), new Date(2022,6,1,11,15,5), "2021111111");
 	
 	/*
 	matList.add(mat1); 
