@@ -40,19 +40,20 @@ public class BorrowMain extends JFrame implements ActionListener
     private JButton UmmOKTermsBtn;
     private JButton OKReturnGuideBtn;
     private JButton gotoMainBtn;
-    
+    BorrowObject[] ObjList;
+
     //임시
-    private ArrayList<MatObj> MatList = new ArrayList<MatObj>();
-    private MatObj mat1 = new MatObj(1, new Date(2022, 6, 3, 12, 30, 10), new Date(2022, 6, 4, 11, 15, 5), "2021111111");
-    private MatObj mat2 = new MatObj(2, new Date(2022, 6, 4, 12, 30, 10), new Date(2022, 6, 4, 11, 15, 5), "2021111111");
-    private MatObj mat3 = new MatObj(3, new Date(2022, 6, 2, 12, 30, 10), new Date(2022, 6, 3, 11, 15, 5), "2021111111");
-    private MatObj mat4 = new MatObj(4, new Date(2022, 5, 31, 12, 30, 10), new Date(2022, 6, 1, 11, 15, 5), "2021111111");
-    
+    private MatObj[] MatList = new MatObj[4];
+    private MatObj mat1;
+    private MatObj mat2;
+    private MatObj mat3;
+    private MatObj mat4;
+
     private UmmObj umm1 = new UmmObj(1, new Date(2022, 6, 3, 12, 30, 10), new Date(2022, 6, 4, 11, 15, 5), "2021111111");
     private UmmObj umm2 = new UmmObj(2, new Date(2022, 6, 4, 12, 30, 10), new Date(2022, 6, 4, 11, 15, 5), "2021111111");
     private UmmObj umm3 = new UmmObj(3, new Date(2022, 6, 2, 12, 30, 10), new Date(2022, 6, 3, 11, 15, 5), "2021111111");
     private UmmObj umm4 = new UmmObj(4, new Date(2022, 5, 31, 12, 30, 10), new Date(2022, 6, 1, 11, 15, 5), "2021111111");
-    
+
     private B_infoPage infoPage;
     private B_ObjSelect objSelectPage;
     private B_MatSelect matSelectPage;
@@ -71,7 +72,6 @@ public class BorrowMain extends JFrame implements ActionListener
     private boolean UmmAgree = false;
     private boolean UmmAgreeR = false;
     private boolean MedAgree = false;
-
 
 
     public static void main(String[] args)
@@ -144,15 +144,16 @@ public class BorrowMain extends JFrame implements ActionListener
     // 임시
     private void getMatList()
     {
-        mat1 = new MatObj(1, new Date(2022, 6, 3, 12, 30, 10), new Date(2022, 6, 4, 11, 15, 5), "2021111111");
-        mat2 = new MatObj(2, new Date(2022, 6, 4, 12, 30, 10), new Date(2022, 6, 4, 11, 15, 5), "2021111111");
-        mat3 = new MatObj(3, new Date(2022, 6, 2, 12, 30, 10), new Date(2022, 6, 3, 11, 15, 5), "2021111111");
-        mat4 = new MatObj(4, new Date(2022, 5, 31, 12, 30, 10), new Date(2022, 6, 1, 11, 15, 5), "2021111111");
+        /*mat1 = (MatObj) ObjList[0];
+        mat2 = (MatObj) ObjList[1];
+        mat3 = (MatObj) ObjList[2];
+        mat4 = (MatObj) ObjList[3];
 
-        MatList.add(mat1);
-        MatList.add(mat2);
-        MatList.add(mat3);
-        MatList.add(mat4);
+        MatList[0] = mat1;
+        MatList[1] = mat2;
+        MatList[2] = mat3;
+        MatList[3] = mat4;*/
+        MatList = MatObj.dataGetter();
     }
 
     private void ObjSelectPage()
@@ -176,34 +177,29 @@ public class BorrowMain extends JFrame implements ActionListener
     private void MatSelectPage()
     {
         matSelectPage = new B_MatSelect();
-        /*
-        Date start = new Date(2022, 6, 1, 11, 30, 45);// startDate
-        Date haveto = new Date(2022, 6, 2, 11, 00, 45);
-        B_MatInfo mat1info = new B_MatInfo(1, start, haveto, false);
-        B_MatInfo mat2info = new B_MatInfo(2, start, haveto, true);
-        B_MatInfo mat3info = new B_MatInfo(3, start, haveto, false);
-        B_MatInfo mat4info = new B_MatInfo(4, start, haveto, false);
 
-        mat1Btn = new ButtonForm3("./image/BorrowAble"); // isborrowing boolean
-        // function
-        mat2Btn = new ButtonForm3("./image/BorrowUnable");
-        mat3Btn = new ButtonForm3("./image/BorrowAble");
-        mat4Btn = new ButtonForm3("./image/BorrowAble");
-        */
-        B_MatInfo mat1info = new B_MatInfo(mat1.getObjID(), mat1.getDateStart(),
-        		mat1.getDateHaveto(), mat1.getIsBorrowing()); 
-        B_MatInfo mat2info = new B_MatInfo(mat2.getObjID(), mat2.getDateStart(),
-        		mat2.getDateHaveto(), mat2.getIsBorrowing()); 
-        B_MatInfo mat3info = new B_MatInfo(mat3.getObjID(), mat3.getDateStart(),
-        		mat3.getDateHaveto(), mat3.getIsBorrowing()); 
-        B_MatInfo mat4info = new B_MatInfo(mat4.getObjID(), mat4.getDateStart(),
-        		mat4.getDateHaveto(), mat4.getIsBorrowing());
+        getMatList();
+        B_MatInfo mat1info = new B_MatInfo(MatList[0].getObjID(), MatList[0].getDateStart(),
+                MatList[0].getDateHaveto(), MatList[0].getIsBorrowing());
+        B_MatInfo mat2info = new B_MatInfo(MatList[1].getObjID(), MatList[1].getDateStart(),
+                MatList[1].getDateHaveto(), MatList[1].getIsBorrowing());
+        B_MatInfo mat3info = new B_MatInfo(MatList[2].getObjID(), MatList[2].getDateStart(),
+                MatList[2].getDateHaveto(), MatList[2].getIsBorrowing());
+        B_MatInfo mat4info = new B_MatInfo(MatList[3].getObjID(), MatList[3].getDateStart(),
+                MatList[3].getDateHaveto(), MatList[3].getIsBorrowing());
 
-        mat1Btn = new ButtonForm3(BorrowAble(mat1)); //isborrowing boolean function 
-        mat2Btn = new ButtonForm3(BorrowAble(mat2)); 
-        mat3Btn = new ButtonForm3(BorrowAble(mat3)); 
-        mat4Btn = new ButtonForm3(BorrowAble(mat4));
-        
+
+        System.out.println(MatList[0].getIsBorrowing());
+        System.out.println(MatList[1].getIsBorrowing());
+        System.out.println(MatList[2].getIsBorrowing());
+        System.out.println(MatList[3].getIsBorrowing());
+
+
+        mat1Btn = new ButtonForm3(BorrowAble(MatList[0])); //isborrowing boolean function
+        mat2Btn = new ButtonForm3(BorrowAble(MatList[1]));
+        mat3Btn = new ButtonForm3(BorrowAble(MatList[2]));
+        mat4Btn = new ButtonForm3(BorrowAble(MatList[3]));
+
         mat1Btn.addActionListener(this);
         mat2Btn.addActionListener(this);
         mat3Btn.addActionListener(this);
@@ -240,7 +236,7 @@ public class BorrowMain extends JFrame implements ActionListener
 
         currentPanel.add(matSelectPage, BorderLayout.CENTER);
     }
-    
+
     private void UmmSelectPage()
     {
         ummSelectPage = new B_UmmSelect();
@@ -259,19 +255,19 @@ public class BorrowMain extends JFrame implements ActionListener
         mat4Btn = new ButtonForm3("./image/BorrowAble");
         */
         B_UmmInfo umm1info = new B_UmmInfo(mat1.getObjID(), mat1.getDateStart(),
-        		mat1.getDateHaveto(), mat1.getIsBorrowing()); 
+                mat1.getDateHaveto(), mat1.getIsBorrowing());
         B_UmmInfo umm2info = new B_UmmInfo(mat2.getObjID(), mat2.getDateStart(),
-        		mat2.getDateHaveto(), mat2.getIsBorrowing()); 
+                mat2.getDateHaveto(), mat2.getIsBorrowing());
         B_UmmInfo umm3info = new B_UmmInfo(mat3.getObjID(), mat3.getDateStart(),
-        		mat3.getDateHaveto(), mat3.getIsBorrowing()); 
+                mat3.getDateHaveto(), mat3.getIsBorrowing());
         B_UmmInfo umm4info = new B_UmmInfo(mat4.getObjID(), mat4.getDateStart(),
-        		mat4.getDateHaveto(), mat4.getIsBorrowing());
+                mat4.getDateHaveto(), mat4.getIsBorrowing());
 
         umm1Btn = new ButtonForm3(BorrowAble(umm1)); //isborrowing boolean function 
-        umm2Btn = new ButtonForm3(BorrowAble(umm2)); 
-        umm3Btn = new ButtonForm3(BorrowAble(umm3)); 
+        umm2Btn = new ButtonForm3(BorrowAble(umm2));
+        umm3Btn = new ButtonForm3(BorrowAble(umm3));
         umm4Btn = new ButtonForm3(BorrowAble(umm4));
-        
+
         umm1Btn.addActionListener(this);
         umm2Btn.addActionListener(this);
         umm3Btn.addActionListener(this);
@@ -369,7 +365,6 @@ public class BorrowMain extends JFrame implements ActionListener
 
     private void BorrowPage(BorrowObject BObj)
     {
-
         borrowComfirmPage = new B_BorrowComfirm(BObj);
         OKComfirmBtn = new ButtonForm("./image/codeVerifyButton");
         OKComfirmBtn.addActionListener(this);
@@ -411,7 +406,7 @@ public class BorrowMain extends JFrame implements ActionListener
         JPanel CheckWrapper = new JPanel(new FlowLayout());
         CheckWrapper.setBackground(BGCOLOR);
 
-        if(filedirectory.equals("./data/MatTerms.txt"))
+        if (filedirectory.equals("./data/MatTerms.txt"))
         {
             if (MatAgree)
             {
@@ -432,7 +427,7 @@ public class BorrowMain extends JFrame implements ActionListener
             CheckWrapper.add(MatAgreeBtn);
             BtnWrapper.add(MatOKTermsBtn);
         }
-        else if(filedirectory.equals("./data/MedTerms.txt"))
+        else if (filedirectory.equals("./data/MedTerms.txt"))
         {
             if (MedAgree)
             {
@@ -524,7 +519,7 @@ public class BorrowMain extends JFrame implements ActionListener
         }
         if (e.getSource() == ummBtn)
         {
-        	UmmSelectPage();
+            UmmSelectPage();
         }
         if (e.getSource() == medBtn)
         {
@@ -677,6 +672,12 @@ public class BorrowMain extends JFrame implements ActionListener
         {
             MedAgree = !MedAgree;
             TermsPage("./data/MedTerms.txt");
+        }
+        if (e.getSource() == gotoMainBtn)
+        {
+            KioskMain k = new KioskMain();
+            k.setVisible(true);
+            setVisible(false);
         }
 
         currentPanel.updateUI();

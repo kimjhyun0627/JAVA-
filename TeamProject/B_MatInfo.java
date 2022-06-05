@@ -26,15 +26,15 @@ public class B_MatInfo extends JPanel
             String startDate = datestart.toString();
             String havetoDate = dateHaveto.toString();
 
-            JLabel dates = new JLabel(startDate);
-            JLabel datee = new JLabel("~" + havetoDate);
+            JLabel dates = new JLabel(startDate+" ~");
+            //JLabel datee = new JLabel("~");
 
             dates.setFont(new Font("IM혜민 regular", Font.PLAIN, 24));
-            datee.setFont(new Font("IM혜민 regular", Font.PLAIN, 24));
+            //datee.setFont(new Font("IM혜민 regular", Font.PLAIN, 24));
 
             add(title);
             add(dates);
-            add(datee);
+            //add(datee);
 
         }
 
