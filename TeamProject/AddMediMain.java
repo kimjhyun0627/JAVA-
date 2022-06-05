@@ -164,7 +164,7 @@ public class AddMediMain extends JFrame implements ActionListener
     {
         currentPanel.removeAll();
 
-        if (e.getSource() == medi1Btn)
+        if (e.getSource() == medi1Btn || e.getSource() == medi2Btn || e.getSource() == medi3Btn)
         {
             editPage();
         }
