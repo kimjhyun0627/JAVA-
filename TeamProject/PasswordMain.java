@@ -34,55 +34,6 @@ public class PasswordMain extends JFrame implements ActionListener
         t.setVisible(true);
     }
 
-    public static Student dataGetter(String UserID, String UserName, String UserPhone)
-    {
-        Scanner FileReader_Student = null;
-        ArrayList<Student> StudentList = new ArrayList<>();
-
-        try
-        {
-            FileReader_Student = new Scanner(new FileInputStream("./data/Student.txt"));
-            while (FileReader_Student.hasNext())
-            {
-                String f_ID = FileReader_Student.next();
-                String f_name = FileReader_Student.next();
-                String f_phone = FileReader_Student.next();
-                String f_mail = FileReader_Student.next();
-                int f_cabID = FileReader_Student.nextInt();
-                String f_cabPW = FileReader_Student.next();
-                String f_council = FileReader_Student.next();
-
-                if (f_council.equals("false"))
-                {
-                    StudentList.add(new Student(f_ID, f_name, f_phone, f_mail, f_cabID, f_cabPW, false));
-                }
-                else
-                {
-                    StudentList.add(new Student(f_ID, f_name, f_phone, f_mail, f_cabID, f_cabPW, true));
-                }
-            }
-            FileReader_Student.close();
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-
-        Student theStudent = null;
-        System.out.println("id : " + UserID + " name : " + UserName);
-        for (Student s : StudentList)
-        {
-            System.out.println("id : " + s.getID() + " name : " + s.getName());
-            if (UserID.equals(s.getID()) && UserName.equals(s.getName()))//&&UserPhone.equals(s.getPhone())
-            {
-                System.out.println("found");
-                theStudent = s;
-            }
-        }
-        System.out.println("");
-        return theStudent;
-    }
-
     public void dataSetter()
     {
         Scanner FileReader_Student = null;

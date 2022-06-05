@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Wrapper;
 
 public class KioskMain extends JFrame implements ActionListener
 {
@@ -17,7 +16,6 @@ public class KioskMain extends JFrame implements ActionListener
     private JButton startBtn;
     private JButton borrowBtn;
     private JButton PWBtn;
-    private JButton AddMedBtn;
     private JButton SettingBtn;
     private JButton mainBtn;
     private Setting_villainPage villainPage;
@@ -85,7 +83,7 @@ public class KioskMain extends JFrame implements ActionListener
         currentPanel.add(infoPage, BorderLayout.CENTER);
     }
 
-    private void selectPage()
+    private void selectPage(boolean council)
     {
         Main_selectPage selectpage = new Main_selectPage();
 
@@ -93,15 +91,17 @@ public class KioskMain extends JFrame implements ActionListener
         borrowBtn.addActionListener(this);
         PWBtn = new ButtonForm5("./image/selectPW");
         PWBtn.addActionListener(this);
-        AddMedBtn = new ButtonForm5("./image/addmedi");
-        AddMedBtn.addActionListener(this);
         SettingBtn = new ButtonFormSQ("./image/setting");
         SettingBtn.addActionListener(this);
 
         selectpage.add(borrowBtn);
         selectpage.add(PWBtn);
-        selectpage.add(AddMedBtn);
+        selectpage.add(new EmptyPanel());
         selectpage.add(SettingBtn);
+        if(!council)
+        {
+            SettingBtn.setEnabled(false);
+        }
 
         currentPanel.add(selectpage);
     }
@@ -134,13 +134,13 @@ public class KioskMain extends JFrame implements ActionListener
             String id = infoPage.getID();
             String phone = infoPage.getPhone();
 
-            User = PasswordMain.dataGetter(id, name, phone);
+            User = Student.dataGetter(id, name, phone);
 
             if (id.length() == 10 && !name.isEmpty() && phone.length() == 11)
             {
                 if (User != null)
                 {
-                    selectPage();
+                    selectPage(User.getCouncil());
                 }
                 else
                 {
@@ -180,19 +180,6 @@ public class KioskMain extends JFrame implements ActionListener
             p.setVisible(true);
             setVisible(false);
         }
-        if (e.getSource() == AddMedBtn)
-        {
-            if (User.getCouncil())
-            {
-                AddMediMain a = new AddMediMain();
-                a.setVisible(true);
-                setVisible(false);
-            }
-            else
-            {
-                villain();
-            }
-        }
         if (e.getSource() == SettingBtn)
         {
             if (User.getCouncil())
@@ -216,13 +203,6 @@ public class KioskMain extends JFrame implements ActionListener
         currentPanel.updateUI();
     }
 }
-
-
-
-
-
-
-
 
 
 

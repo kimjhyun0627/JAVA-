@@ -179,7 +179,9 @@ public class AddMediMain extends JFrame implements ActionListener
         }
         if (e.getSource() == gotostartBtn)
         {
-            //main 페이지로
+            KioskMain k = new KioskMain();
+            k.setVisible(true);
+            setVisible(false);
         }
 
         currentPanel.updateUI();
