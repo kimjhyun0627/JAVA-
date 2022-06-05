@@ -16,18 +16,20 @@ public class SettingMain extends JFrame implements ActionListener
     private JButton checkborrowBtn;
     private JButton backBtn;
 
+    private JPanel emptyPanel;
     private Setting_adminPage adminPage;
     private Setting_villainPage villainPage;
     private Setting_selectPage selectPage;
+    private Student User;
 
     public static void main(String[] args)
     {
-        SettingMain main = new SettingMain();
+        /*SettingMain main = new SettingMain();
         main.setVisible(true);
-        return;
+        return;*/
     }
 
-    public SettingMain()
+    public SettingMain(Student User)
     {
         super("Setting Main");
         setSize(660, 990);
@@ -35,6 +37,7 @@ public class SettingMain extends JFrame implements ActionListener
         setLocation(600, 10);
         setResizable(false);
         setLayout(new BorderLayout());
+        this.User = User;
 
         currentPanel.setBackground(BGCOLOR);
 
@@ -107,16 +110,26 @@ public class SettingMain extends JFrame implements ActionListener
         addmediBtn = new ButtonForm2("./image/addmedi");
         addmediBtn.addActionListener(this);
 
-        checkborrowBtn = new ButtonForm3("./image/checkborrow");
+        checkborrowBtn = new ButtonForm2("./image/checkborrow");
         checkborrowBtn.addActionListener(this);
 
         //back 버튼 맨 밑에 넣을 수 있는가???
-        backBtn = new ButtonForm3("./image/back");
+
+        JPanel backPanel = new JPanel(new GridLayout(1, 3));
+        backPanel.setBackground(new Color(0xededf9));
+
+        backBtn = new ButtonForm_back("./image/back");
         backBtn.addActionListener(this);
+
+        backPanel.add(backBtn);
+        backPanel.add(new EmptyPanel());
+        backPanel.add(new EmptyPanel());
 
         selectPage.add(addmediBtn);
         selectPage.add(checkborrowBtn);
-        selectPage.add(backBtn);
+        selectPage.add(new EmptyPanel());
+        selectPage.add(new EmptyPanel());
+        selectPage.add(backPanel);
 
         currentPanel.add(selectPage, BorderLayout.CENTER);
 
@@ -127,6 +140,23 @@ public class SettingMain extends JFrame implements ActionListener
     {
         currentPanel.removeAll();
 
+        if (e.getSource() == submitBtn)
+        {
+            String name = adminPage.getName();
+            String id = adminPage.getID();
+            String phone = adminPage.getPhone();
+
+            if (!name.isEmpty() && !phone.isEmpty())
+            {
+                selectPage();
+            }
+
+            //관리자가 아니면
+            else
+            {
+                villainPage();
+            }
+        }
 
         if (e.getSource() == mainBtn)
         {
@@ -134,13 +164,25 @@ public class SettingMain extends JFrame implements ActionListener
             k.setVisible(true);
             setVisible(false);
         }
+
         if (e.getSource() == addmediBtn)
         {
             AddMediMain a = new AddMediMain();
             a.setVisible(true);
-            this.setVisible(false);
+            setVisible(false);
         }
-
+        if (e.getSource() == checkborrowBtn)
+        {
+            CheckborrowMain a = new CheckborrowMain();
+            a.setVisible(true);
+            setVisible(false);
+        }
+        if (e.getSource() == backBtn)
+        {
+            KioskMain k = new KioskMain(User);
+            k.setVisible(true);
+            setVisible(false);
+        }
 
         currentPanel.updateUI();
     }

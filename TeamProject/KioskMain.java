@@ -54,6 +54,30 @@ public class KioskMain extends JFrame implements ActionListener
 
         setVisible(true);
     }
+    public KioskMain(Student user)
+    {
+        super("Kiosk Main");
+        setSize(660, 990);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocation(600, 10);
+        setResizable(false);
+        setLayout(new BorderLayout());
+        User = user;
+
+        currentPanel.setBackground(BGCOLOR);
+
+        Container test = this.getContentPane();
+        test.setBackground(BGCOLOR);
+        JPanel viewPanel = new JPanel();
+        viewPanel.setBackground(BGCOLOR);
+        viewPanel.add(currentPanel);
+        test.add(viewPanel, BorderLayout.CENTER);
+
+        selectPage(User.getCouncil());
+        //selectPage();
+
+        setVisible(true);
+    }
 
     private void startPage()
     {
@@ -184,7 +208,7 @@ public class KioskMain extends JFrame implements ActionListener
         {
             if (User.getCouncil())
             {
-                SettingMain s = new SettingMain();
+                SettingMain s = new SettingMain(User);
                 s.setVisible(true);
                 setVisible(false);
             }
