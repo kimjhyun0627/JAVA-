@@ -57,6 +57,19 @@ public class BorrowObject
         else
             errorhandler("invalid initialization");
     }
+    
+    public BorrowObject(int newobjID, Date newStart, String newStudID)
+    {
+        if (isValid(newobjID, newStart, newStudID))
+        {
+            objID = newobjID;
+            dateStart = new Date(newStart);
+            studentID = newStudID;
+            setObjStatus();
+        }
+        else
+            errorhandler("invalid initialization");
+    }
 
     public BorrowObject(BorrowObject BObj)
     {
@@ -127,6 +140,11 @@ public class BorrowObject
     protected boolean isValid(int newID, Date newStart, Date newHaveto, Date newEnd, String newStudID)
     {
         return ((newID > 0) && (newStart.isValidTime()) && (newHaveto.isValidTime()) && (newEnd.isValidTime()) && (newStudID.length() == 10));
+    }
+    
+    protected boolean isValid(int newID, Date newStart, String newStudID)
+    {
+        return ((newID > 0) && (newStart.isValidTime()) && (newStudID.length() == 10));
     }
 
     public void errorhandler(String errorType)

@@ -6,39 +6,28 @@ public class MedObj extends BorrowObject{
 		super();
 	}
 	
-	public MedObj(int objID, Date dateStart, Date dateEnd, String studentID) {
-		super(objID, dateStart, dateEnd, studentID);
-		dateHaveto = new Date();
-		dateHaveto.AddDate(dateStart);
+	public MedObj(int objID, Date dateStart, String studentID) {
+		super(objID, dateStart, studentID);
 		setObjStatus();
 	}
 	
-	public MedObj(int objID, Date dateStart, Date dateHaveto, Date dateEnd, String studentID) {
-		super(objID, dateStart, dateHaveto, dateEnd, studentID);
-		setObjStatus();
-	}
-	
-	public MedObj(MatObj BObj){
+	public MedObj(MedObj BObj){
 		objID = BObj.objID;
 		dateStart = BObj.dateStart;
-		dateHaveto = BObj.dateHaveto;
-		dateEnd = BObj.dateEnd;
 		studentID = BObj.studentID;
 		isBorrowing = BObj.isBorrowing;
 	}
 	
 	public boolean equals(Object otherObj){
 		if(otherObj == null) return false;
-		else if(!(otherObj instanceof UmmObj))
+		else if(!(otherObj instanceof MedObj))
 			return false; 
 		else {
-			UmmObj otherUmm = (UmmObj)otherObj;
-			return (objID == otherUmm.objID && 
-					dateStart.equals(otherUmm.dateStart) &&
-					dateHaveto.equals(otherUmm.dateHaveto) &&
-					dateEnd.equals(otherUmm.dateEnd) &&
-					studentID.equals(otherUmm.studentID) &&
-					isBorrowing == otherUmm.isBorrowing);
+			MedObj otherMed = (MedObj)otherObj;
+			return (objID == otherMed.objID && 
+					dateStart.equals(otherMed.dateStart) &&
+					studentID.equals(otherMed.studentID) &&
+					isBorrowing == otherMed.isBorrowing);
 		}
 	}
 }
