@@ -15,6 +15,7 @@ public class SettingMain extends JFrame implements ActionListener{
 	private JButton checkborrowBtn;
 	private JButton backBtn;
 	
+	private JPanel emptyPanel;
 	private Setting_adminPage adminPage;
 	private Setting_villainPage villainPage;
 	private Setting_selectPage selectPage;
@@ -95,17 +96,21 @@ public class SettingMain extends JFrame implements ActionListener{
 		
 		//back 버튼 맨 밑에 넣을 수 있는가??? 
 		
-		//JPanel backPanel = new JPanel(new BorderLayout());
-		//backPanel.setBackground(new Color(0xededf9));
+		JPanel backPanel = new JPanel(new GridLayout(1,3));
+		backPanel.setBackground(new Color(0xededf9));
 		
-		//backBtn = new ButtonForm_back("./image/back");
-		//backBtn.addActionListener(this);
+		backBtn = new ButtonForm_back("./image/back");
+		backBtn.addActionListener(this);
 		
-		//backPanel.add(backBtn, BorderLayout.SOUTH);
+		backPanel.add(backBtn);
+		backPanel.add(new EmptyPanel());
+		backPanel.add(new EmptyPanel());
 		
 		selectPage.add(addmediBtn);
 		selectPage.add(checkborrowBtn);
-		//selectPage.add(backPanel);
+		selectPage.add(new EmptyPanel());
+		selectPage.add(new EmptyPanel());
+		selectPage.add(backPanel);
 		
 		currentPanel.add(selectPage, BorderLayout.CENTER);
 		
@@ -147,13 +152,17 @@ public class SettingMain extends JFrame implements ActionListener{
 		}
 		
 		if(e.getSource() == addmediBtn) {
-			//addmediMain이랑 연결 
+			AddMediMain a = new AddMediMain();
+			a.setVisible(true);
+            setVisible(false);
 		}
 		if(e.getSource() == checkborrowBtn) {
-			//checkborrowMain이랑 연결
+			CheckborrowMain a = new CheckborrowMain();
+			a.setVisible(true);
+            setVisible(false);
 		}
 		if(e.getSource() == backBtn) {
-			
+			adminPage(0,"","","");
 		}
 		
 		currentPanel.updateUI();
