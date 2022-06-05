@@ -169,7 +169,7 @@ public class KioskMain extends JFrame implements ActionListener
         {
             System.out.println("BORROW");
 
-            BorrowMain b = new BorrowMain();
+            BorrowMain b = new BorrowMain(User);
             b.setVisible(true);
             setVisible(false);
         }

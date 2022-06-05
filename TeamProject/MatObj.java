@@ -15,8 +15,7 @@ public class MatObj extends BorrowObject
     public MatObj(int objID, Date dateStart, Date dateEnd, String studentID)
     {
         super(objID, dateStart, dateEnd, studentID);
-        dateHaveto = new Date();
-        dateHaveto.AddDate(dateStart);
+        dateHaveto = Date.AddDate(new Date());
         setObjStatus();
     }
 
@@ -100,6 +99,11 @@ public class MatObj extends BorrowObject
         FileReader_OBJ.close();
 
         return ObjList;
+    }
+
+    public String toFileString()
+    {
+        return "" + objID + "\t" + dateStart.toFileString() + "\t" + dateHaveto.toFileString() + "\t" + dateEnd.toFileString() + "\t" + studentID;
     }
 }
 

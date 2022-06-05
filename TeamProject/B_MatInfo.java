@@ -12,7 +12,7 @@ public class B_MatInfo extends JPanel
         setLayout(new GridLayout(3, 1));
         setBackground(BorrowMain.BGCOLOR);
 
-        if (isborrowing)
+        if (!isborrowing)
         {
         	//print matname
             centerBoldLabel title = new centerBoldLabel(num + "번 돗자리 : 대여가능     ", 30);
@@ -37,7 +37,5 @@ public class B_MatInfo extends JPanel
             //add(datee);
 
         }
-
-
     }
 }

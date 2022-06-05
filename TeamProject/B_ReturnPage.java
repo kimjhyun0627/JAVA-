@@ -5,7 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 
 public class B_ReturnPage extends JPanel{
-	public B_ReturnPage(BorrowObject Bobj){
+	public B_ReturnPage(BorrowObject Bobj, Student user){
 		super();
 		setBackground(BorrowMain.BGCOLOR);
 		setLayout(new GridLayout(5,1));
@@ -49,11 +49,11 @@ public class B_ReturnPage extends JPanel{
         dates.setFont(new Font("IM혜민 regular", Font.PLAIN, 24));
 		datee.setFont(new Font("IM혜민 regular", Font.PLAIN, 24));
 		
-		JLabel name = new JLabel("홍길동");//student에서 받기
+		JLabel name = new JLabel(user.getName());//student에서 받기
         name.setFont(new Font("IM혜민 regular", Font.PLAIN, 30));
-        JLabel sID = new JLabel("1234567890");//student에서 받기
+        JLabel sID = new JLabel(user.getID());//student에서 받기
         sID.setFont(new Font("IM혜민 regular", Font.PLAIN, 30));
-        JLabel phone = new JLabel("01055555555");//student에서 받기
+        JLabel phone = new JLabel(user.getPhoneNumber());//student에서 받기
         phone.setFont(new Font("IM혜민 regular", Font.PLAIN, 30));
         
         cp.add(nObjLB);

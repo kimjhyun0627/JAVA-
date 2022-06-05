@@ -5,7 +5,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class BorrowMain extends JFrame implements ActionListener
 {
@@ -40,7 +45,6 @@ public class BorrowMain extends JFrame implements ActionListener
     private JButton UmmOKTermsBtn;
     private JButton OKReturnGuideBtn;
     private JButton gotoMainBtn;
-    BorrowObject[] ObjList;
 
     //임시
     private MatObj[] MatList = new MatObj[4];
@@ -72,52 +76,22 @@ public class BorrowMain extends JFrame implements ActionListener
     private boolean UmmAgree = false;
     private boolean UmmAgreeR = false;
     private boolean MedAgree = false;
+    private Student User;
+    private int OBJNUMER = 0;
+    private int OBJTYPE = 0;
+    private MatObj MatChanged;
 
 
     public static void main(String[] args)
     {
         // TODO Auto-generated method stub
-        BorrowMain b = new BorrowMain();
-        b.setVisible(true);
+        //BorrowMain b = new BorrowMain();
+        //b.setVisible(true);
         return;
 
     }
 
-    /*
-     * public void dataGetter() { Scanner FileReader_Mat = null; MatList = new
-     * ArrayList<B_MatObj>();
-     *
-     * try { FileReader_Mat = new Scanner(new
-     * FileInputStream("./data/mat.txt")); while (FileReader_Mat.hasNext()) {
-     * int f_ID = FileReader_Mat.nextInt(); Date f_dateStart = null ; int
-     * f_year_Start = FileReader_Mat.nextInt(); int f_month_Start =
-     * FileReader_Mat.nextInt(); int f_day_Start = FileReader_Mat.nextInt(); int
-     * f_hour_Start = FileReader_Mat.nextInt(); int f_minute_Start =
-     * FileReader_Mat.nextInt(); int f_second_Start = FileReader_Mat.nextInt();
-     * f_dateStart.setDate(f_year_Start, f_month_Start, f_day_Start,
-     * f_hour_Start, f_minute_Start, f_second_Start); Date f_dateHaveto = null ;
-     * int f_year_Haveto = FileReader_Mat.nextInt(); int f_month_Haveto =
-     * FileReader_Mat.nextInt(); int f_day_Haveto = FileReader_Mat.nextInt();
-     * int f_hour_Haveto = FileReader_Mat.nextInt(); int f_minute_Haveto =
-     * FileReader_Mat.nextInt(); int f_second_Haveto = FileReader_Mat.nextInt();
-     * f_dateHaveto.setDate(f_year_Haveto, f_month_Haveto, f_day_Haveto,
-     * f_hour_Haveto, f_minute_Haveto, f_second_Haveto); Date f_dateEnd = null ;
-     * int f_year_End = FileReader_Mat.nextInt(); int f_month_End =
-     * FileReader_Mat.nextInt(); int f_day_End = FileReader_Mat.nextInt(); int
-     * f_hour_End = FileReader_Mat.nextInt(); int f_minute_End =
-     * FileReader_Mat.nextInt(); int f_second_End = FileReader_Mat.nextInt();
-     * f_dateEnd.setDate(f_year_End, f_month_End, f_day_End, f_hour_End,
-     * f_minute_End, f_second_End); String f_studentID = FileReader_Mat.next();
-     * String f_isBorrowing = FileReader_Mat.next();
-     *
-     * MatList.add(new B_MatObj(f_ID, f_dateStart, f_dateHaveto, f_dateEnd,
-     * f_studentID));
-     *
-     * } FileReader_Mat.close(); } catch (FileNotFoundException e) {
-     * e.printStackTrace(); } }
-     */
-
-    public BorrowMain()
+    public BorrowMain(Student user)
     {
         super("test");
         setSize(660, 990);
@@ -125,6 +99,7 @@ public class BorrowMain extends JFrame implements ActionListener
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLayout(new BorderLayout());
+        User = user;
 
         currentPanel.setBackground(BGCOLOR);
 
@@ -144,15 +119,6 @@ public class BorrowMain extends JFrame implements ActionListener
     // 임시
     private void getMatList()
     {
-        /*mat1 = (MatObj) ObjList[0];
-        mat2 = (MatObj) ObjList[1];
-        mat3 = (MatObj) ObjList[2];
-        mat4 = (MatObj) ObjList[3];
-
-        MatList[0] = mat1;
-        MatList[1] = mat2;
-        MatList[2] = mat3;
-        MatList[3] = mat4;*/
         MatList = MatObj.dataGetter();
     }
 
@@ -195,10 +161,26 @@ public class BorrowMain extends JFrame implements ActionListener
         System.out.println(MatList[3].getIsBorrowing());
 
 
-        mat1Btn = new ButtonForm3(BorrowAble(MatList[0])); //isborrowing boolean function
+        mat1Btn = new ButtonForm3(BorrowAble(MatList[0]));
+        if (MatList[0].getIsBorrowing() && !MatList[0].getStudentID().equals(User.getID()))
+        {
+            mat1Btn.setEnabled(false);
+        }
         mat2Btn = new ButtonForm3(BorrowAble(MatList[1]));
+        if (MatList[1].getIsBorrowing() && !MatList[1].getStudentID().equals(User.getID()))
+        {
+            mat2Btn.setEnabled(false);
+        }
         mat3Btn = new ButtonForm3(BorrowAble(MatList[2]));
+        if (MatList[2].getIsBorrowing() && !MatList[2].getStudentID().equals(User.getID()))
+        {
+            mat3Btn.setEnabled(false);
+        }
         mat4Btn = new ButtonForm3(BorrowAble(MatList[3]));
+        if (MatList[3].getIsBorrowing() && !MatList[3].getStudentID().equals(User.getID()))
+        {
+            mat4Btn.setEnabled(false);
+        }
 
         mat1Btn.addActionListener(this);
         mat2Btn.addActionListener(this);
@@ -351,7 +333,7 @@ public class BorrowMain extends JFrame implements ActionListener
     private String BorrowAble(BorrowObject obj)
     {
         String img;
-        if (obj.getIsBorrowing())
+        if (!obj.getIsBorrowing())
         {
             img = "./image/BorrowAble";
             return img;
@@ -365,7 +347,7 @@ public class BorrowMain extends JFrame implements ActionListener
 
     private void BorrowPage(BorrowObject BObj)
     {
-        borrowComfirmPage = new B_BorrowComfirm(BObj);
+        borrowComfirmPage = new B_BorrowComfirm(BObj, User);
         OKComfirmBtn = new ButtonForm("./image/codeVerifyButton");
         OKComfirmBtn.addActionListener(this);
 
@@ -388,7 +370,7 @@ public class BorrowMain extends JFrame implements ActionListener
 
     private void ReturnPage(BorrowObject BObj)
     {// matobj로 바꿀것
-        returnPage = new B_ReturnPage(BObj);
+        returnPage = new B_ReturnPage(BObj, User);
         OKReturnBtn = new ButtonForm("./image/codeVerifyButton");
         OKReturnBtn.addActionListener(this);
 
@@ -497,9 +479,9 @@ public class BorrowMain extends JFrame implements ActionListener
         currentPanel.add(returnguidePage);
     }
 
-    private void CompletePage(String completej)//, BorrowObject borrowOb
+    private void CompletePage(String completej, BorrowObject b)//, BorrowObject borrowOb
     {// obj 받기->Haveto date 받기
-        completePage = new CompletePage(completej);//, borrowObj
+        completePage = new CompletePage(completej, b);//, borrowObj
         gotoMainBtn = new ButtonForm("./image/gotoMainButton");
         gotoMainBtn.addActionListener(this);
 
@@ -515,63 +497,70 @@ public class BorrowMain extends JFrame implements ActionListener
 
         if (e.getSource() == matBtn)
         {
+            OBJTYPE = 1;
             MatSelectPage();
         }
         if (e.getSource() == ummBtn)
         {
+            OBJTYPE = 2;
             UmmSelectPage();
         }
         if (e.getSource() == medBtn)
         {
+            OBJTYPE = 3;
             MedSelectPage();
         }
         if (e.getSource() == mat1Btn)
         {
-            boolean borrowing = false;//objisborrowing
+            boolean borrowing = MatList[0].getIsBorrowing();//objisborrowing
             if (borrowing)
             {
-                ReturnPage(mat1);//objID
+                ReturnPage(MatList[0]);//objID
             }
             else
             {
-                BorrowPage(mat1);
+                BorrowPage(MatList[0]);
             }
+            OBJNUMER = 1;
         }
         if (e.getSource() == mat2Btn)
         {
-            boolean borrowing = true;//objisborrowing
+            boolean borrowing = MatList[1].getIsBorrowing();//objisborrowing
             if (borrowing)
             {
-                ReturnPage(mat2);//objID
+                ReturnPage(MatList[1]);//objID
             }
             else
             {
-                BorrowPage(mat2);
+                BorrowPage(MatList[1]);
             }
+            OBJNUMER = 2;
         }
         if (e.getSource() == mat3Btn)
         {
-            boolean borrowing = false;//objisborrowing
+            boolean borrowing = MatList[2].getIsBorrowing();//objisborrowing
             if (borrowing)
             {
-                ReturnPage(mat3);//objID
+                ReturnPage(MatList[2]);//objID
             }
             else
             {
-                BorrowPage(mat3);
+                BorrowPage(MatList[2]);
             }
+            OBJNUMER = 3;
         }
         if (e.getSource() == mat4Btn)
         {
-            boolean borrowing = false;//objisborrowing
+            boolean borrowing = MatList[3].getIsBorrowing();//objisborrowing
             if (borrowing)
             {
-                ReturnPage(mat4);//objID
+                ReturnPage(MatList[3]);//objID
             }
             else
             {
-                BorrowPage(mat4);
+                BorrowPage(MatList[3]);
             }
+            OBJNUMER = 4;
         }
         if (e.getSource() == umm1Btn)
         {
@@ -641,11 +630,18 @@ public class BorrowMain extends JFrame implements ActionListener
         }
         if (e.getSource() == MatOKTermsBtn)
         {
-            CompletePage("borrowComplete");
+            Date tmp = new Date(MatList[OBJNUMER - 1].getDateEnd());
+            MatChanged = MatList[OBJNUMER - 1] = new MatObj(OBJNUMER, new Date(), tmp, User.getID());
+
+            System.out.println(MatList[OBJNUMER - 1].toFileString());
+            CompletePage("borrowComplete", MatList[OBJNUMER - 1]);
         }
         if (e.getSource() == OKReturnGuideBtn)
         {
-            CompletePage("returnComplete");
+            Date tmpStart = new Date(MatList[OBJNUMER - 1].getDateStart());
+            MatChanged = MatList[OBJNUMER - 1] = new MatObj(OBJNUMER, tmpStart, new Date(), User.getID());
+            System.out.println(MatList[OBJNUMER - 1].toFileString());
+            CompletePage("returnComplete", MatList[OBJNUMER - 1]);
         }
 
         if (e.getSource() == med1Btn)
@@ -666,7 +662,7 @@ public class BorrowMain extends JFrame implements ActionListener
         }
         if (e.getSource() == MedOKTermsBtn)
         {
-            CompletePage("UseMedComplete");
+            CompletePage("UseMedComplete", new BorrowObject());
         }
         if (e.getSource() == MedAgreeBtn)
         {
@@ -675,12 +671,75 @@ public class BorrowMain extends JFrame implements ActionListener
         }
         if (e.getSource() == gotoMainBtn)
         {
+            MatDataSetter();
             KioskMain k = new KioskMain();
             k.setVisible(true);
             setVisible(false);
         }
 
         currentPanel.updateUI();
+    }
+
+    public void MatDataSetter()
+    {
+        Scanner FileReader_OBJ = null;
+        MatObj[] MatList = new MatObj[4];
+
+        try
+        {
+            FileReader_OBJ = new Scanner(new FileInputStream("./data/mat.txt"));
+            int count = 0;
+            while (FileReader_OBJ.hasNext())
+            {
+                int ID = FileReader_OBJ.nextInt();
+                int Year1 = FileReader_OBJ.nextInt();
+                int Month1 = FileReader_OBJ.nextInt();
+                int Day1 = FileReader_OBJ.nextInt();
+                int Hour1 = FileReader_OBJ.nextInt();
+                int Min1 = FileReader_OBJ.nextInt();
+                int Sec1 = FileReader_OBJ.nextInt();
+                int Year2 = FileReader_OBJ.nextInt();
+                int Month2 = FileReader_OBJ.nextInt();
+                int Day2 = FileReader_OBJ.nextInt();
+                int Hour2 = FileReader_OBJ.nextInt();
+                int Min2 = FileReader_OBJ.nextInt();
+                int Sec2 = FileReader_OBJ.nextInt();
+                int Year3 = FileReader_OBJ.nextInt();
+                int Month3 = FileReader_OBJ.nextInt();
+                int Day3 = FileReader_OBJ.nextInt();
+                int Hour3 = FileReader_OBJ.nextInt();
+                int Min3 = FileReader_OBJ.nextInt();
+                int Sec3 = FileReader_OBJ.nextInt();
+                String StudendID = FileReader_OBJ.next();
+
+                MatList[count++] = new MatObj(ID, new Date(Year1, Month1, Day1, Hour1, Min1, Sec1),
+                        new Date(Year2, Month2, Day2, Hour2, Min2, Sec2), new Date(Year3, Month3, Day3, Hour3, Min3, Sec3), StudendID);
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+
+        try
+        {
+            PrintWriter FileWriter_Mat = new PrintWriter(new FileOutputStream("./data/mat.txt"));
+            for (MatObj m : MatList)
+            {
+                if (m.getObjID() == OBJNUMER)
+                {
+                    FileWriter_Mat.println(MatChanged.toFileString());
+                    continue;
+                }
+                FileWriter_Mat.println(m.toFileString());
+            }
+            FileWriter_Mat.close();
+            System.out.println("success");
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -180,6 +180,11 @@ public class Date
         return "" + year + "-" + month + "-" + day + " " + ((hour > 12) ? hour - 12 : hour) + ":" + minute + ":"
                 + second + (afterNoon ? " PM" : " AM");
     }
+    public String toFileString()
+    {
+        return "" + year + "\t" + month + "\t" + day + "\t" + hour + "\t" + minute + "\t"
+                + second;
+    }
 
     private void errorhandler(String errorType)
     {
