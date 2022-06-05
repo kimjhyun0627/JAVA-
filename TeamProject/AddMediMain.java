@@ -11,16 +11,24 @@ public class AddMediMain extends JFrame implements ActionListener
     public static final JPanel currentPanel = new JPanel();
     public static final Color BGCOLOR = new Color(0xededf9);
 
-    private JButton medi1Btn;
-    private JButton medi2Btn;
-    private JButton medi3Btn;
-    private JButton yesBtn;
+    private JButton med1Btn;
+    private JButton med2Btn;
+    private JButton med3Btn;
+    private JButton yes1Btn;
+    private JButton yes2Btn;
+    private JButton yes3Btn;
     private JButton noBtn;
     private JButton gotostartBtn;
 
     private AddMedi_statusPage statusPage;
     private AddMedi_editstatusPage editPage;
     private AddMedi_completePage completePage;
+    
+    //
+    private MedObj[] MedList = new MedObj[3];
+    private MedObj thismed;
+    private MedObj med2;
+    private MedObj med3;
 
     //DB에서 받아오는 아이로 바꾸기
     private String medi_name;
@@ -28,9 +36,9 @@ public class AddMediMain extends JFrame implements ActionListener
 
     public static void main(String[] args)
     {
-        AddMediMain main = new AddMediMain();
-        main.setVisible(true);
-        return;
+        //AddMediMain main = new AddMediMain();
+        //main.setVisible(true);
+        //return;
     }
 
     public AddMediMain()
@@ -55,44 +63,48 @@ public class AddMediMain extends JFrame implements ActionListener
 
         setVisible(true);
     }
+    
+    private void getMedList() {
+    	MedList = MedObj.dataGetter();
+    }
 
     private void statusPage()
     {
         statusPage = new AddMedi_statusPage();
-
-        //DB생기면 list로 처리?
-        medi1Btn = new ButtonForm("./image/codeVerifyButton");
-        medi1Btn.addActionListener(this);
-
-        medi2Btn = new ButtonForm("./image/codeVerifyButton");
-        medi2Btn.addActionListener(this);
-
-        medi3Btn = new ButtonForm("./image/codeVerifyButton");
-        medi3Btn.addActionListener(this);
-
+        
+        //임시로 데이터 입력했습니당
+        //AddMedi_medInfo에 MedObj list로 id랑 num 넘기기 
+        //getMedList();
+        AddMedi_medInfo med1info = new AddMedi_medInfo("감기약", 5);
+        AddMedi_medInfo med2info = new AddMedi_medInfo("반창고", 7);
+        AddMedi_medInfo med3info = new AddMedi_medInfo("파 스", 10);
+        
+        
+        med1Btn = new ButtonForm("./image/codeVerifyButton");
+        med1Btn.addActionListener(this);
+        
+        med2Btn = new ButtonForm("./image/codeVerifyButton");
+        med2Btn.addActionListener(this);
+        
+        med3Btn = new ButtonForm("./image/codeVerifyButton");
+        med3Btn.addActionListener(this);
+        
         JPanel itemPanel1 = new JPanel(new GridLayout(1, 2));
         itemPanel1.setBackground(new Color(0xededf9));
-        medi_name = "감기약";
-        medi_num = 5;
-        mediNameLabel medi_name1 = new mediNameLabel(medi_name + " " + medi_num + "개"); //이름 + 개수
+        itemPanel1.add(med1info);
+        itemPanel1.add(med1Btn);
+        
 
         JPanel itemPanel2 = new JPanel(new GridLayout(1, 2));
         itemPanel2.setBackground(new Color(0xededf9));
-        mediNameLabel medi_name2 = new mediNameLabel("반창고" + " " + "7" + "개");
-
+        itemPanel2.add(med2info);
+        itemPanel2.add(med2Btn);
+        
         JPanel itemPanel3 = new JPanel(new GridLayout(1, 2));
         itemPanel3.setBackground(new Color(0xededf9));
-        mediNameLabel medi_name3 = new mediNameLabel("파 스" + " " + "10" + "개");
-
-        itemPanel1.add(medi_name1);
-        itemPanel1.add(medi1Btn);
-
-        itemPanel2.add(medi_name2);
-        itemPanel2.add(medi2Btn);
-
-        itemPanel3.add(medi_name3);
-        itemPanel3.add(medi3Btn);
-
+        itemPanel3.add(med3info);
+        itemPanel3.add(med3Btn);
+        
         statusPage.add(itemPanel1);
         statusPage.add(itemPanel2);
         statusPage.add(itemPanel3);
@@ -100,63 +112,105 @@ public class AddMediMain extends JFrame implements ActionListener
         currentPanel.add(statusPage, BorderLayout.CENTER);
     }
 
-    private void editPage()
+    private void editPage(int medi_type)
     {
-        editPage = new AddMedi_editstatusPage();
+    	if(medi_type == 1) {
+    		editPage = new AddMedi_editstatusPage("감기약");    		
 
-        JPanel titlePanel = new JPanel(new FlowLayout());
-        titlePanel.setBackground(new Color(0xededf9));
+	        JPanel checkPanel = new JPanel(new GridLayout(1, 2));
+	
+	        yes1Btn = new ButtonForm("./image/yes");
+	        yes1Btn.addActionListener(this);
+	
+	        noBtn = new ButtonForm("./image/no");
+	        noBtn.addActionListener(this);
+	
+	        checkPanel.add(yes1Btn);
+	        checkPanel.add(noBtn);
+	
+	        editPage.add(checkPanel);
+	
+	        currentPanel.add(editPage, BorderLayout.CENTER);
+    	}
+    	else if(medi_type == 2) {
+    		editPage = new AddMedi_editstatusPage("반창고");    		
 
-        //DB에서 데이터 가져온거
-        medi_name = "감기약 ";
+	        JPanel checkPanel = new JPanel(new GridLayout(1, 2));
+	
+	        yes2Btn = new ButtonForm("./image/yes");
+	        yes2Btn.addActionListener(this);
+	
+	        noBtn = new ButtonForm("./image/no");
+	        noBtn.addActionListener(this);
+	
+	        checkPanel.add(yes2Btn);
+	        checkPanel.add(noBtn);
+	
+	        editPage.add(checkPanel);
+	
+	        currentPanel.add(editPage, BorderLayout.CENTER);
+    	}
+    	else if(medi_type == 3) {
+    		editPage = new AddMedi_editstatusPage("파 스");    		
 
-        //medi 개수 변수에 저장하기
-        JTextField inputText = new JTextField(2);
-        inputText.setFont(new Font("IM혜민 bold", Font.BOLD, 42));
-
-        mediNameLabel inputLabel = new mediNameLabel(medi_name);
-        mediNameLabel addLabel = new mediNameLabel(" 개 를");
-
-        titlePanel.add(inputLabel);
-        titlePanel.add(inputText);
-        titlePanel.add(addLabel);
-
-        JPanel subtitlePanel = new JPanel(new GridLayout(1, 1));
-        subtitlePanel.setBackground(new Color(0xededf9));
-
-        mediNameLabel subLabel = new mediNameLabel("추가하시겠습니까?");
-        subtitlePanel.add(subLabel);
-
-        JPanel checkPanel = new JPanel(new GridLayout(1, 2));
-
-        yesBtn = new ButtonForm("./image/yes");
-        yesBtn.addActionListener(this);
-
-        noBtn = new ButtonForm("./image/no");
-        noBtn.addActionListener(this);
-
-        checkPanel.add(yesBtn);
-        checkPanel.add(noBtn);
-
-        editPage.add(titlePanel);
-        editPage.add(subtitlePanel);
-        editPage.add(checkPanel);
-
-        currentPanel.add(editPage, BorderLayout.CENTER);
+	        JPanel checkPanel = new JPanel(new GridLayout(1, 2));
+	
+	        yes3Btn = new ButtonForm("./image/yes");
+	        yes3Btn.addActionListener(this);
+	
+	        noBtn = new ButtonForm("./image/no");
+	        noBtn.addActionListener(this);
+	
+	        checkPanel.add(yes3Btn);
+	        checkPanel.add(noBtn);
+	
+	        editPage.add(checkPanel);
+	
+	        currentPanel.add(editPage, BorderLayout.CENTER);
+    	}
     }
 
-    private void completePage()
-    {
-        medi_name = "예시예시";
-        medi_num = 8;
-        completePage = new AddMedi_completePage(medi_name, medi_num);
-
-        gotostartBtn = new ButtonForm("./image/gotoMainButton");
-        gotostartBtn.addActionListener(this);
-
-        completePage.add(gotostartBtn);
-
-        currentPanel.add(completePage, BorderLayout.CENTER);
+    private void completePage(int med_type)
+    {	
+    	if(med_type == 1) {
+    		//테스트용
+    		medi_num = 4;
+    		//medi_num = 추가한 거 불러오기로 수정
+    		completePage = new AddMedi_completePage("감기약", medi_num);
+    		
+    		gotostartBtn = new ButtonForm("./image/gotoMainButton");
+    		gotostartBtn.addActionListener(this);
+    		
+    		completePage.add(gotostartBtn);
+    		
+    		currentPanel.add(completePage, BorderLayout.CENTER);    		
+    	}
+    	else if(med_type == 2) {
+    		//테스트용
+    		medi_num = 2;
+    		//medi_num = 추가한 거 불러오기로 수정
+    		completePage = new AddMedi_completePage("반창고", medi_num);
+    		
+    		gotostartBtn = new ButtonForm("./image/gotoMainButton");
+    		gotostartBtn.addActionListener(this);
+    		
+    		completePage.add(gotostartBtn);
+    		
+    		currentPanel.add(completePage, BorderLayout.CENTER);    		
+    	}
+    	else if(med_type == 3) {
+    		//테스트용
+    		medi_num = 3;
+    		//medi_num = 추가한 거 불러오기로 수정
+    		completePage = new AddMedi_completePage("파 스", medi_num);
+    		
+    		gotostartBtn = new ButtonForm("./image/gotoMainButton");
+    		gotostartBtn.addActionListener(this);
+    		
+    		completePage.add(gotostartBtn);
+    		
+    		currentPanel.add(completePage, BorderLayout.CENTER);    		
+    	}
     }
 
     @Override
@@ -164,19 +218,36 @@ public class AddMediMain extends JFrame implements ActionListener
     {
         currentPanel.removeAll();
 
-        if (e.getSource() == medi1Btn || e.getSource() == medi2Btn || e.getSource() == medi3Btn)
+        if (e.getSource() == med1Btn)
         {
-            editPage();
+            editPage(1);
         }
-        if (e.getSource() == yesBtn)
+        else if(e.getSource() == med2Btn)
         {
-            //DB medi 개수 바꾸기
-            completePage();
+        	editPage(2);
         }
+        else if(e.getSource() == med3Btn) {
+        	editPage(3);
+        }
+        
+        if (e.getSource() == yes1Btn)
+        {
+            completePage(1);
+        }
+        else if (e.getSource() == yes2Btn)
+        {
+            completePage(2);
+        }
+        else if (e.getSource() == yes3Btn)
+        {
+            completePage(3);
+        }
+        
         if (e.getSource() == noBtn)
         {
             statusPage();
         }
+        
         if (e.getSource() == gotostartBtn)
         {
             KioskMain k = new KioskMain();
