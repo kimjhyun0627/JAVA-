@@ -5,13 +5,13 @@ import java.awt.*;
 
 public class FindPasswordErrorPage extends JPanel
 {
-    public FindPasswordErrorPage()
+    public FindPasswordErrorPage(Student User)
     {
         super();
         setLayout(new GridLayout(10, 1));
         setBackground(PasswordMain.BACKGROUND_COLOR);
 
-        JLabel title1 = new centerBoldLabel("김진현" + " 님의", 42);
+        JLabel title1 = new centerBoldLabel(User.getName() + " 님의", 42);
         JLabel title2 = new centerBoldLabel("사물함 조회 내역입니다", 42);
         JLabel showError = new centerBoldLabel("사물함을 조회할 수 없습니다", 30);
         showError.setForeground(Color.RED);

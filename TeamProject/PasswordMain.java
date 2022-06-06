@@ -27,7 +27,7 @@ public class PasswordMain extends JFrame implements ActionListener
 
     public static void main(String[] args)
     {
-        PasswordMain t = new PasswordMain(new Student("2021111873", "김진현","01023824633", "kimjhyun0627", 82,"0082", false ));
+        PasswordMain t = new PasswordMain(new Student("2021111873", "김진현", "01023824633", "kimjhyun0627", 82, "0082", false));
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Image logo = toolkit.getImage("./image/logo.png");
         t.setIconImage(logo);
@@ -144,7 +144,7 @@ public class PasswordMain extends JFrame implements ActionListener
 
         if (b)
         {
-            passwordPage = new FindPasswordPage(true, User.getCabID(), User.getCabPW());
+            passwordPage = new FindPasswordPage(User, true, User.getCabID(), User.getCabPW());
 
             changePWBtn = new ButtonForm("./image/changePWButton");
             changePWBtn.addActionListener(this);
@@ -157,7 +157,7 @@ public class PasswordMain extends JFrame implements ActionListener
         }
         else
         {
-            passwordPage = new FindPasswordErrorPage();
+            passwordPage = new FindPasswordErrorPage(User);
             passwordPage.add(gotoMainBtn);
         }
         currentPanel.add(passwordPage, BorderLayout.CENTER);
@@ -177,7 +177,7 @@ public class PasswordMain extends JFrame implements ActionListener
 
     private void showChangedPasswordPage()
     {
-        passwordPage = new FindPasswordPage(false, User.getCabID(), User.getCabPW());
+        passwordPage = new FindPasswordPage(User, false, User.getCabID(), User.getCabPW());
         gotoMainBtn = new ButtonForm("./image/gotoMainButton");
         gotoMainBtn.addActionListener(this);
         passwordPage.add(gotoMainBtn);
