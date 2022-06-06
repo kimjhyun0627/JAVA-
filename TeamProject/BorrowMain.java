@@ -48,15 +48,8 @@ public class BorrowMain extends JFrame implements ActionListener
 
     //임시
     private MatObj[] MatList = new MatObj[4];
-    private MatObj mat1;
-    private MatObj mat2;
-    private MatObj mat3;
-    private MatObj mat4;
-
-    private UmmObj umm1 = new UmmObj(1, new Date(2022, 6, 3, 12, 30, 10), new Date(2022, 6, 4, 11, 15, 5), "2021111111");
-    private UmmObj umm2 = new UmmObj(2, new Date(2022, 6, 4, 12, 30, 10), new Date(2022, 6, 4, 11, 15, 5), "2021111111");
-    private UmmObj umm3 = new UmmObj(3, new Date(2022, 6, 2, 12, 30, 10), new Date(2022, 6, 3, 11, 15, 5), "2021111111");
-    private UmmObj umm4 = new UmmObj(4, new Date(2022, 5, 31, 12, 30, 10), new Date(2022, 6, 1, 11, 15, 5), "2021111111");
+    private UmmObj[] UmmList = new UmmObj[4];
+    private MedObj[] MedList = new MedObj[3];
 
     private B_infoPage infoPage;
     private B_ObjSelect objSelectPage;
@@ -79,8 +72,6 @@ public class BorrowMain extends JFrame implements ActionListener
     private Student User;
     private int OBJNUMER = 0;
     private int OBJTYPE = 0;
-    private MatObj MatChanged;
-
 
     public static void main(String[] args)
     {
@@ -116,12 +107,6 @@ public class BorrowMain extends JFrame implements ActionListener
         setVisible(true);
     }
 
-    // 임시
-    private void getMatList()
-    {
-        MatList = MatObj.dataGetter();
-    }
-
     private void ObjSelectPage()
     {
         objSelectPage = new B_ObjSelect();
@@ -144,7 +129,8 @@ public class BorrowMain extends JFrame implements ActionListener
     {
         matSelectPage = new B_MatSelect();
 
-        getMatList();
+        MatList = MatObj.dataGetter();
+
         B_MatInfo mat1info = new B_MatInfo(MatList[0].getObjID(), MatList[0].getDateStart(),
                 MatList[0].getDateHaveto(), MatList[0].getIsBorrowing());
         B_MatInfo mat2info = new B_MatInfo(MatList[1].getObjID(), MatList[1].getDateStart(),
@@ -153,13 +139,6 @@ public class BorrowMain extends JFrame implements ActionListener
                 MatList[2].getDateHaveto(), MatList[2].getIsBorrowing());
         B_MatInfo mat4info = new B_MatInfo(MatList[3].getObjID(), MatList[3].getDateStart(),
                 MatList[3].getDateHaveto(), MatList[3].getIsBorrowing());
-
-
-        System.out.println(MatList[0].getIsBorrowing());
-        System.out.println(MatList[1].getIsBorrowing());
-        System.out.println(MatList[2].getIsBorrowing());
-        System.out.println(MatList[3].getIsBorrowing());
-
 
         mat1Btn = new ButtonForm3(BorrowAble(MatList[0]));
         if (MatList[0].getIsBorrowing() && !MatList[0].getStudentID().equals(User.getID()))
@@ -222,33 +201,37 @@ public class BorrowMain extends JFrame implements ActionListener
     private void UmmSelectPage()
     {
         ummSelectPage = new B_UmmSelect();
-        /*
-        Date start = new Date(2022, 6, 1, 11, 30, 45);// startDate
-        Date haveto = new Date(2022, 6, 2, 11, 00, 45);
-        B_MatInfo mat1info = new B_MatInfo(1, start, haveto, false);
-        B_MatInfo mat2info = new B_MatInfo(2, start, haveto, true);
-        B_MatInfo mat3info = new B_MatInfo(3, start, haveto, false);
-        B_MatInfo mat4info = new B_MatInfo(4, start, haveto, false);
+        UmmList = UmmObj.dataGetter();
 
-        mat1Btn = new ButtonForm3("./image/BorrowAble"); // isborrowing boolean
-        // function
-        mat2Btn = new ButtonForm3("./image/BorrowUnable");
-        mat3Btn = new ButtonForm3("./image/BorrowAble");
-        mat4Btn = new ButtonForm3("./image/BorrowAble");
-        */
-        B_UmmInfo umm1info = new B_UmmInfo(mat1.getObjID(), mat1.getDateStart(),
-                mat1.getDateHaveto(), mat1.getIsBorrowing());
-        B_UmmInfo umm2info = new B_UmmInfo(mat2.getObjID(), mat2.getDateStart(),
-                mat2.getDateHaveto(), mat2.getIsBorrowing());
-        B_UmmInfo umm3info = new B_UmmInfo(mat3.getObjID(), mat3.getDateStart(),
-                mat3.getDateHaveto(), mat3.getIsBorrowing());
-        B_UmmInfo umm4info = new B_UmmInfo(mat4.getObjID(), mat4.getDateStart(),
-                mat4.getDateHaveto(), mat4.getIsBorrowing());
+        B_UmmInfo umm1info = new B_UmmInfo(UmmList[0].getObjID(), UmmList[0].getDateStart(),
+                UmmList[0].getDateHaveto(), UmmList[0].getIsBorrowing());
+        B_UmmInfo umm2info = new B_UmmInfo(UmmList[1].getObjID(), UmmList[1].getDateStart(),
+                UmmList[1].getDateHaveto(), UmmList[1].getIsBorrowing());
+        B_UmmInfo umm3info = new B_UmmInfo(UmmList[2].getObjID(), UmmList[2].getDateStart(),
+                UmmList[2].getDateHaveto(), UmmList[2].getIsBorrowing());
+        B_UmmInfo umm4info = new B_UmmInfo(UmmList[3].getObjID(), UmmList[3].getDateStart(),
+                UmmList[3].getDateHaveto(), UmmList[3].getIsBorrowing());
 
-        umm1Btn = new ButtonForm3(BorrowAble(umm1)); //isborrowing boolean function 
-        umm2Btn = new ButtonForm3(BorrowAble(umm2));
-        umm3Btn = new ButtonForm3(BorrowAble(umm3));
-        umm4Btn = new ButtonForm3(BorrowAble(umm4));
+        umm1Btn = new ButtonForm3(BorrowAble(UmmList[0]));
+        if (UmmList[0].getIsBorrowing() && !UmmList[0].getStudentID().equals(User.getID()))
+        {
+            umm1Btn.setEnabled(false);
+        }
+        umm2Btn = new ButtonForm3(BorrowAble(UmmList[1]));
+        if (UmmList[1].getIsBorrowing() && !UmmList[1].getStudentID().equals(User.getID()))
+        {
+            umm2Btn.setEnabled(false);
+        }
+        umm3Btn = new ButtonForm3(BorrowAble(UmmList[2]));
+        if (UmmList[2].getIsBorrowing() && !UmmList[2].getStudentID().equals(User.getID()))
+        {
+            umm3Btn.setEnabled(false);
+        }
+        umm4Btn = new ButtonForm3(BorrowAble(UmmList[3]));
+        if (UmmList[3].getIsBorrowing() && !UmmList[3].getStudentID().equals(User.getID()))
+        {
+            umm4Btn.setEnabled(false);
+        }
 
         umm1Btn.addActionListener(this);
         umm2Btn.addActionListener(this);
@@ -290,15 +273,31 @@ public class BorrowMain extends JFrame implements ActionListener
     private void MedSelectPage()
     {
         medSelectPage = new B_MedSelect();
+        MedList = MedObj.dataGetter();
 
-        B_MedInfo med1info = new B_MedInfo("반창고", 9);
-        B_MedInfo med2info = new B_MedInfo("파 스", 0);
-        B_MedInfo med3info = new B_MedInfo("감기약", 7);
+        B_MedInfo med1info = new B_MedInfo("반창고", MedList[0].getNum());
+        B_MedInfo med2info = new B_MedInfo("파 스", MedList[1].getNum());
+        B_MedInfo med3info = new B_MedInfo("감기약", MedList[2].getNum());
 
-        med1Btn = new ButtonForm3("./image/BorrowAble"); // isborrowing boolean
-        // function
-        med2Btn = new ButtonForm3("./image/BorrowUnable");
-        med3Btn = new ButtonForm3("./image/BorrowAble");
+        med1Btn = new ButtonForm3("./image/BorrowAble");
+        med2Btn = new ButtonForm3((MedList[1].getIsAvailble() ? "./image/BorrowAble" : "./image/BorrowUnable"));
+        med3Btn = new ButtonForm3((MedList[2].getIsAvailble() ? "./image/BorrowAble" : "./image/BorrowUnable"));
+        if (!MedList[0].getIsAvailble())
+        {
+            med1Btn = new ButtonForm3("./image/BorrowUnable");
+            med1Btn.setEnabled(false);
+        }
+        if (!MedList[1].getIsAvailble())
+        {
+            med2Btn = new ButtonForm3("./image/BorrowUnable");
+            med2Btn.setEnabled(false);
+        }
+        if (!MedList[2].getIsAvailble())
+        {
+            med3Btn = new ButtonForm3("./image/BorrowUnable");
+            med3Btn.setEnabled(false);
+        }
+
 
         med1Btn.addActionListener(this);
         med2Btn.addActionListener(this);
@@ -564,51 +563,55 @@ public class BorrowMain extends JFrame implements ActionListener
         }
         if (e.getSource() == umm1Btn)
         {
-            boolean borrowing = false;//objisborrowing
+            boolean borrowing = UmmList[0].getIsBorrowing();//objisborrowing
             if (borrowing)
             {
-                ReturnPage(umm1);//objID
+                ReturnPage(UmmList[0]);//objID
             }
             else
             {
-                BorrowPage(umm1);
+                BorrowPage(UmmList[0]);
             }
+            OBJNUMER = 1;
         }
         if (e.getSource() == umm2Btn)
         {
-            boolean borrowing = true;//objisborrowing
+            boolean borrowing = UmmList[1].getIsBorrowing();//objisborrowing
             if (borrowing)
             {
-                ReturnPage(umm2);//objID
+                ReturnPage(UmmList[1]);//objID
             }
             else
             {
-                BorrowPage(umm2);
+                BorrowPage(UmmList[1]);
             }
+            OBJNUMER = 2;
         }
         if (e.getSource() == umm3Btn)
         {
-            boolean borrowing = false;//objisborrowing
+            boolean borrowing = UmmList[2].getIsBorrowing();//objisborrowing
             if (borrowing)
             {
-                ReturnPage(umm3);//objID
+                ReturnPage(UmmList[2]);//objID
             }
             else
             {
-                BorrowPage(umm3);
+                BorrowPage(UmmList[2]);
             }
+            OBJNUMER = 3;
         }
         if (e.getSource() == umm4Btn)
         {
-            boolean borrowing = false;//objisborrowing
+            boolean borrowing = UmmList[4].getIsBorrowing();//objisborrowing
             if (borrowing)
             {
-                ReturnPage(umm4);//objID
+                ReturnPage(UmmList[3]);//objID
             }
             else
             {
-                BorrowPage(umm4);
+                BorrowPage(UmmList[3]);
             }
+            OBJNUMER = 4;
         }
         if (e.getSource() == OKComfirmBtn)
         {
@@ -630,31 +633,64 @@ public class BorrowMain extends JFrame implements ActionListener
         }
         if (e.getSource() == MatOKTermsBtn)
         {
-            Date tmp = new Date(MatList[OBJNUMER - 1].getDateEnd());
-            MatChanged = MatList[OBJNUMER - 1] = new MatObj(OBJNUMER, new Date(), tmp, User.getID());
-
-            System.out.println(MatList[OBJNUMER - 1].toFileString());
-            CompletePage("borrowComplete", MatList[OBJNUMER - 1]);
+            Date tmp;
+            if (OBJTYPE == 1)
+            {
+                tmp = new Date(MatList[OBJNUMER - 1].getDateEnd());
+                MatList[OBJNUMER - 1] = new MatObj(OBJNUMER, new Date(), tmp, User.getID());
+                CompletePage("borrowComplete", MatList[OBJNUMER - 1]);
+            }
+            else if (OBJTYPE == 2)
+            {
+                tmp = new Date(UmmList[OBJNUMER - 1].getDateEnd());
+                UmmList[OBJNUMER - 1] = new UmmObj(OBJNUMER, new Date(), tmp, User.getID());
+                CompletePage("borrowComplete", MatList[OBJNUMER - 1]);
+            }
+            else if (OBJTYPE == 3)
+            {
+                ;
+            }
+            else
+            {
+                System.exit(1212);
+            }
         }
         if (e.getSource() == OKReturnGuideBtn)
         {
-            Date tmpStart = new Date(MatList[OBJNUMER - 1].getDateStart());
-            MatChanged = MatList[OBJNUMER - 1] = new MatObj(OBJNUMER, tmpStart, new Date(), User.getID());
-            System.out.println(MatList[OBJNUMER - 1].toFileString());
-            CompletePage("returnComplete", MatList[OBJNUMER - 1]);
+            Date tmpStart;
+            if (OBJTYPE == 1)
+            {
+                tmpStart = new Date(MatList[OBJNUMER - 1].getDateStart());
+                MatList[OBJNUMER - 1] = new MatObj(OBJNUMER, tmpStart, new Date(), User.getID());
+                CompletePage("returnComplete", MatList[OBJNUMER - 1]);
+            }
+            else if (OBJTYPE == 2)
+            {
+                tmpStart = new Date(UmmList[OBJNUMER - 1].getDateStart());
+                UmmList[OBJNUMER - 1] = new UmmObj(OBJNUMER, tmpStart, new Date(), User.getID());
+                CompletePage("returnComplete", UmmList[OBJNUMER - 1]);
+            }
+            else
+            {
+                System.exit(1);
+            }
+
         }
 
         if (e.getSource() == med1Btn)
         {
-            UsePage("반창고", 9);
+            OBJNUMER = 1;
+            UsePage("반창고", MedList[0].getNum());
         }
         if (e.getSource() == med2Btn)
         {
-            UsePage("파 스", 0);
+            OBJNUMER = 2;
+            UsePage("파 스", MedList[1].getNum());
         }
         if (e.getSource() == med3Btn)
         {
-            UsePage("감기약", 7);
+            OBJNUMER = 3;
+            UsePage("감기약", MedList[2].getNum());
         }
         if (e.getSource() == MedOKComfirmBtn)
         {
@@ -663,6 +699,7 @@ public class BorrowMain extends JFrame implements ActionListener
         if (e.getSource() == MedOKTermsBtn)
         {
             CompletePage("UseMedComplete", new BorrowObject());
+            MedList[OBJNUMER - 1].setMed_num(-1);
         }
         if (e.getSource() == MedAgreeBtn)
         {
@@ -671,7 +708,22 @@ public class BorrowMain extends JFrame implements ActionListener
         }
         if (e.getSource() == gotoMainBtn)
         {
-            MatDataSetter();
+            if (OBJTYPE == 1)
+            {
+                MatDataSetter();
+            }
+            else if (OBJTYPE == 2)
+            {
+                UmmDataSetter();
+            }
+            else if (OBJTYPE == 3)
+            {
+                MedDataSetter();
+            }
+            else
+            {
+                System.exit(1);
+            }
             KioskMain k = new KioskMain();
             k.setVisible(true);
             setVisible(false);
@@ -682,59 +734,48 @@ public class BorrowMain extends JFrame implements ActionListener
 
     public void MatDataSetter()
     {
-        Scanner FileReader_OBJ = null;
-        MatObj[] MatList = new MatObj[4];
-
-        try
-        {
-            FileReader_OBJ = new Scanner(new FileInputStream("./data/mat.txt"));
-            int count = 0;
-            while (FileReader_OBJ.hasNext())
-            {
-                int ID = FileReader_OBJ.nextInt();
-                int Year1 = FileReader_OBJ.nextInt();
-                int Month1 = FileReader_OBJ.nextInt();
-                int Day1 = FileReader_OBJ.nextInt();
-                int Hour1 = FileReader_OBJ.nextInt();
-                int Min1 = FileReader_OBJ.nextInt();
-                int Sec1 = FileReader_OBJ.nextInt();
-                int Year2 = FileReader_OBJ.nextInt();
-                int Month2 = FileReader_OBJ.nextInt();
-                int Day2 = FileReader_OBJ.nextInt();
-                int Hour2 = FileReader_OBJ.nextInt();
-                int Min2 = FileReader_OBJ.nextInt();
-                int Sec2 = FileReader_OBJ.nextInt();
-                int Year3 = FileReader_OBJ.nextInt();
-                int Month3 = FileReader_OBJ.nextInt();
-                int Day3 = FileReader_OBJ.nextInt();
-                int Hour3 = FileReader_OBJ.nextInt();
-                int Min3 = FileReader_OBJ.nextInt();
-                int Sec3 = FileReader_OBJ.nextInt();
-                String StudendID = FileReader_OBJ.next();
-
-                MatList[count++] = new MatObj(ID, new Date(Year1, Month1, Day1, Hour1, Min1, Sec1),
-                        new Date(Year2, Month2, Day2, Hour2, Min2, Sec2), new Date(Year3, Month3, Day3, Hour3, Min3, Sec3), StudendID);
-            }
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-
         try
         {
             PrintWriter FileWriter_Mat = new PrintWriter(new FileOutputStream("./data/mat.txt"));
             for (MatObj m : MatList)
             {
-                if (m.getObjID() == OBJNUMER)
-                {
-                    FileWriter_Mat.println(MatChanged.toFileString());
-                    continue;
-                }
                 FileWriter_Mat.println(m.toFileString());
             }
             FileWriter_Mat.close();
-            System.out.println("success");
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void UmmDataSetter()
+    {
+        try
+        {
+            PrintWriter FileWriter_Umm = new PrintWriter(new FileOutputStream("./data/umm.txt"));
+            for (UmmObj u : UmmList)
+            {
+                FileWriter_Umm.println(u.toFileString());
+            }
+            FileWriter_Umm.close();
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void MedDataSetter()
+    {
+        try
+        {
+            PrintWriter FileWriter_Umm = new PrintWriter(new FileOutputStream("./data/med.txt"));
+            for (MedObj m : MedList)
+            {
+                FileWriter_Umm.println(m.toFileString());
+            }
+            FileWriter_Umm.close();
         }
         catch (FileNotFoundException e)
         {

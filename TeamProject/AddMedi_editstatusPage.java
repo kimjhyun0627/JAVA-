@@ -5,16 +5,18 @@ import javax.swing.*;
 
 public class AddMedi_editstatusPage extends JPanel
 {
+    JTextField inputText;
+
     public AddMedi_editstatusPage(String med_name)
     {
         super();
         setBackground(BorrowMain.BGCOLOR);
         setLayout(new GridLayout(8, 1));
-        
+
         JPanel titlePanel = new JPanel(new FlowLayout());
         titlePanel.setBackground(new Color(0xededf9));
 
-        JTextField inputText = new JTextField(2);
+        inputText = new JTextField(2);
         //medi 개수 변수에 저장하기
         inputText.setFont(new Font("IM혜민 bold", Font.BOLD, 42));
 
@@ -30,11 +32,17 @@ public class AddMedi_editstatusPage extends JPanel
 
         mediNameLabel subLabel = new mediNameLabel("추가하시겠습니까?");
         subtitlePanel.add(subLabel);
-        
-        
+
+
         add(new EmptyPanel());
         add(titlePanel);
         add(subtitlePanel);
         add(new EmptyPanel());
     }
+
+    public int getNumber()
+    {
+        return Integer.parseInt(inputText.getText());
+    }
+
 }

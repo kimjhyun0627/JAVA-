@@ -149,6 +149,6 @@ public class BorrowObject
 
     public void errorhandler(String errorType)
     {
-        System.err.println("Error occured in Abstract BorrowObj class: " + errorType);
+        System.err.println("Error occured in BorrowObj class: " + errorType);
     }
 }

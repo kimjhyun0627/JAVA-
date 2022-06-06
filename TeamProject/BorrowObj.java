@@ -1,142 +1,165 @@
 package TeamProject;
 
-public class BorrowObj {
+public class BorrowObj
+{
 
-	protected int ID = 0;
-	protected Date dateStart;
-	protected Date dateHaveto;
-	protected Date dateEnd;
-	protected String studentID = "";
-	protected boolean isBorrowing = false;
+    protected int ID = 0;
+    protected Date dateStart;
+    protected Date dateHaveto;
+    protected Date dateEnd;
+    protected String studentID = "";
+    protected boolean isBorrowing = false;
 
-	BorrowObj(){
-		ID = 0;
-		dateStart = new Date(2022,6,3,12,30,10);
-		dateHaveto = new Date(2022,6,4,12,30,10);
-		dateEnd = new Date(2022,6,4,10,30,10);
-		studentID = "1234567890";
-		isBorrowing = false;
-	}
-	
-	BorrowObj(int newID, String newStudID) {
+    BorrowObj()
+    {
+        ID = 0;
+        dateStart = new Date(2022, 6, 3, 12, 30, 10);
+        dateHaveto = new Date(2022, 6, 4, 12, 30, 10);
+        dateEnd = new Date(2022, 6, 4, 10, 30, 10);
+        studentID = "1234567890";
+        isBorrowing = false;
+    }
 
-		ID = newID;
-		dateStart = new Date(false);
-		dateHaveto = new Date(false);
-		dateEnd = new Date(false);
-		studentID = newStudID;
-		isBorrowing = false;
-	}
+    BorrowObj(int newID, String newStudID)
+    {
 
-	BorrowObj(int newID, Date newStart, Date newEnd, String newStudID) {
+        ID = newID;
+        dateStart = new Date(false);
+        dateHaveto = new Date(false);
+        dateEnd = new Date(false);
+        studentID = newStudID;
+        isBorrowing = false;
+    }
 
-		if (isValid(newID, newStart, newEnd, newStudID)) {
+    BorrowObj(int newID, Date newStart, Date newEnd, String newStudID)
+    {
 
-			ID = newID;
-			dateStart = new Date(newStart);
-			dateHaveto = new Date(setHaveto(dateStart));//setReturn
-			dateEnd = new Date(newEnd);
-			studentID = newStudID;
-			setObjStatus();
+        if (isValid(newID, newStart, newEnd, newStudID))
+        {
 
-		} else
-			errorhandler("invalid initialization");
-	}
-	
-	BorrowObj(int newID, Date newStart, Date newHaveto, Date newEnd, String newStudID) {
+            ID = newID;
+            dateStart = new Date(newStart);
+            dateHaveto = new Date(setHaveto(dateStart));//setReturn
+            dateEnd = new Date(newEnd);
+            studentID = newStudID;
+            setObjStatus();
 
-		if (isValid(newID, newStart, newHaveto, newEnd, newStudID)) {
+        }
+        else
+            errorhandler("invalid initialization");
+    }
 
-			ID = newID;
-			dateStart = new Date(newStart);
-			dateHaveto = new Date(newHaveto);
-			dateEnd = new Date(newEnd);
-			studentID = newStudID;
-			setObjStatus();
+    BorrowObj(int newID, Date newStart, Date newHaveto, Date newEnd, String newStudID)
+    {
 
-		} else
-			errorhandler("invalid initialization");
-	}
-	
-	private boolean isValid(int newID, Date newStart, Date newEnd, String newStudID) {
+        if (isValid(newID, newStart, newHaveto, newEnd, newStudID))
+        {
 
-		return ((newID > 0) && (newStart.isValidTime()) && (newEnd.isValidTime()) && (newStudID.length() == 10));
-	}
+            ID = newID;
+            dateStart = new Date(newStart);
+            dateHaveto = new Date(newHaveto);
+            dateEnd = new Date(newEnd);
+            studentID = newStudID;
+            setObjStatus();
 
-	private boolean isValid(int newID, Date newStart, Date newHaveto, Date newEnd, String newStudID) {
+        }
+        else
+            errorhandler("invalid initialization");
+    }
 
-		return ((newID > 0) && (newStart.isValidTime()) && (newHaveto.isValidTime()) && (newEnd.isValidTime()) && (newStudID.length() == 10));
-	}
+    private boolean isValid(int newID, Date newStart, Date newEnd, String newStudID)
+    {
 
-	public void updateStart() {
+        return ((newID > 0) && (newStart.isValidTime()) && (newEnd.isValidTime()) && (newStudID.length() == 10));
+    }
 
-		dateStart.setDate(true);
-		dateHaveto = new Date(setHaveto(dateStart));//setdatereturn
-		setObjStatus();
-	}
+    private boolean isValid(int newID, Date newStart, Date newHaveto, Date newEnd, String newStudID)
+    {
 
-	public void updateEnd() {
+        return ((newID > 0) && (newStart.isValidTime()) && (newHaveto.isValidTime()) && (newEnd.isValidTime()) && (newStudID.length() == 10));
+    }
 
-		dateEnd.setDate(true);
-		setObjStatus();
-	}
+    public void updateStart()
+    {
 
-	public void setObjStatus() {
+        dateStart.setDate(true);
+        dateHaveto = new Date(setHaveto(dateStart));//setdatereturn
+        setObjStatus();
+    }
 
-		if (dateStart.compareTime(dateEnd) < 0)
+    public void updateEnd()
+    {
 
-			isBorrowing = true;
+        dateEnd.setDate(true);
+        setObjStatus();
+    }
 
-		else
-			isBorrowing = false;
-	}
-	
-	public Date setHaveto(Date dateStart){
-		Date Haveto = null;
-		Haveto.AddDate(dateStart);
-		return Haveto;
-		
-	}
+    public void setObjStatus()
+    {
 
-	public int getID() {
+        if (dateStart.compareTime(dateEnd) < 0)
 
-		return ID;
-	}
+            isBorrowing = true;
 
-	public Date getDateStart() {
+        else
+            isBorrowing = false;
+    }
 
-		return new Date(dateStart);
-	}
-	
-	public Date getDateHaveto() {
+    public Date setHaveto(Date dateStart)
+    {
+        Date Haveto = null;
+        Haveto.AddDate(dateStart);
+        return Haveto;
 
-		return new Date(dateHaveto);
-	}
+    }
 
-	public Date getDateEnd() {
+    public int getID()
+    {
 
-		return new Date(dateEnd);
-	}
+        return ID;
+    }
 
-	public String getStudentID() {
+    public Date getDateStart()
+    {
 
-		return studentID;
-	}
+        return new Date(dateStart);
+    }
 
-	public boolean getIsBorrowing() {
+    public Date getDateHaveto()
+    {
 
-		return isBorrowing;
-	}
+        return new Date(dateHaveto);
+    }
 
-	public String toString() {
+    public Date getDateEnd()
+    {
 
-		return "ID: " + ID + " Start: " + dateStart.toString() + " Have to Return: " + dateHaveto.toString() + " End: " + dateEnd.toString() + " StudID: " + studentID
-				+ " " + isBorrowing;
-	}
+        return new Date(dateEnd);
+    }
 
-	private void errorhandler(String errorType) {
+    public String getStudentID()
+    {
 
-		System.err.println("Error occured in Abstract BorrowObj class: " + errorType);
-	}
+        return studentID;
+    }
+
+    public boolean getIsBorrowing()
+    {
+
+        return isBorrowing;
+    }
+
+    public String toString()
+    {
+
+        return "ID: " + ID + " Start: " + dateStart.toString() + " Have to Return: " + dateHaveto.toString() + " End: " + dateEnd.toString() + " StudID: " + studentID
+                + " " + isBorrowing;
+    }
+
+    private void errorhandler(String errorType)
+    {
+
+        System.err.println("Error occured in BorrowObj class: " + errorType);
+    }
 
 }

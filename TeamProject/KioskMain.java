@@ -27,6 +27,9 @@ public class KioskMain extends JFrame implements ActionListener
     public static void main(String[] args)
     {
         KioskMain main = new KioskMain();
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Image logo = toolkit.getImage("./image/logo.png");
+        main.setIconImage(logo);
         main.setVisible(true);
         return;
     }
@@ -191,15 +194,12 @@ public class KioskMain extends JFrame implements ActionListener
 
         if (e.getSource() == borrowBtn)
         {
-            System.out.println("BORROW");
-
             BorrowMain b = new BorrowMain(User);
             b.setVisible(true);
             setVisible(false);
         }
         if (e.getSource() == PWBtn)
         {
-            System.out.println("PW");
             PasswordMain p = new PasswordMain(User);
             p.setVisible(true);
             setVisible(false);
