@@ -12,7 +12,7 @@ public class PasswordMain extends JFrame implements ActionListener
 {
     public static final JPanel currentPanel = new JPanel();
     public static final Color BACKGROUND_COLOR = new Color(0xededf9);
-    public ImageIcon IMG = new ImageIcon("./image/background.png");
+    //public ImageIcon IMG = new ImageIcon("./image/background.png");
     private JButton mailSubmitBtn;
     private JButton codeVerifyBtn;
     private JButton gotoMainBtn;
@@ -196,8 +196,8 @@ public class PasswordMain extends JFrame implements ActionListener
 
             if (str.equals(User.getWebMailAddress()))
             {
-                ////mailSender mail = new mailSender(str);
-                ////verifiedCode = mail.getCode();
+                mailSender mail = new mailSender(str);
+                verifiedCode = mail.getCode();
                 codeVerifyPage("");
             }
             else if (str.length() == 0)

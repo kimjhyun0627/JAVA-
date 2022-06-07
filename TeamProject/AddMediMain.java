@@ -183,7 +183,6 @@ public class AddMediMain extends JFrame implements ActionListener
         if (med_type == 1)
         {
             //테스트용
-            medi_num = 4;
             //medi_num = 추가한 거 불러오기로 수정
             completePage = new AddMedi_completePage("반창고", MedList[0].getNum());
 
@@ -199,7 +198,7 @@ public class AddMediMain extends JFrame implements ActionListener
             //테스트용
             medi_num = 2;
             //medi_num = 추가한 거 불러오기로 수정
-            completePage = new AddMedi_completePage("파 스", medi_num);
+            completePage = new AddMedi_completePage("파 스", MedList[1].getNum());
 
             gotostartBtn = new ButtonForm("./image/gotoMainButton");
             gotostartBtn.addActionListener(this);
@@ -213,7 +212,7 @@ public class AddMediMain extends JFrame implements ActionListener
             //테스트용
             medi_num = 3;
             //medi_num = 추가한 거 불러오기로 수정
-            completePage = new AddMedi_completePage("감기약", medi_num);
+            completePage = new AddMedi_completePage("감기약", MedList[2].getNum());
 
             gotostartBtn = new ButtonForm("./image/gotoMainButton");
             gotostartBtn.addActionListener(this);

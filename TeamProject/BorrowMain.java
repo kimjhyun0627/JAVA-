@@ -5,10 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -46,7 +43,6 @@ public class BorrowMain extends JFrame implements ActionListener
     private JButton OKReturnGuideBtn;
     private JButton gotoMainBtn;
 
-    //임시
     private MatObj[] MatList = new MatObj[4];
     private UmmObj[] UmmList = new UmmObj[4];
     private MedObj[] MedList = new MedObj[3];
@@ -57,7 +53,6 @@ public class BorrowMain extends JFrame implements ActionListener
     private B_UmmSelect ummSelectPage;
     private B_MedSelect medSelectPage;
     // private JPanel matSelectPage;
-    private JPanel matSelectinfo;
     private B_BorrowComfirm borrowComfirmPage;
     private B_UseComfirm useComfirmPage;
     private B_ReturnPage returnPage;
@@ -72,6 +67,7 @@ public class BorrowMain extends JFrame implements ActionListener
     private Student User;
     private int OBJNUMER = 0;
     private int OBJTYPE = 0;
+    private String ChangedData;
 
     public static void main(String[] args)
     {
@@ -79,7 +75,6 @@ public class BorrowMain extends JFrame implements ActionListener
         //BorrowMain b = new BorrowMain();
         //b.setVisible(true);
         return;
-
     }
 
     public BorrowMain(Student user)
@@ -638,17 +633,15 @@ public class BorrowMain extends JFrame implements ActionListener
             {
                 tmp = new Date(MatList[OBJNUMER - 1].getDateEnd());
                 MatList[OBJNUMER - 1] = new MatObj(OBJNUMER, new Date(), tmp, User.getID());
+                ChangedData = "Mat" + MatList[OBJNUMER - 1].toFileString();
                 CompletePage("borrowComplete", MatList[OBJNUMER - 1]);
             }
             else if (OBJTYPE == 2)
             {
                 tmp = new Date(UmmList[OBJNUMER - 1].getDateEnd());
                 UmmList[OBJNUMER - 1] = new UmmObj(OBJNUMER, new Date(), tmp, User.getID());
-                CompletePage("borrowComplete", MatList[OBJNUMER - 1]);
-            }
-            else if (OBJTYPE == 3)
-            {
-                ;
+                ChangedData = "Umm" + UmmList[OBJNUMER - 1].toFileString();
+                CompletePage("borrowComplete", UmmList[OBJNUMER - 1]);
             }
             else
             {
@@ -662,12 +655,14 @@ public class BorrowMain extends JFrame implements ActionListener
             {
                 tmpStart = new Date(MatList[OBJNUMER - 1].getDateStart());
                 MatList[OBJNUMER - 1] = new MatObj(OBJNUMER, tmpStart, new Date(), User.getID());
+                ChangedData = "Mat" + MatList[OBJNUMER - 1].toFileString();
                 CompletePage("returnComplete", MatList[OBJNUMER - 1]);
             }
             else if (OBJTYPE == 2)
             {
                 tmpStart = new Date(UmmList[OBJNUMER - 1].getDateStart());
                 UmmList[OBJNUMER - 1] = new UmmObj(OBJNUMER, tmpStart, new Date(), User.getID());
+                ChangedData = "Umm" + UmmList[OBJNUMER - 1].toFileString();
                 CompletePage("returnComplete", UmmList[OBJNUMER - 1]);
             }
             else
@@ -700,6 +695,7 @@ public class BorrowMain extends JFrame implements ActionListener
         {
             CompletePage("UseMedComplete", new BorrowObject());
             MedList[OBJNUMER - 1].setMed_num(-1);
+            ChangedData = "Med" + MedList[OBJNUMER].toFileString();
         }
         if (e.getSource() == MedAgreeBtn)
         {
@@ -711,14 +707,17 @@ public class BorrowMain extends JFrame implements ActionListener
             if (OBJTYPE == 1)
             {
                 MatDataSetter();
+                LogDataSetter(ChangedData);
             }
             else if (OBJTYPE == 2)
             {
                 UmmDataSetter();
+                LogDataSetter(ChangedData);
             }
             else if (OBJTYPE == 3)
             {
                 MedDataSetter();
+                LogDataSetter(ChangedData);
             }
             else
             {
@@ -783,4 +782,24 @@ public class BorrowMain extends JFrame implements ActionListener
         }
     }
 
+    public void LogDataSetter(String newLog)
+    {
+        ArrayList<String> log = BorrowObject.Getter();
+        try
+        {
+            PrintWriter FileWriter = new PrintWriter(new FileOutputStream("./data/log.txt"));
+
+            for (String s : log)
+            {
+                FileWriter.println(s);
+            }
+            FileWriter.println(newLog);
+
+            FileWriter.close();
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

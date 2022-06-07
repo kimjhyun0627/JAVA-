@@ -146,7 +146,26 @@ public class BorrowObject
     {
         return ((newID > 0) && (newStart.isValidTime()) && (newStudID.length() == 10));
     }
+    public static ArrayList<String> Getter()
+    {
+        Scanner FileReader_OBJ = null;
+        ArrayList<String> STR = new ArrayList<>();
+        try
+        {
+            FileReader_OBJ = new Scanner(new FileInputStream("./data/log.txt"));
+            while (FileReader_OBJ.hasNext())
+            {
+                STR.add(FileReader_OBJ.nextLine());
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        FileReader_OBJ.close();
 
+        return STR;
+    }
     public void errorhandler(String errorType)
     {
         System.err.println("Error occured in BorrowObj class: " + errorType);
