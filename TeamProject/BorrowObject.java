@@ -70,6 +70,15 @@ public class BorrowObject
         else
             errorhandler("invalid initialization");
     }
+    
+    //대여기록 확인용 -아진
+    public BorrowObject(Date newStart, Date newEnd, boolean newisB)
+    {
+            dateStart = new Date(newStart);
+            dateEnd = new Date(newEnd);
+            isBorrowing = newisB;
+            setObjStatus();
+    }
 
     public BorrowObject(BorrowObject BObj)
     {
@@ -130,6 +139,18 @@ public class BorrowObject
             isBorrowing = false;
         else
             isBorrowing = true;
+    }
+    
+    //대여 기록 확인 용 - 아진
+    public String getObjStatus()
+    {
+        if(isBorrowing == false) {
+        	return "O";
+        }
+        else {
+        	return "X";
+        }
+        
     }
 
     protected boolean isValid(int newID, Date newStart, Date newEnd, String newStudID)

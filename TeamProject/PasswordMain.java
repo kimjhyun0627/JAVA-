@@ -196,8 +196,8 @@ public class PasswordMain extends JFrame implements ActionListener
 
             if (str.equals(User.getWebMailAddress()))
             {
-                mailSender mail = new mailSender(str);
-                verifiedCode = mail.getCode();
+                //mailSender mail = new mailSender(str);
+                //verifiedCode = mail.getCode();
                 codeVerifyPage("");
             }
             else if (str.length() == 0)

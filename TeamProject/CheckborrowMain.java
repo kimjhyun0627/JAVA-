@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class CheckborrowMain extends JFrame implements ActionListener
 {
@@ -11,9 +14,7 @@ public class CheckborrowMain extends JFrame implements ActionListener
     public static final Color BGCOLOR = new Color(0xededf9);
 
     private Checkborrow_selectPage selectPage;
-    private Checkborrow_matlogPage matlogPage;
-    private Checkborrow_ummlogPage ummlogPage;
-    private Checkborrow_medilogPage medilogPage;
+    private Checkborrow_logPage logPage;
     private Checkborrow_gotomainPage gotomainPage;
 
     private JButton matBtn;
@@ -22,6 +23,10 @@ public class CheckborrowMain extends JFrame implements ActionListener
     private JButton allBtn;
     private JButton okayBtn;
     private JButton gotostartBtn;
+    
+    private JTextArea log;
+    private String logtxt;
+    private String logline;
 
     public static void main(String[] args)
     {
@@ -48,7 +53,9 @@ public class CheckborrowMain extends JFrame implements ActionListener
         test.add(viewPanel, BorderLayout.CENTER);
 
         selectPage();
-
+        test2 checklog = new test2();
+        checklog.update();
+        
         setVisible(true);
     }
 
@@ -75,86 +82,29 @@ public class CheckborrowMain extends JFrame implements ActionListener
 
         currentPanel.add(selectPage, BorderLayout.CENTER);
     }
-
-    private void matlogPage()
-    {
-        matlogPage = new Checkborrow_matlogPage();
-
-        //list로 구현하고 layout 크기 수정하기
-        JPanel logPanel = new JPanel(new GridLayout(2, 1));
-        logPanel.setBackground(new Color(0xededf9));
-
-        //돗자리 log 기록 가져오기
-        JLabel index = new JLabel("ID  상태         학생ID          대여시간     반납시간");
-        JLabel exlog = new JLabel(" 1  대여    2020111111  22/05/10/12:00    -");
-        index.setFont(new Font("IM혜민 bold", Font.BOLD, 20));
-        exlog.setFont(new Font("IM혜민 bold", Font.BOLD, 20));
-
-        logPanel.add(index);
-        logPanel.add(exlog);
-
-        matlogPage.add(logPanel);
-
+    
+    private void logPage(int obj) {
+    	if(obj == 1) {
+    		logPage = new Checkborrow_logPage("Mat");    		
+    	}
+    	else if(obj == 2) {
+    		logPage = new Checkborrow_logPage("Umm");
+    	}
+    	else if(obj == 3) {
+    		logPage = new Checkborrow_logPage("Med");
+    	}
+    	else if(obj == 4) {
+    		logPage = new Checkborrow_logPage("All");
+    	}
+    	else {
+    		System.err.println("알수없는오류입니다.");
+    	}
         okayBtn = new ButtonForm("./image/codeVerifyButton");
         okayBtn.addActionListener(this);
 
-        matlogPage.add(okayBtn);
-
-        currentPanel.add(matlogPage, BorderLayout.CENTER);
-    }
-
-    private void ummlogPage()
-    {
-        ummlogPage = new Checkborrow_ummlogPage();
-
-        //list로 구현하고 layout 크기 수정하기
-        JPanel logPanel = new JPanel(new GridLayout(2, 1));
-        logPanel.setBackground(new Color(0xededf9));
-
-        //우산 log 기록 가져오기
-        JLabel index = new JLabel("물품ID  대여여부    학생ID          빌린시간     반납여부");
-        JLabel exlog = new JLabel("  1      O    2020111111  22/05/10/12:00    X");
-        index.setFont(new Font("IM혜민 bold", Font.BOLD, 20));
-        exlog.setFont(new Font("IM혜민 bold", Font.BOLD, 20));
-
-        logPanel.add(index);
-        logPanel.add(exlog);
-
-        ummlogPage.add(logPanel);
-
-        okayBtn = new ButtonForm("./image/codeVerifyButton");
-        okayBtn.addActionListener(this);
-
-        ummlogPage.add(okayBtn);
-
-        currentPanel.add(ummlogPage, BorderLayout.CENTER);
-    }
-
-    private void medilogPage()
-    {
-        medilogPage = new Checkborrow_medilogPage();
-
-        //list로 구현하고 layout 크기 수정하기
-        JPanel logPanel = new JPanel(new GridLayout(2, 1));
-        logPanel.setBackground(new Color(0xededf9));
-
-        //돗자리 log 기록 가져오기
-        JLabel index = new JLabel("물품ID  대여여부    학생ID          빌린시간     반납여부");
-        JLabel exlog = new JLabel("  1      O    2020111111  22/05/10/12:00    X");
-        index.setFont(new Font("IM혜민 bold", Font.BOLD, 20));
-        exlog.setFont(new Font("IM혜민 bold", Font.BOLD, 20));
-
-        logPanel.add(index);
-        logPanel.add(exlog);
-
-        medilogPage.add(logPanel);
-
-        okayBtn = new ButtonForm("./image/codeVerifyButton");
-        okayBtn.addActionListener(this);
-
-        medilogPage.add(okayBtn);
-
-        currentPanel.add(medilogPage, BorderLayout.CENTER);
+        logPage.add(okayBtn);
+        
+        currentPanel.add(logPage, BorderLayout.CENTER);
     }
 
     private void gotomainPage()
@@ -177,19 +127,19 @@ public class CheckborrowMain extends JFrame implements ActionListener
 
         if (e.getSource() == matBtn)
         {
-            matlogPage();
+        	logPage(1);
         }
         if (e.getSource() == ummBtn)
         {
-            ummlogPage();
+        	logPage(2);
         }
         if (e.getSource() == mediBtn)
         {
-            medilogPage();
+        	logPage(3);
         }
         if (e.getSource() == allBtn)
         {
-            gotomainPage();
+            logPage(4);
         }
 
         if (e.getSource() == okayBtn)
@@ -199,7 +149,9 @@ public class CheckborrowMain extends JFrame implements ActionListener
 
         if (e.getSource() == gotostartBtn)
         {
-            //메인페이지로
+        	KioskMain k = new KioskMain();
+            k.setVisible(true);
+            setVisible(false);
         }
 
         currentPanel.updateUI();

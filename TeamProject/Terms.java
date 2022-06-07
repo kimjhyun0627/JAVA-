@@ -23,7 +23,6 @@ public class Terms extends JPanel {
 		termsLB.setFont(new Font("IM혜민 regular", Font.PLAIN, 30));
 		//termsLB.setPreferredSize(new Dimension(500,50));
 		
-		
 		Scanner filereader = null;
 		try{
 			filereader = new Scanner(new FileInputStream(file));
