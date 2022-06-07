@@ -124,6 +124,7 @@ public class AddMediMain extends JFrame implements ActionListener
             editPage = new AddMedi_editstatusPage("반창고");
 
             JPanel checkPanel = new JPanel(new GridLayout(1, 2));
+            checkPanel.setBackground(BGCOLOR);//
 
             yes1Btn = new ButtonForm("./image/yes");
             yes1Btn.addActionListener(this);
@@ -143,6 +144,7 @@ public class AddMediMain extends JFrame implements ActionListener
             editPage = new AddMedi_editstatusPage("파 스");
 
             JPanel checkPanel = new JPanel(new GridLayout(1, 2));
+            checkPanel.setBackground(BGCOLOR);
 
             yes2Btn = new ButtonForm("./image/yes");
             yes2Btn.addActionListener(this);
@@ -162,6 +164,7 @@ public class AddMediMain extends JFrame implements ActionListener
             editPage = new AddMedi_editstatusPage("감기약");
 
             JPanel checkPanel = new JPanel(new GridLayout(1, 2));
+            checkPanel.setBackground(BGCOLOR);
 
             yes3Btn = new ButtonForm("./image/yes");
             yes3Btn.addActionListener(this);
