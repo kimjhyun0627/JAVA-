@@ -7,13 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class BorrowMain extends JFrame implements ActionListener
 {
     public static final JPanel currentPanel = new JPanel();
     public static final Color BGCOLOR = new Color(0xededf9);
-    private JButton userinfosubmitBtn;
     private JButton matBtn;
     private JButton mat1Btn;
     private JButton mat2Btn;
@@ -30,16 +28,12 @@ public class BorrowMain extends JFrame implements ActionListener
     private JButton med3Btn;
     private JButton OKComfirmBtn;
     private JButton MedOKComfirmBtn;
-
     private JButton OKReturnBtn;
-    private JButton MatAgreeBtn;
-    private JButton MatAgreeRBtn;
-    private JButton UmmAgreeBtn;
-    private JButton UmmAgreeRBtn;
+    private JButton AgreeBtn;
+    private JButton AgreeRBtn;
     private JButton MedAgreeBtn;
-    private JButton MatOKTermsBtn;
+    private JButton OKTermsBtn;
     private JButton MedOKTermsBtn;
-    private JButton UmmOKTermsBtn;
     private JButton OKReturnGuideBtn;
     private JButton gotoMainBtn;
 
@@ -47,7 +41,6 @@ public class BorrowMain extends JFrame implements ActionListener
     private UmmObj[] UmmList = new UmmObj[4];
     private MedObj[] MedList = new MedObj[3];
 
-    private B_infoPage infoPage;
     private B_ObjSelect objSelectPage;
     private B_MatSelect matSelectPage;
     private B_UmmSelect ummSelectPage;
@@ -59,12 +52,10 @@ public class BorrowMain extends JFrame implements ActionListener
     private Terms termsPage;
     private B_ReturnGuidePage returnguidePage;
     private CompletePage completePage;
-    private boolean MatAgree = false;
-    private boolean MatAgreeR = false;
-    private boolean UmmAgree = false;
-    private boolean UmmAgreeR = false;
+    private boolean Agree = false;
+    private boolean AgreeR = false;
     private boolean MedAgree = false;
-    private Student User;
+    private final Student User;
     private int OBJNUMER = 0;
     private int OBJTYPE = 0;
     private String ChangedData;
@@ -384,24 +375,24 @@ public class BorrowMain extends JFrame implements ActionListener
 
         if (filedirectory.equals("./data/MatTerms.txt"))
         {
-            if (MatAgree)
+            if (Agree)
             {
-                MatAgreeBtn = new ButtonForm4("./image/Agreeclick");
+                AgreeBtn = new ButtonForm4("./image/Agreeclick");
             }
             else
             {
-                MatAgreeBtn = new ButtonForm4("./image/Agree");
+                AgreeBtn = new ButtonForm4("./image/Agree");
             }
-            MatAgreeBtn.addActionListener(this);
+            AgreeBtn.addActionListener(this);
 
-            MatOKTermsBtn = new ButtonForm("./image/codeVerifyButton");
-            MatOKTermsBtn.addActionListener(this);
-            if (!MatAgree)
+            OKTermsBtn = new ButtonForm("./image/codeVerifyButton");
+            OKTermsBtn.addActionListener(this);
+            if (!Agree)
             {
-                MatOKTermsBtn.setEnabled(false);
+                OKTermsBtn.setEnabled(false);
             }
-            CheckWrapper.add(MatAgreeBtn);
-            BtnWrapper.add(MatOKTermsBtn);
+            CheckWrapper.add(AgreeBtn);
+            BtnWrapper.add(OKTermsBtn);
         }
         else if (filedirectory.equals("./data/MedTerms.txt"))
         {
@@ -440,19 +431,19 @@ public class BorrowMain extends JFrame implements ActionListener
     {
         returnguidePage = new B_ReturnGuidePage();
 
-        if (MatAgreeR)
+        if (AgreeR)
         {
-            MatAgreeRBtn = new ButtonForm4("./image/Agreeclick");
+            AgreeRBtn = new ButtonForm4("./image/Agreeclick");
         }
         else
         {
-            MatAgreeRBtn = new ButtonForm4("./image/Agree");
+            AgreeRBtn = new ButtonForm4("./image/Agree");
         }
-        MatAgreeRBtn.addActionListener(this);
+        AgreeRBtn.addActionListener(this);
 
         OKReturnGuideBtn = new ButtonForm("./image/codeVerifyButton");
         OKReturnGuideBtn.addActionListener(this);
-        if (!MatAgreeR)
+        if (!AgreeR)
         {
             OKReturnGuideBtn.setEnabled(false);
         }
@@ -460,7 +451,7 @@ public class BorrowMain extends JFrame implements ActionListener
         Wrapper.setBackground(BGCOLOR);
         JPanel W2 = new JPanel(new FlowLayout());
         W2.setBackground(BGCOLOR);
-        W2.add(MatAgreeRBtn);
+        W2.add(AgreeRBtn);
         Wrapper.add(W2);
         JPanel W1 = new JPanel(new FlowLayout());
         W1.setBackground(BGCOLOR);
@@ -616,31 +607,31 @@ public class BorrowMain extends JFrame implements ActionListener
         {
             ReturnGuidePage();
         }
-        if (e.getSource() == MatAgreeBtn)
+        if (e.getSource() == AgreeBtn)
         {
-            MatAgree = !MatAgree;
+            Agree = !Agree;
             TermsPage("./data/MatTerms.txt");
         }
-        if (e.getSource() == MatAgreeRBtn)
+        if (e.getSource() == AgreeRBtn)
         {
-            MatAgreeR = !MatAgreeR;
+            AgreeR = !AgreeR;
             ReturnGuidePage();
         }
-        if (e.getSource() == MatOKTermsBtn)
+        if (e.getSource() == OKTermsBtn)
         {
             Date tmp;
             if (OBJTYPE == 1)
             {
                 tmp = new Date(MatList[OBJNUMER - 1].getDateEnd());
                 MatList[OBJNUMER - 1] = new MatObj(OBJNUMER, new Date(), tmp, User.getID());
-                ChangedData = "Mat" + MatList[OBJNUMER - 1].toFileString();
+                ChangedData = "Mat  " + MatList[OBJNUMER - 1].toFileString();
                 CompletePage("borrowComplete", MatList[OBJNUMER - 1]);
             }
             else if (OBJTYPE == 2)
             {
                 tmp = new Date(UmmList[OBJNUMER - 1].getDateEnd());
                 UmmList[OBJNUMER - 1] = new UmmObj(OBJNUMER, new Date(), tmp, User.getID());
-                ChangedData = "Umm" + UmmList[OBJNUMER - 1].toFileString();
+                ChangedData = "Umm  " + UmmList[OBJNUMER - 1].toFileString();
                 CompletePage("borrowComplete", UmmList[OBJNUMER - 1]);
             }
             else
