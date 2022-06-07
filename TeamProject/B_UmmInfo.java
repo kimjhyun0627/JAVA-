@@ -12,7 +12,7 @@ public class B_UmmInfo extends JPanel
         setLayout(new GridLayout(3, 1));
         setBackground(BorrowMain.BGCOLOR);
 
-        if (isborrowing)
+        if (!isborrowing)
         {
         	//print ummname
             centerBoldLabel title = new centerBoldLabel(num + "번 우산 : 대여가능     ", 30);
