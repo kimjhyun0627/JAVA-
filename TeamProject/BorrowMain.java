@@ -646,14 +646,14 @@ public class BorrowMain extends JFrame implements ActionListener
             {
                 tmpStart = new Date(MatList[OBJNUMER - 1].getDateStart());
                 MatList[OBJNUMER - 1] = new MatObj(OBJNUMER, tmpStart, new Date(), User.getID());
-                ChangedData = "Mat" + MatList[OBJNUMER - 1].toFileString();
+                ChangedData = "Mat  " + MatList[OBJNUMER - 1].toFileString();
                 CompletePage("returnComplete", MatList[OBJNUMER - 1]);
             }
             else if (OBJTYPE == 2)
             {
                 tmpStart = new Date(UmmList[OBJNUMER - 1].getDateStart());
                 UmmList[OBJNUMER - 1] = new UmmObj(OBJNUMER, tmpStart, new Date(), User.getID());
-                ChangedData = "Umm" + UmmList[OBJNUMER - 1].toFileString();
+                ChangedData = "Umm  " + UmmList[OBJNUMER - 1].toFileString();
                 CompletePage("returnComplete", UmmList[OBJNUMER - 1]);
             }
             else
@@ -686,7 +686,7 @@ public class BorrowMain extends JFrame implements ActionListener
         {
             CompletePage("UseMedComplete", new BorrowObject());
             MedList[OBJNUMER - 1].setMed_num(-1);
-            ChangedData = "Med" + MedList[OBJNUMER].toFileString();
+            ChangedData = "Med  " + MedList[OBJNUMER].toFileString();
         }
         if (e.getSource() == MedAgreeBtn)
         {
