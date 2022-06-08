@@ -3,3 +3,5 @@ KIOSK 폴더는 src 아래의 패키지 이름입니다.
 추가로, 웹메일 전송을 위한 코드를 작동하기 위해 jar 파일의 추가가 필요합니다. '추가한 라이브러리' 폴더 내부의 javax.mail.jar 파일을 외부 라이브러리로 추가해주세요.
 KioskMain.java를 main으로 실행시켜 주시면 학생회 키오스크가 정상 작동합니다!
 로그인을 위한 학번, 이름, 전화번호는 Student.txt 파일의 데이터베이스를 기반으로 작동합니다.
+
+[[ github repository: https://github.com/kimjhyun0627/JAVA_TEAMPROJECT.git ]]
