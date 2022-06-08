@@ -77,7 +77,7 @@ public class Student
         Student theStudent = null;
         for (Student s : StudentList)
         {
-            if (UserID.equals(s.getID()) && UserName.equals(s.getName()))//&&UserPhone.equals(s.getPhone())
+            if (UserID.equals(s.getID()) && UserName.equals(s.getName())&&UserPhone.equals(s.getPhoneNumber()))
             {
                 theStudent = s;
             }

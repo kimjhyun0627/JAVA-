@@ -686,7 +686,7 @@ public class BorrowMain extends JFrame implements ActionListener
         {
             CompletePage("UseMedComplete", new BorrowObject());
             MedList[OBJNUMER - 1].setMed_num(-1);
-            ChangedData = "Med  " + MedList[OBJNUMER].toFileString();
+            ChangedData = "Med  " + MedList[OBJNUMER-1].toFileString();
         }
         if (e.getSource() == MedAgreeBtn)
         {
