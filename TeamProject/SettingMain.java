@@ -173,6 +173,8 @@ public class SettingMain extends JFrame implements ActionListener
         }
         if (e.getSource() == checkborrowBtn)
         {
+        	test2 c = new test2();
+        	c.main(null);
             CheckborrowMain a = new CheckborrowMain();
             a.setVisible(true);
             setVisible(false);

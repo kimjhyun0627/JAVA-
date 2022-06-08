@@ -19,7 +19,12 @@ public class test2 {
     private static String log_line;
     private static String log;
     
-    public static void update() {
+    private void makelog() {
+    	
+    }
+    	
+    
+    public static void main(String[] args) {
     	try{
 			BufferedReader br = new BufferedReader(new FileReader("./data/log.txt"));
 			
@@ -101,11 +106,5 @@ public class test2 {
 		} catch (IOException e) {
             e.printStackTrace();
         }
-    	System.out.println("log update 완");
     }
-    
-	public static void main(String[] args) {
-		
-	}
-	
 }

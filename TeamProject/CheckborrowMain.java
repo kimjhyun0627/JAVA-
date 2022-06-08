@@ -4,9 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class CheckborrowMain extends JFrame implements ActionListener
 {
@@ -24,10 +31,6 @@ public class CheckborrowMain extends JFrame implements ActionListener
     private JButton okayBtn;
     private JButton gotostartBtn;
     
-    private JTextArea log;
-    private String logtxt;
-    private String logline;
-
     public static void main(String[] args)
     {
         CheckborrowMain main = new CheckborrowMain();
@@ -53,8 +56,6 @@ public class CheckborrowMain extends JFrame implements ActionListener
         test.add(viewPanel, BorderLayout.CENTER);
 
         selectPage();
-        test2 checklog = new test2();
-        checklog.update();
         
         setVisible(true);
     }
@@ -155,6 +156,5 @@ public class CheckborrowMain extends JFrame implements ActionListener
         }
 
         currentPanel.updateUI();
-
     }
 }
