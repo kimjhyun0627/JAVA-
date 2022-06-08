@@ -75,17 +75,13 @@ public class Student
         }
 
         Student theStudent = null;
-        System.out.println("id : " + UserID + " name : " + UserName);
         for (Student s : StudentList)
         {
-            System.out.println("id : " + s.getID() + " name : " + s.getName());
             if (UserID.equals(s.getID()) && UserName.equals(s.getName()))//&&UserPhone.equals(s.getPhone())
             {
-                System.out.println("found");
                 theStudent = s;
             }
         }
-        System.out.println("");
         return theStudent;
     }
 
